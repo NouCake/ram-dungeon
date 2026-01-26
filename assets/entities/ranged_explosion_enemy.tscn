@@ -7,3 +7,9 @@
 
 [node name="projectile_shooter" parent="." index="7"]
 projectile = ExtResource("2_777hj")
+
+[node name="health_bar" parent="." index="8"]
+max_value = 300.0
+value = 150.0
+
+[editable path="finder"]
