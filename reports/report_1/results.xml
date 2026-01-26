@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-01-25" name="report_1" tests="3" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="test_targeting" package="test" timestamp="2026-01-25T20:59:09" hostname="localhost" tests="3" failures="0" errors="0" skipped="0" flaky="0" time="1.826">
+		<testcase name="test_find_target" classname="test_targeting" time="0.591">
+		</testcase>
+		<testcase name="test_find_target_without_filter" classname="test_targeting" time="0.596">
+		</testcase>
+		<testcase name="test_find_target_wrong_filter" classname="test_targeting" time="0.591">
+		</testcase>
+	</testsuite>
+</testsuites>

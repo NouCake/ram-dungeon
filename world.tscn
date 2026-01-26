@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmoq86ebwfkm2"]
+
+[ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/player.tscn" id="1_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://h00glvqm8l6g" path="res://assets/entities/wall.tscn" id="2_036b0"]
+[ext_resource type="PackedScene" uid="uid://bkb6vvsc1qrn4" path="res://assets/entities/melee_enemy.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://c8mk226tf1v16" path="res://assets/entities/ranged_explosion_enemy.tscn" id="5_036b0"]
+[ext_resource type="PackedScene" uid="uid://dd5waltqpw74f" path="res://assets/entities/ranged_enemy.tscn" id="5_pkg7o"]
+
+[node name="world" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_tlwt5")]
+position = Vector2(270, 33)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="wall" parent="." instance=ExtResource("2_036b0")]
+position = Vector2(333, 112)
+
+[node name="ranged_enemy" parent="." instance=ExtResource("5_pkg7o")]
+position = Vector2(-387, -287)
+
+[node name="melee_enemy" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(-412, 98)
+
+[node name="ranged_enemy2" parent="." instance=ExtResource("5_036b0")]
+position = Vector2(85, -109)
+
+[node name="burn_area" type="Node2D" parent="."]

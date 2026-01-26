@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkb6vvsc1qrn4"]
+
+[ext_resource type="PackedScene" uid="uid://brt4pimneih2c" path="res://assets/entities/enemy.tscn" id="1_rr0dy"]
+[ext_resource type="Script" uid="uid://4qe386rc0yio" path="res://assets/scripts/component/moving.gd" id="2_r3whc"]
+[ext_resource type="PackedScene" uid="uid://de4m1d7707qb4" path="res://assets/components/finder.tscn" id="3_tr5m4"]
+[ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/component/melee.gd" id="4_df32h"]
+
+[node name="melee_enemy" instance=ExtResource("1_rr0dy")]
+
+[node name="sprite" parent="." index="0"]
+modulate = Color(0.6139588, 0.3570135, 1, 1)
+
+[node name="moving" type="Node" parent="." index="5"]
+script = ExtResource("2_r3whc")
+move_speed = 50
+
+[node name="finder" parent="." index="6" instance=ExtResource("3_tr5m4")]
+filter = Array[String](["player"])
+
+[node name="melee" type="Node" parent="." index="7"]
+script = ExtResource("4_df32h")
+melee_cooldown = 2.0

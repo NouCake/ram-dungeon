@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuuiop6vx5727"]
+
+[ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/player.tscn" id="1_tisg5"]
+[ext_resource type="PackedScene" uid="uid://cmikm0m8p3plq" path="res://assets/entities/explosion.tscn" id="2_cyqk7"]
+[ext_resource type="PackedScene" uid="uid://dd5waltqpw74f" path="res://assets/entities/ranged_enemy.tscn" id="3_cyqk7"]
+
+[node name="TestExplosionScene" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_tisg5")]
+position = Vector2(1040, 787)
+
+[node name="explosion" parent="." instance=ExtResource("2_cyqk7")]
+position = Vector2(1087, 836)
+
+[node name="ranged_enemy" parent="." instance=ExtResource("3_cyqk7")]
+position = Vector2(853, 927)

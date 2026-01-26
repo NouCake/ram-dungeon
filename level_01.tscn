@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn50xecobffim"]
+
+[ext_resource type="PackedScene" uid="uid://h00glvqm8l6g" path="res://assets/entities/wall.tscn" id="1_dvup1"]
+[ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/player.tscn" id="2_3imfn"]
+[ext_resource type="Script" uid="uid://dt0hyiivsiddv" path="res://camera_follow.gd" id="2_kdijb"]
+[ext_resource type="PackedScene" uid="uid://bkb6vvsc1qrn4" path="res://assets/entities/melee_enemy.tscn" id="3_iafiv"]
+[ext_resource type="PackedScene" uid="uid://dd5waltqpw74f" path="res://assets/entities/ranged_enemy.tscn" id="4_kdijb"]
+
+[node name="Level01" type="Node2D"]
+
+[node name="wall" parent="." instance=ExtResource("1_dvup1")]
+position = Vector2(400, -406)
+scale = Vector2(1, 25)
+
+[node name="wall2" parent="." instance=ExtResource("1_dvup1")]
+position = Vector2(-400, -406)
+scale = Vector2(1, 25)
+
+[node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(0, 40)
+zoom = Vector2(1.25, 1.25)
+drag_horizontal_enabled = true
+script = ExtResource("2_kdijb")
+target = NodePath("../player")
+
+[node name="player" parent="." instance=ExtResource("2_3imfn")]
+position = Vector2(0, 220)
+
+[node name="melee_enemy" parent="." instance=ExtResource("3_iafiv")]
+position = Vector2(-8, -109)
+
+[node name="melee_enemy3" parent="." instance=ExtResource("3_iafiv")]
+position = Vector2(-140, -350)
+
+[node name="melee_enemy4" parent="." instance=ExtResource("3_iafiv")]
+position = Vector2(159, -346)
+
+[node name="melee_enemy5" parent="." instance=ExtResource("3_iafiv")]
+position = Vector2(9, -402)
+
+[node name="melee_enemy2" parent="." instance=ExtResource("3_iafiv")]
+position = Vector2(0, -981)
+
+[node name="ranged_enemy" parent="." instance=ExtResource("4_kdijb")]
+position = Vector2(-294, -1004)
+
+[node name="ranged_enemy2" parent="." instance=ExtResource("4_kdijb")]
+position = Vector2(278, -1004)

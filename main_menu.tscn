@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkelfyv5gfnwk"]
+
+[ext_resource type="Texture2D" uid="uid://cupm8o1xfeo75" path="res://assets/sprites/background.jpg" id="1_06t4h"]
+[ext_resource type="Shader" uid="uid://dxtd6kwgmv3p1" path="res://assets/shader/new_shader.gdshader" id="1_fu7sn"]
+[ext_resource type="Script" uid="uid://c5e1kg68d1ij2" path="res://assets/scripts/main_menu.gd" id="1_glbon"]
+[ext_resource type="Texture2D" uid="uid://dmkt4x86q8jhx" path="res://assets/sprites/logo.png" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="4_jix8l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fu7sn"]
+shader = ExtResource("1_fu7sn")
+shader_parameter/lod = 0.0
+
+[sub_resource type="SystemFont" id="SystemFont_jix8l"]
+font_names = PackedStringArray("UnifrakturCook")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jix8l"]
+font = SubResource("SystemFont_jix8l")
+font_size = 64
+font_color = Color(0.92941177, 0.65882355, 0.33333334, 1)
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_glbon")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -283.0
+offset_right = 1182.0
+offset_bottom = 899.0
+texture = ExtResource("1_06t4h")
+
+[node name="blur_layer" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_fu7sn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_jix8l")
+
+[node name="logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 128.0
+texture = ExtResource("2_7vrkn")
+
+[node name="bottom" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="start" type="Label" parent="bottom"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = -42.0
+offset_right = 177.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "- press start -"
+label_settings = SubResource("LabelSettings_jix8l")
+horizontal_alignment = 1
+vertical_alignment = 1
