@@ -1,33 +1,117 @@
-[gd_scene load_steps=7 format=3 uid="uid://brt4pimneih2c"]
+[gd_scene format=3 uid="uid://cbia0nf0c58h8"]
 
 [ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="1_7k104"]
-[ext_resource type="PackedScene" uid="uid://b2svnkwmvaf0x" path="res://assets/components/health.tscn" id="2_7koad"]
 [ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="2_ckwqw"]
-[ext_resource type="PackedScene" uid="uid://bke3toux638gc" path="res://assets/components/knockback.tscn" id="3_ckwqw"]
-[ext_resource type="PackedScene" uid="uid://crarjc5ro56mv" path="res://assets/components/ui/health_bar.tscn" id="5_ces2i"]
+[ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="5_ces2i"]
+[ext_resource type="Script" uid="uid://4qe386rc0yio" path="res://assets/scripts/component/moving.gd" id="6_hhy8k"]
+[ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="6_ten6w"]
+[ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="7_oebcf"]
+[ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="7_ten6w"]
+[ext_resource type="PackedScene" uid="uid://crarjc5ro56mv" path="res://assets/components/ui/health_bar.tscn" id="8_oebcf"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tlwt5"]
-radius = 32.0
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o1qma"]
+margin = 0.0
+height = 1.0
+radius = 0.4
 
-[node name="enemy" type="Area2D"]
+[sub_resource type="Animation" id="Animation_ckwqw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
-[node name="sprite" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.5, 0.5)
+[sub_resource type="Animation" id="Animation_7koad"]
+resource_name = "blink"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.13333334, 0.16666669, 0.23333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ckwqw"]
+_data = {
+&"RESET": SubResource("Animation_ckwqw"),
+&"blink": SubResource("Animation_7koad")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ib121"]
+viewport_path = NodePath("SubViewport")
+
+[node name="enemy" type="CharacterBody3D" unique_id=1773388456]
+script = ExtResource("7_ten6w")
+
+[node name="sprite" type="Sprite3D" parent="." unique_id=1123765104]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.5, 0)
+layers = 2
+pixel_size = 0.005
+shaded = true
+texture_filter = 2
 texture = ExtResource("1_7k104")
 
-[node name="shape" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
-shape = SubResource("CircleShape2D_tlwt5")
+[node name="shape" type="CollisionShape3D" parent="." unique_id=2144492672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_o1qma")
 
-[node name="targetable" type="Node" parent="."]
+[node name="character_light" type="OmniLight3D" parent="." unique_id=390001883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4170742, 0.1, 1.0047891)
+light_color = Color(1, 0.6392157, 0.15686275, 1)
+light_cull_mask = 4293918722
+omni_range = 7.5
+
+[node name="targetable" type="Node" parent="." unique_id=1001078350]
 script = ExtResource("2_ckwqw")
-tags = Array[String](["enemy"])
+tags = Array[String](["enemy", "entity"])
 
-[node name="health" parent="." instance=ExtResource("2_7koad")]
+[node name="animation" type="AnimationPlayer" parent="." unique_id=1252434596]
+libraries/ = SubResource("AnimationLibrary_ckwqw")
 
-[node name="knockback" parent="." instance=ExtResource("3_ckwqw")]
+[node name="knockback" type="Node" parent="." unique_id=1202752396]
+script = ExtResource("5_ces2i")
+metadata/_custom_type_script = "uid://dklepcgv41dhm"
 
-[node name="health_bar" parent="." instance=ExtResource("5_ces2i")]
+[node name="move" type="Node" parent="." unique_id=1125060558]
+script = ExtResource("6_hhy8k")
+metadata/_custom_type_script = "uid://4qe386rc0yio"
 
-[connection signal="was_hit" from="health" to="knockback" method="do_knockback"]
+[node name="detector" parent="." unique_id=100270341 instance=ExtResource("6_ten6w")]
+
+[node name="health" type="Node" parent="." unique_id=2044996375]
+script = ExtResource("7_oebcf")
+metadata/_custom_type_script = "uid://p1i5c8q40s43"
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2073531654]
+transparent_bg = true
+size = Vector2i(128, 64)
+
+[node name="health_bar" parent="SubViewport" unique_id=652162847 instance=ExtResource("8_oebcf")]
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_bottom = 8.0
+grow_vertical = 2
+
+[node name="healthbar" type="Sprite3D" parent="." unique_id=944459381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+texture = SubResource("ViewportTexture_ib121")
+
+[connection signal="was_hit" from="health" to="." method="_on_health_was_hit"]
+[connection signal="was_hit" from="health" to="knockback" method="_on_health_was_hit"]
+[connection signal="was_hit" from="health" to="SubViewport/health_bar" method="_on_health_was_hit"]

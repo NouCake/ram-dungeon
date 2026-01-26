@@ -1,24 +1,24 @@
 class_name Player
-extends CharacterBody2D
+extends CharacterBody3D
 
-@export var player_speed = 300
-@export var bullet_scene: PackedScene
-	
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		shoot()
+@onready var sprite: AnimatedSprite3D = $sprite
 
+func _ready() -> void:
+	sprite.animation_finished.connect(on_animation_finished)
 
-func shoot():
-	var target = $finder.get_target();
-	if target == null:
-		print("Couldn't find a target to shoot at")
+func play_blink(_hit_source: Node3D) -> void:
+	sprite.play("blink")
+
+func on_animation_finished() -> void:
+	print("Animation finished:", sprite.animation)
+	sprite.play("idle")
+
+func _process(_delta: float) -> void:
+	if sprite.animation == "blink":
 		return
-	var new_bullet: MyCoolBullet = bullet_scene.instantiate();
-	
-	var dist = target.global_position - global_position
-	new_bullet.shoot_direction = dist.normalized()
-	new_bullet.shoot_source = self
-	new_bullet.global_position = global_position
-	new_bullet.rotation = atan2(dist.y, dist.x)
-	get_tree().get_current_scene().add_child(new_bullet)
+
+	if velocity.length() > 0:
+		sprite.play("walk")
+	else:
+		sprite.play("idle")
+	pass

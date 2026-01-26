@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b2j3s33a3g85e"]
+
+[ext_resource type="PackedScene" uid="uid://cbia0nf0c58h8" path="res://assets/entities/enemy.tscn" id="1_5j10t"]
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="2_cyq2x"]
+[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="3_ksp27"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5j10t"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ranged_infite" unique_id=1773388456 instance=ExtResource("1_5j10t")]
+
+[node name="move" parent="." index="6" unique_id=1125060558]
+detection_range = 7.0
+prefered_target_distance = 4.0
+move_speed = 0.5
+move_back = true
+
+[node name="health" parent="." index="8" unique_id=2044996375]
+current_health = 100000
+max_health = 100000
+
+[node name="action_projectile" type="Node3D" parent="." index="9" unique_id=1885179158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("2_cyq2x")
+projectile = ExtResource("3_ksp27")
+projectiles_cooldown = 1.5
+target_filters = Array[String](["player"])
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="healthbar" parent="." index="11" unique_id=944459381]
+texture = SubResource("ViewportTexture_5j10t")

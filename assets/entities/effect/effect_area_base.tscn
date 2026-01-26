@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dsw2erf0grtoe"]
+
+[ext_resource type="Script" uid="uid://dlargacl3hbam" path="res://assets/scripts/effect_area.gd" id="1_wwhfe"]
+[ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="2_qefv2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktnak"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.039215688)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cawg3"]
+material = SubResource("StandardMaterial3D_ktnak")
+top_radius = 1.5
+bottom_radius = 1.5
+height = 0.1
+
+[sub_resource type="Curve" id="Curve_buu1m"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ktnak"]
+curve = SubResource("Curve_buu1m")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cawg3"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.5
+emission_ring_radius = 1.5
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+angle_min = -42.99999
+angle_max = -42.99999
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ktnak")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2n1r"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_a1t6o"]
+material = SubResource("StandardMaterial3D_k2n1r")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vkin5"]
+
+[node name="effect_area" type="Area3D" unique_id=1598666960]
+monitoring = false
+monitorable = false
+script = ExtResource("1_wwhfe")
+effect_range = 1.5
+
+[node name="detector" parent="." unique_id=100270341 instance=ExtResource("2_qefv2")]
+
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=1293802551]
+mesh = SubResource("CylinderMesh_cawg3")
+
+[node name="particles" type="GPUParticles3D" parent="." unique_id=1130558367]
+transform = Transform3D(0.9999999, 0, 0, 0, -4.371139e-08, 0.99999994, 0, -0.99999994, -4.371138e-08, 0, 0, 0)
+lifetime = 0.5
+explosiveness = 0.12
+randomness = 1.0
+trail_lifetime = 2.1799999999999997
+process_material = SubResource("ParticleProcessMaterial_cawg3")
+draw_pass_1 = SubResource("SphereMesh_a1t6o")
+
+[node name="shape" type="CollisionShape3D" parent="." unique_id=1816349994]
+shape = SubResource("SphereShape3D_vkin5")
+debug_fill = false
+
+[editable path="detector"]

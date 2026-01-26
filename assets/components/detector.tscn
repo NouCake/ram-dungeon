@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bpww8627o2aqs"]
+
+[ext_resource type="Script" uid="uid://b63wqu6q1l4g5" path="res://assets/scripts/component/target_detector.gd" id="1_1l6xq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o1qma"]
+radius = 10.0
+
+[node name="detector" type="Area3D" unique_id=100270341]
+monitorable = false
+script = ExtResource("1_1l6xq")
+
+[node name="range" type="CollisionShape3D" parent="." unique_id=517601050]
+shape = SubResource("SphereShape3D_o1qma")

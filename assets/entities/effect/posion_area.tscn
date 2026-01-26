@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://c7761vqql2xr4"]
+
+[ext_resource type="PackedScene" uid="uid://dsw2erf0grtoe" path="res://assets/entities/effect/effect_area_base.tscn" id="1_4l252"]
+[ext_resource type="Script" uid="uid://c6ewowv1erviy" path="res://assets/scripts/effects/poison.gd" id="2_h7aau"]
+[ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="3_h7aau"]
+
+[sub_resource type="Resource" id="Resource_vduma"]
+script = ExtResource("2_h7aau")
+stackable = true
+metadata/_custom_type_script = "uid://c6ewowv1erviy"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4l252"]
+transparency = 1
+albedo_color = Color(0.42745098, 0.13333334, 0.56078434, 0.5019608)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h7aau"]
+material = SubResource("StandardMaterial3D_4l252")
+height = 0.1
+
+[sub_resource type="Curve" id="Curve_4l252"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_h7aau"]
+curve = SubResource("Curve_4l252")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vduma"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.5
+emission_ring_radius = 0.5
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+angle_min = -42.99999
+angle_max = -42.99999
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_h7aau")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7aau"]
+shading_mode = 0
+albedo_color = Color(0.42745098, 0.13333334, 0.56078434, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vduma"]
+material = SubResource("StandardMaterial3D_h7aau")
+radius = 0.1
+height = 0.2
+
+[node name="posion_area" unique_id=1804886747 instance=ExtResource("1_4l252")]
+collision_layer = 2
+collision_mask = 0
+monitorable = true
+effect = SubResource("Resource_vduma")
+grows = true
+max_range = 3.0
+
+[node name="mesh" parent="." index="1" unique_id=1293802551]
+mesh = SubResource("CylinderMesh_h7aau")
+
+[node name="particles" parent="." index="2" unique_id=1130558367]
+process_material = SubResource("ParticleProcessMaterial_vduma")
+draw_pass_1 = SubResource("SphereMesh_vduma")
+
+[node name="targetable" type="Node" parent="." index="3" unique_id=627368385]
+script = ExtResource("3_h7aau")
+tags = Array[String](["cloud"])
+metadata/_custom_type_script = "uid://df8j4a2b2mtth"
+
+[editable path="detector"]

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://crvtv0uq3hctk"]
+
+[ext_resource type="PackedScene" uid="uid://dsw2erf0grtoe" path="res://assets/entities/effect/effect_area_base.tscn" id="1_mjiyf"]
+[ext_resource type="Script" uid="uid://js1fonl8t8xd" path="res://assets/scripts/effects/burn.gd" id="2_i76lm"]
+
+[sub_resource type="Resource" id="Resource_mjiyf"]
+script = ExtResource("2_i76lm")
+stackable = true
+metadata/_custom_type_script = "uid://js1fonl8t8xd"
+
+[node name="burn_area" unique_id=1804886747 instance=ExtResource("1_mjiyf")]
+effect = SubResource("Resource_mjiyf")
+
+[editable path="detector"]

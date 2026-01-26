@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8mk226tf1v16"]
-
-[ext_resource type="PackedScene" uid="uid://dd5waltqpw74f" path="res://assets/entities/ranged_enemy.tscn" id="1_117dj"]
-[ext_resource type="PackedScene" uid="uid://jjd0hc8ka2hh" path="res://assets/entities/bullet_explosion.tscn" id="2_777hj"]
-
-[node name="ranged_enemy" instance=ExtResource("1_117dj")]
-
-[node name="projectile_shooter" parent="." index="7"]
-projectile = ExtResource("2_777hj")

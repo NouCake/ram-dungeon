@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bsjw17p0g6j0m"]
+
+[ext_resource type="ArrayMesh" uid="uid://brfxht2qb5lgs" path="res://assets/models/template-floor.obj" id="1_7h0kd"]
+[ext_resource type="ArrayMesh" uid="uid://dydqc00idpypf" path="res://assets/models/template-wall.obj" id="2_k6t24"]
+[ext_resource type="ArrayMesh" uid="uid://drt1bvf044n3c" path="res://assets/models/template-wall-detail-a.obj" id="3_7ivye"]
+[ext_resource type="ArrayMesh" uid="uid://dgcscu0npky43" path="res://assets/models/template-wall-top.obj" id="4_vra4g"]
+
+[node name="tiles" type="Node3D" unique_id=1383048019]
+
+[node name="TemplateFloor" type="MeshInstance3D" parent="." unique_id=1856519450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+mesh = ExtResource("1_7h0kd")
+
+[node name="TemplateWall" type="MeshInstance3D" parent="." unique_id=980024392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = ExtResource("2_k6t24")
+
+[node name="TemplateWallDetailA" type="MeshInstance3D" parent="." unique_id=1991853834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = ExtResource("3_7ivye")
+
+[node name="TemplateWallTop" type="MeshInstance3D" parent="." unique_id=1035570645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+mesh = ExtResource("4_vra4g")

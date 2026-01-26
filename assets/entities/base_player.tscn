@@ -1,0 +1,272 @@
+[gd_scene format=3 uid="uid://dkao87oawcvs5"]
+
+[ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="1_nc8pj"]
+[ext_resource type="Texture2D" uid="uid://danx10rq6kmyi" path="res://assets/sprites/knight.png" id="2_nc8pj"]
+[ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="4_ixvt8"]
+[ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="6_f7i5o"]
+[ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="7_wiayc"]
+[ext_resource type="Script" uid="uid://cf35qhl3q52e2" path="res://assets/scripts/move_dungeon_clear.gd" id="8_wiayc"]
+[ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="9_jsamf"]
+[ext_resource type="PackedScene" uid="uid://crarjc5ro56mv" path="res://assets/components/ui/health_bar.tscn" id="11_ftfp5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiayc"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc8pj"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsamf"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftfp5"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7i5o"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5ki3"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0itkf"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmxxg"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yb4h"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ee2ph"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63p7e"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tfvu"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta3u5"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oigaf"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eicyu"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm31t"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oogfr"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5ps3"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3yw1"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlbn8"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd40h"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owj7g"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pj5i"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(192, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41l6n"]
+atlas = ExtResource("2_nc8pj")
+region = Rect2(224, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_41l6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiayc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc8pj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsamf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftfp5")
+}],
+"loop": false,
+"name": &"blink",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7i5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5ki3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0itkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmxxg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yb4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ee2ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63p7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tfvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta3u5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oigaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eicyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rm31t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oogfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5ps3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3yw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlbn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd40h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owj7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pj5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41l6n")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o1qma"]
+margin = 0.0
+height = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ftfp5"]
+viewport_path = NodePath("SubViewport")
+
+[node name="player" type="CharacterBody3D" unique_id=1116852983]
+script = ExtResource("1_nc8pj")
+
+[node name="sprite" type="AnimatedSprite3D" parent="." unique_id=588092522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.35, 0)
+pixel_size = 0.05
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_41l6n")
+animation = &"idle"
+
+[node name="shape" type="CollisionShape3D" parent="." unique_id=666304951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_o1qma")
+
+[node name="world_light" type="OmniLight3D" parent="." unique_id=1345461555]
+transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, 0, 0.3, 0)
+light_color = Color(1, 0.6392157, 0.15686275, 1)
+light_size = 15.0
+light_cull_mask = 4293918721
+omni_range = 7.5
+
+[node name="character_light" type="OmniLight3D" parent="." unique_id=106247257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
+light_color = Color(1, 0.6392157, 0.15686275, 1)
+light_cull_mask = 4293918722
+omni_range = 7.5
+
+[node name="targetable" type="Node" parent="." unique_id=1298045655]
+script = ExtResource("6_f7i5o")
+tags = Array[String](["player", "entity"])
+
+[node name="move_dungeon_clear" type="Node" parent="." unique_id=378278260]
+script = ExtResource("8_wiayc")
+move_speed = 1.5
+target_distance = 4.5
+target_detection_range = 8.0
+
+[node name="detector" parent="." unique_id=100270341 instance=ExtResource("4_ixvt8")]
+
+[node name="health" type="Node" parent="." unique_id=1136559519]
+script = ExtResource("7_wiayc")
+current_health = 15
+max_health = 15
+auto_delete = false
+metadata/_custom_type_script = "uid://p1i5c8q40s43"
+
+[node name="knockback" type="Node" parent="." unique_id=1646886231]
+script = ExtResource("9_jsamf")
+metadata/_custom_type_script = "uid://dklepcgv41dhm"
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=712846435]
+transparent_bg = true
+size = Vector2i(128, 64)
+
+[node name="health_bar" parent="SubViewport" unique_id=1245805486 instance=ExtResource("11_ftfp5")]
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_bottom = 8.0
+grow_vertical = 2
+
+[node name="healthbar" type="Sprite3D" parent="." unique_id=1172448389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+texture = SubResource("ViewportTexture_ftfp5")
+
+[connection signal="was_hit" from="health" to="knockback" method="_on_health_was_hit"]
+[connection signal="was_hit" from="health" to="SubViewport/health_bar" method="_on_health_was_hit"]

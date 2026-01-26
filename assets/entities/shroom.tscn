@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cg2fgxl2cmebn"]
+
+[ext_resource type="Script" uid="uid://d3ge7gg1eivw2" path="res://assets/scripts/shroom.gd" id="1_jmkq7"]
+[ext_resource type="PackedScene" uid="uid://c7761vqql2xr4" path="res://assets/entities/effect/posion_area.tscn" id="2_ii0w5"]
+[ext_resource type="Texture2D" uid="uid://bnablq4r6c8p5" path="res://assets/sprites/shroom.png" id="2_mqp23"]
+
+[node name="shroom" type="Node3D" unique_id=226675831]
+script = ExtResource("1_jmkq7")
+grow_time = 2.0
+effect_scene = ExtResource("2_ii0w5")
+time_alive = 10.0
+
+[node name="sprite" type="Sprite3D" parent="." unique_id=1758272844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3078488, 0)
+pixel_size = 0.005
+texture = ExtResource("2_mqp23")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 128)
