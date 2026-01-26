@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bn50xecobffim"]
+[gd_scene load_steps=7 format=3 uid="uid://bn50xecobffim"]
 
 [ext_resource type="PackedScene" uid="uid://h00glvqm8l6g" path="res://assets/entities/wall.tscn" id="1_dvup1"]
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/player.tscn" id="2_3imfn"]
 [ext_resource type="Script" uid="uid://dt0hyiivsiddv" path="res://camera_follow.gd" id="2_kdijb"]
 [ext_resource type="PackedScene" uid="uid://bkb6vvsc1qrn4" path="res://assets/entities/melee_enemy.tscn" id="3_iafiv"]
 [ext_resource type="PackedScene" uid="uid://dd5waltqpw74f" path="res://assets/entities/ranged_enemy.tscn" id="4_kdijb"]
+[ext_resource type="PackedScene" uid="uid://c8mk226tf1v16" path="res://assets/entities/ranged_explosion_enemy.tscn" id="6_qrmce"]
 
 [node name="Level01" type="Node2D"]
 
@@ -46,3 +47,6 @@ position = Vector2(-294, -1004)
 
 [node name="ranged_enemy2" parent="." instance=ExtResource("4_kdijb")]
 position = Vector2(278, -1004)
+
+[node name="ranged_enemy3" parent="." instance=ExtResource("6_qrmce")]
+position = Vector2(-2, -1778)
