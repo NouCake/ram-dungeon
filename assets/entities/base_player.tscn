@@ -202,7 +202,7 @@ height = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_ftfp5"]
 viewport_path = NodePath("SubViewport")
 
-[node name="player" type="CharacterBody3D" unique_id=1116852983]
+[node name="base_player" type="CharacterBody3D" unique_id=1116852983]
 script = ExtResource("1_nc8pj")
 
 [node name="sprite" type="AnimatedSprite3D" parent="." unique_id=588092522]

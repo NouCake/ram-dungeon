@@ -4,10 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="4_cawg3"]
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="5_buu1m"]
 [ext_resource type="PackedScene" uid="uid://b2j3s33a3g85e" path="res://assets/entities/enemy_ranged_infinite.tscn" id="5_o1qma"]
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_cawg3"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="6_ktnak"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_o1qma"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_k2n1r"]
 
 [node name="Node3D" type="Node3D" unique_id=292686458]
 
@@ -34,11 +33,6 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="player" parent="." unique_id=1116852983 instance=ExtResource("4_cawg3")]
-
-[node name="healthbar" parent="player" index="12" unique_id=1172448389]
-texture = SubResource("ViewportTexture_o1qma")
-
 [node name="damage_numbers" type="Node3D" parent="." unique_id=540231008]
 script = ExtResource("5_buu1m")
 damage_number_scene = ExtResource("6_ktnak")
@@ -51,4 +45,10 @@ size = 7.5
 [node name="enemy" parent="." unique_id=1773388456 instance=ExtResource("5_o1qma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
-[editable path="player"]
+[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("4_cawg3")]
+
+[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=861092790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("6_cawg3")
+projectile = ExtResource("7_k2n1r")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
