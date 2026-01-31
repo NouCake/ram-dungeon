@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://23xvue7jhyh6"]
+[gd_scene load_steps=10 format=3 uid="uid://23xvue7jhyh6"]
 
 [ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="2_mac0m"]
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="4_cawg3"]
@@ -7,16 +7,18 @@
 [ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_cawg3"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="6_ktnak"]
 [ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_k2n1r"]
+[ext_resource type="Script" uid="uid://bp6iepajkv47g" path="res://assets/scripts/action_object_spawn.gd" id="8_k2n1r"]
+[ext_resource type="PackedScene" uid="uid://cg2fgxl2cmebn" path="res://assets/entities/shroom.tscn" id="9_a1t6o"]
 
-[node name="Node3D" type="Node3D" unique_id=292686458]
+[node name="Node3D" type="Node3D"]
 
-[node name="sun" type="DirectionalLight3D" parent="." unique_id=569169304]
+[node name="sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.7071067, 0, 0.70710677, -0.70710677, -4.371139e-08, 0.7071067, 3.0908616e-08, -1, -3.090862e-08, 2.0998697, 4.510006, -2.2293067e-08)
 visible = false
 light_energy = 0.1
 shadow_enabled = true
 
-[node name="grid_floor" type="GridMap" parent="." unique_id=1275389404]
+[node name="grid_floor" type="GridMap" parent="."]
 mesh_library = ExtResource("2_mac0m")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
@@ -25,7 +27,7 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="grid_walls" type="GridMap" parent="." unique_id=229166239]
+[node name="grid_walls" type="GridMap" parent="."]
 mesh_library = ExtResource("2_mac0m")
 cell_size = Vector3(4, 3, 4)
 data = {
@@ -33,22 +35,26 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="damage_numbers" type="Node3D" parent="." unique_id=540231008]
+[node name="damage_numbers" type="Node3D" parent="."]
 script = ExtResource("5_buu1m")
 damage_number_scene = ExtResource("6_ktnak")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1540031442]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, -0.24810791, 5.6119924, 8.694057)
 projection = 1
 size = 7.5
 
-[node name="enemy" parent="." unique_id=1773388456 instance=ExtResource("5_o1qma")]
+[node name="enemy" parent="." instance=ExtResource("5_o1qma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
-[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("4_cawg3")]
+[node name="base_player" parent="." instance=ExtResource("4_cawg3")]
 
-[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=861092790]
+[node name="ActionProjectile" type="Node3D" parent="base_player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 script = ExtResource("6_cawg3")
 projectile = ExtResource("7_k2n1r")
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="Node" type="Node" parent="base_player"]
+script = ExtResource("8_k2n1r")
+to_spawn = ExtResource("9_a1t6o")
