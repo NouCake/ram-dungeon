@@ -16,6 +16,8 @@ func _on_damage_dealt(info: DamageInfo) -> void:
 		damage_number.modulate = Color(1, 0.5, 0) # Orange for fire damage
 	elif (info.type == DamageInfo.DamageType.POISON):
 		damage_number.modulate = Color(109.0/255.0, 34.0/255.0, 143.0/255.0) # Purple for poison damage
+	elif (info.type == DamageInfo.DamageType.HEAL):
+		damage_number.modulate = Color(0, 1, 0) # Green for healing
 	else:
 		damage_number.modulate = Color(1, 1, 1) # White for basic damage
 		

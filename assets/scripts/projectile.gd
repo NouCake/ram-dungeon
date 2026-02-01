@@ -4,10 +4,10 @@ extends Area3D
 
 @export var death_spawn: PackedScene
 
-var bullet_speed := 8.0
+var projectile_speed := 8.0
 var shoot_direction: Vector3 = Vector3.RIGHT
 var shoot_origin: Entity
-var bullet_damage := 1
+var projectile_damage := 1
 var max_range := 10.0
 
 var start_position: Vector3
@@ -17,7 +17,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	global_position = global_position + shoot_direction * bullet_speed * delta
+	global_position = global_position + shoot_direction * projectile_speed * delta
 	if start_position.distance_to(global_position) > max_range:
 		#queue_free()
 		pass
@@ -32,7 +32,7 @@ func on_hit(other: Node) -> void:
 	if other.has_node("health"):
 		var health_component: HealthComponent = other.get_node("health")
 		var info := DamageInfo.new(shoot_origin, other as Entity)
-		info.amount = bullet_damage
+		info.amount = projectile_damage
 		info.knockback_source_position = global_position
 		info.knockback_amount = 1.0
 		health_component.do_damage(info)

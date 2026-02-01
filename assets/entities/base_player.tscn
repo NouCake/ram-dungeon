@@ -269,4 +269,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
 texture = SubResource("ViewportTexture_ftfp5")
 
 [connection signal="was_hit" from="health" to="knockback" method="_on_health_was_hit"]
-[connection signal="was_hit" from="health" to="SubViewport/health_bar" method="_on_health_was_hit"]

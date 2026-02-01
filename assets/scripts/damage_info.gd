@@ -1,6 +1,6 @@
 class_name DamageInfo
 
-enum DamageType { BASIC, FIRE, POISON }
+enum DamageType { BASIC, FIRE, POISON, HEAL }
 
 ## When null, means environmental damage
 var source: Entity

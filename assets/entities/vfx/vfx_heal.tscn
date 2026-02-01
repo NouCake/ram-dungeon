@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://lurc0suh5pi5"]
+
+[ext_resource type="Script" uid="uid://bgn3hi17v64jp" path="res://assets/scripts/vfx_oneshot.gd" id="1_lxpee"]
+[ext_resource type="Material" uid="uid://s3q7x8mvojdy" path="res://assets/entities/vfx/heal.tres" id="1_uxt4p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxt4p"]
+albedo_color = Color(0.34901962, 1, 0.16078432, 1)
+
+[sub_resource type="FontFile" id="FontFile_0cisw"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="TextMesh" id="TextMesh_lxpee"]
+text = "+"
+font = SubResource("FontFile_0cisw")
+pixel_size = 0.02
+curve_step = 2.9
+
+[node name="vfx" type="Node3D" unique_id=1445120581]
+transform = Transform3D(0.9999999, 0, 0, 0, -4.371139e-08, 0.99999994, 0, -0.99999994, -4.371138e-08, 0, 0, 0)
+script = ExtResource("1_lxpee")
+
+[node name="particles" type="GPUParticles3D" parent="." unique_id=915355765]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999997, 1.5000373e-07, 0, -1.5000371e-07, 0.9999997, 0, 0, 0.5)
+material_override = SubResource("StandardMaterial3D_uxt4p")
+amount = 4
+preprocess = 1.0
+speed_scale = 0.5
+explosiveness = 0.8
+transform_align = 3
+trail_lifetime = 2.1799999999999997
+process_material = ExtResource("1_uxt4p")
+draw_pass_1 = SubResource("TextMesh_lxpee")

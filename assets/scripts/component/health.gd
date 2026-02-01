@@ -7,7 +7,6 @@ extends Node
 @export var auto_delete := true
 
 signal was_hit(info: DamageInfo)
-signal health_changed
 
 static var component_name: String = "health"
 static func Is(node: Node) -> bool:
@@ -27,11 +26,15 @@ func _ready() -> void:
 	assert(name == component_name, "Component must be named " + component_name + " to be recognized by other components.")
 
 func do_damage(info: DamageInfo) -> void:
-	current_health -= info.amount
+	if info.type == DamageInfo.DamageType.HEAL:
+		# Healing - amount is positive, restore health
+		current_health = min(current_health + info.amount, max_health)
+	else:
+		# Damage - subtract health
+		current_health -= info.amount
 	
 	if auto_delete && current_health <= 0:
 		get_parent().queue_free()
 	
 	was_hit.emit(info)
 	Global.damage.emit(info)
-	health_changed.emit()
