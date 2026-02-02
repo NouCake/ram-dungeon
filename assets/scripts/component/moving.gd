@@ -8,10 +8,14 @@ extends Node
 @export var move_back := false
 
 @onready var detector := TargetDetectorComponent.Get(get_parent())
+@onready var caster := CasterComponent.Get(get_parent())
 
 func _process(delta: float) -> void:
 	var target := detector.find_closest(["player"], detection_range, true)
 	if target == null:
+		return
+
+	if caster.movement_locked():
 		return
 	
 	var parent: Node3D = get_parent()
@@ -19,6 +23,7 @@ func _process(delta: float) -> void:
 	
 	var preffered_position: Vector3;
 	
+	var _speed := move_speed
 	if !move_back:
 		var distance_to_target := distTarget.length();
 		if distance_to_target <= prefered_target_distance:
@@ -26,6 +31,7 @@ func _process(delta: float) -> void:
 		preffered_position = target.global_position
 	else:
 		preffered_position = target.global_position - distTarget.normalized() * prefered_target_distance
+		_speed = move_speed * 0.5
 	preffered_position.y = 0;
 
-	parent.global_position = parent.global_position + (preffered_position - parent.global_position).normalized() * move_speed * delta
+	parent.global_position = parent.global_position + (preffered_position - parent.global_position).normalized() * _speed * delta

@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://23xvue7jhyh6"]
+[gd_scene format=3 uid="uid://y3vu3pyk4ojc"]
 
 [ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="2_mac0m"]
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="4_cawg3"]
-[ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="5_buu1m"]
+[ext_resource type="Script" path="res://assets/scripts/damage_number_spawner.gd" id="5_buu1m"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="6_ktnak"]
 [ext_resource type="PackedScene" uid="uid://cl8ficbqh4tlg" path="res://assets/entities/enemy_ranged.tscn" id="7_cawg3"]
 [ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="7_ktnak"]
@@ -51,14 +51,24 @@ size = 7.5
 script = ExtResource("8_cawg3")
 heal_vfx = ExtResource("7_ktnak")
 action_range = 5.0
-action_interval = 3.0
-pause_until_action_success = true
+action_interval = 1.0
+cast_time = 0.5
+cancel_on_damage_taken = true
 
 [node name="enemy" parent="." unique_id=1773388456 instance=ExtResource("7_cawg3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.039795, 0, 0.89990234)
 
+[node name="move" parent="enemy" index="6" unique_id=1125060558]
+detection_range = 10.0
+
 [node name="health" parent="enemy" index="8" unique_id=2044996375]
 max_health = 100
+
+[node name="action_projectile" parent="enemy" index="9" unique_id=1885179158]
+action_interval = 1.5
+cast_time = 0.75
+can_move_while_casting = false
+cancel_on_damage_taken = true
 
 [node name="healthbar" parent="enemy" index="11" unique_id=944459381]
 texture = SubResource("ViewportTexture_ktnak")
