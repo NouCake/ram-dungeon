@@ -30,8 +30,6 @@ func _process(delta: float) -> void:
 @export var cast_time_s := 0.0
 @export var can_move_while_casting := true
 @export var cancel_on_target_out_of_range := true
-@export var cancel_on_target_invalid := true
-@export var cancel_on_damage := false
 
 
 ## Main entrypoint invoked by the timer cadence.
@@ -49,8 +47,11 @@ func perform_action() -> bool:
 		push_warning("No CasterComponent found on %s; cannot cast action %s" % [get_parent().name, name])
 		return false
 
-	var snap := get_target_snapshot()
-	return caster.try_start_cast(self, snap, cast_time_s, can_move_while_casting, cancel_on_target_out_of_range, cancel_on_target_invalid, cancel_on_damage)
+	var snap = get_target_snapshot()
+	if snap == null:
+		push_warning("Action %s requested casting but returned null target snapshot" % name)
+		return false
+	return caster.try_start_cast(self, snap, cast_time_s, can_move_while_casting, cancel_on_target_out_of_range)
 
 
 ## Override: return a snapshot of the target at cast start, if relevant.

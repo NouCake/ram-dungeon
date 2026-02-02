@@ -1,5 +1,14 @@
+## Manages windup/casting for actions and enforces that only ONE action is casting at a time.
+##
+## This is intentionally small and generic:
+## - It tracks casting progress
+## - It supports cancelling when the snapshotted target moves out of range
+## - It triggers action resolution exactly once when casting completes
 class_name CasterComponent
 extends Node
+
+const BaseTimedActionRes = preload("res://assets/scripts/action/base_action_timed.gd")
+const TargetSnapshotRes = preload("res://assets/scripts/action/target_snapshot.gd")
 
 static var component_name: String = "caster"
 
@@ -21,25 +30,25 @@ static func Get(node: Node) -> CasterComponent:
 		return node.get_node(component_name)
 	return null
 
+## True while an action is in its windup.
 var _is_casting := false
-var _elapsed := 0.0
+## Time since cast started.
+var _elapsed_time_s := 0.0
 
-var _action: Node = null
-var _snapshot: TargetSnapshot = null
+## The action currently being cast.
+var _current_action: Node = null
+## Target snapshot taken at cast start (required, never null while casting).
+var _target_snapshot = null
 
+## Total windup time.
 var _cast_time_s := 0.0
+## Whether the parent is allowed to move while casting.
 var _can_move_while_casting := true
+## Whether to cancel if the target moves out of range.
 var _cancel_on_target_out_of_range := true
-var _cancel_on_target_invalid := true
-var _cancel_on_damage := false
-
-var _health: HealthComponent = null
 
 func _ready() -> void:
 	assert(name == component_name, "Component must be named %s to be recognized." % component_name)
-	_health = HealthComponent.Get(get_parent())
-	if _health:
-		_health.was_hit.connect(_on_was_hit)
 
 func is_casting() -> bool:
 	return _is_casting
@@ -47,28 +56,27 @@ func is_casting() -> bool:
 func movement_locked() -> bool:
 	return _is_casting and !_can_move_while_casting
 
-func try_start_cast(action: Node, snapshot: TargetSnapshot, cast_time_s: float, can_move_while_casting: bool, cancel_on_target_out_of_range: bool, cancel_on_target_invalid: bool, cancel_on_damage: bool) -> bool:
+func try_start_cast(action: Node, snapshot: TargetSnapshotRes, cast_time_s: float, can_move_while_casting: bool, cancel_on_target_out_of_range: bool) -> bool:
 	if _is_casting:
 		return false
+	assert(snapshot != null, "CasterComponent.try_start_cast(): snapshot must not be null")
 
 	_is_casting = true
-	_elapsed = 0.0
-	_action = action
-	_snapshot = snapshot
+	_elapsed_time_s = 0.0
+	_current_action = action
+	_target_snapshot = snapshot
 	_cast_time_s = max(cast_time_s, 0.0)
 	_can_move_while_casting = can_move_while_casting
 	_cancel_on_target_out_of_range = cancel_on_target_out_of_range
-	_cancel_on_target_invalid = cancel_on_target_invalid
-	_cancel_on_damage = cancel_on_damage
 
-	cast_started.emit(_action, _cast_time_s)
-	cast_progress.emit(_action, 0.0)
+	cast_started.emit(_current_action, _cast_time_s)
+	cast_progress.emit(_current_action, 0.0)
 	return true
 
 func cancel_cast(reason: String) -> void:
 	if !_is_casting:
 		return
-	var a := _action
+	var a := _current_action
 	_reset_state()
 	cast_cancelled.emit(a, reason)
 
@@ -76,24 +84,20 @@ func _process(delta: float) -> void:
 	if !_is_casting:
 		return
 
-	# cancellation checks
-	if _cancel_on_target_invalid and _snapshot != null and _snapshot.target != null and !is_instance_valid(_snapshot.target):
-		cancel_cast("target_invalid")
-		return
-
-	if _cancel_on_target_out_of_range and _snapshot != null and _snapshot.is_target_valid() and _snapshot.max_range > 0.001:
+	# Cancel if target moved out of range (only relevant for entity targets).
+	if _cancel_on_target_out_of_range and _target_snapshot.is_target_valid() and _target_snapshot.max_range > 0.001:
 		var parent_3d := get_parent() as Node3D
 		if parent_3d:
-			var dist := (parent_3d.global_position - _snapshot.target.global_position).length()
-			if dist > _snapshot.max_range:
+			var dist := (parent_3d.global_position - _target_snapshot.target.global_position).length()
+			if dist > _target_snapshot.max_range:
 				cancel_cast("target_out_of_range")
 				return
 
-	_elapsed += delta
-	var progress := 1.0 if _cast_time_s <= 0.0001 else clamp(_elapsed / _cast_time_s, 0.0, 1.0)
-	cast_progress.emit(_action, progress)
+	_elapsed_time_s += delta
+	var progress := 1.0 if _cast_time_s <= 0.0001 else clamp(_elapsed_time_s / _cast_time_s, 0.0, 1.0)
+	cast_progress.emit(_current_action, progress)
 
-	if _elapsed >= _cast_time_s:
+	if _elapsed_time_s >= _cast_time_s:
 		_finish_cast()
 
 func _finish_cast() -> void:
@@ -101,27 +105,21 @@ func _finish_cast() -> void:
 		return
 
 	# resolve action once
-	var a := _action
-	var snap := _snapshot
+	var a := _current_action
+	var snap := _target_snapshot
 	_reset_state()
 
-	# Call action.resolve_action(snapshot) if present
-	if a != null and is_instance_valid(a) and a.has_method("resolve_action"):
-		a.call("resolve_action", snap)
+	# resolve via BaseTimedAction contract (no runtime has_method checks)
+	if a != null and is_instance_valid(a) and a is BaseTimedActionRes:
+		(a as BaseTimedActionRes).resolve_action(snap)
 
 	cast_finished.emit(a)
 
 func _reset_state() -> void:
 	_is_casting = false
-	_elapsed = 0.0
-	_action = null
-	_snapshot = null
+	_elapsed_time_s = 0.0
+	_current_action = null
+	_target_snapshot = null
 	_cast_time_s = 0.0
 	_can_move_while_casting = true
 	_cancel_on_target_out_of_range = true
-	_cancel_on_target_invalid = true
-	_cancel_on_damage = false
-
-func _on_was_hit(_info: DamageInfo) -> void:
-	if _is_casting and _cancel_on_damage:
-		cancel_cast("damage")
