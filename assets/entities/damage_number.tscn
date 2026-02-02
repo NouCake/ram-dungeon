@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c0bked2yu7fb4"]
 
-[ext_resource type="Script" uid="uid://vmcr53ai3eqv" path="res://assets/scripts/damage_number.gd" id="1_08m0i"]
+[ext_resource type="Script" path="res://assets/scripts/damage_number.gd" id="1_08m0i"]
 
 [node name="damage_number" type="Label3D" unique_id=1652745260]
 billboard = 1

@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="5_xq7gy"]
 [ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="6_lgn12"]
 [ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="7_68wvi"]
-[ext_resource type="Script" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
+[ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
 [ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="8_vwee6"]
 
@@ -110,7 +110,7 @@ script = ExtResource("7_68wvi")
 to_spawn = ExtResource("8_vwee6")
 target_filters = Array[String](["enemy3"])
 action_range = 5.0
-action_interval = 3.0
+action_interval = 6.0
 pause_until_action_success = true
 metadata/_custom_type_script = "uid://628trxcomqbm"
 

@@ -28,7 +28,6 @@ func _process(delta:float) -> void:
 	alive_timer += delta
 	if alive_timer >= time_alive:
 		queue_free()
-		print("Effect area expired after " + str(alive_timer) + " seconds.")
 		return
 
 	time_since_last_update += delta
