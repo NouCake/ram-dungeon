@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="6_ten6w"]
 [ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="7_oebcf"]
 [ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="7_ten6w"]
-[ext_resource type="Script" uid="uid://c_caster" path="res://assets/scripts/component/caster.gd" id="7_caster"]
 [ext_resource type="PackedScene" uid="uid://crarjc5ro56mv" path="res://assets/components/ui/health_bar.tscn" id="8_oebcf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o1qma"]
@@ -92,10 +91,6 @@ script = ExtResource("6_hhy8k")
 metadata/_custom_type_script = "uid://4qe386rc0yio"
 
 [node name="detector" parent="." unique_id=100270341 instance=ExtResource("6_ten6w")]
-
-[node name="caster" type="Node" parent="." unique_id=2100000001]
-script = ExtResource("7_caster")
-metadata/_custom_type_script = "uid://c_caster"
 
 [node name="health" type="Node" parent="." unique_id=2044996375]
 script = ExtResource("7_oebcf")
