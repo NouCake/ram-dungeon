@@ -73,8 +73,8 @@ shader_parameter/sheet = ExtResource("3_phmxc")
 shader_parameter/frames = 6.0
 shader_parameter/fps = 10.0
 shader_parameter/scroll_speed = 1.0
-shader_parameter/uv_scale = Vector2(5, 1)
-shader_parameter/uv_offset = Vector2(0, 0.2)
+shader_parameter/uv_scale = Vector2(16, 1.5)
+shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/tint = Color(1, 1, 1, 1)
 
 [node name="burn_area" unique_id=1804886747 instance=ExtResource("1_82jwc")]
