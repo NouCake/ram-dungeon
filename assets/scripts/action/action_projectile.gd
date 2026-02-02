@@ -9,22 +9,19 @@ extends BaseActionTargeting
 func _enter_tree() -> void:
 	assert(projectile != null, "ActionProjectile requires a valid projectile PackedScene to instantiate.")
 
-func perform_action() -> bool:
-	return shoot()
+func resolve_action(snapshot) -> bool:
+	return shoot(snapshot)
 	
-func shoot() -> bool:
-	var target := detector.find_closest(target_filters, action_range, true);
-	
-	if target == null:
+func shoot(snapshot) -> bool:
+	if snapshot == null or !snapshot.is_target_valid():
 		return false
-		
-	var parent: Node3D = get_parent()
-	#print("Shooter Components shoots at: " + target.name) 
-		
-	var new_projectile: Projectile = projectile.instantiate();
+	var target := snapshot.target
 	
-	var dist := target.global_position - global_position;
-	dist.y = global_position.y
+	var parent: Node3D = get_parent()
+	var new_projectile: Projectile = projectile.instantiate()
+	
+	var dist := target.global_position - global_position
+	dist.y = 0
 	new_projectile.shoot_direction = dist.normalized()
 	new_projectile.shoot_origin = parent
 	new_projectile.rotation.y = atan2(dist.x, dist.z)

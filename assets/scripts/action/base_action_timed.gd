@@ -3,6 +3,9 @@ class_name BaseTimedAction
 
 extends Node3D
 
+const CasterComponentRes = preload("res://assets/scripts/component/caster.gd")
+const TargetSnapshotRes = preload("res://assets/scripts/action/target_snapshot.gd")
+
 ## Time in seconds between each action attempt
 @export var action_interval: float
 ## If true, the action is ready immediately on start
@@ -23,6 +26,38 @@ func _process(delta: float) -> void:
 		time_since_last_action += delta
 
 
-## Override this method to perform the desired action.
+## Casting / windup settings
+@export var cast_time_s := 0.0
+@export var can_move_while_casting := true
+@export var cancel_on_target_out_of_range := true
+@export var cancel_on_target_invalid := true
+@export var cancel_on_damage := false
+
+
+## Main entrypoint invoked by the timer cadence.
+## Default behavior: if cast_time_s > 0, begin casting via CasterComponent and resolve on completion.
 func perform_action() -> bool:
+	# If parent is already casting something else, don't start.
+	var caster := CasterComponentRes.Get(get_parent())
+	if caster and caster.is_casting():
+		return false
+
+	if cast_time_s <= 0.0001:
+		return resolve_action(get_target_snapshot())
+
+	if !caster:
+		push_warning("No CasterComponent found on %s; cannot cast action %s" % [get_parent().name, name])
+		return false
+
+	var snap := get_target_snapshot()
+	return caster.try_start_cast(self, snap, cast_time_s, can_move_while_casting, cancel_on_target_out_of_range, cancel_on_target_invalid, cancel_on_damage)
+
+
+## Override: return a snapshot of the target at cast start, if relevant.
+func get_target_snapshot():
+	return null
+
+## Override: do the actual action (damage/heal/spawn/etc.).
+## Called immediately for cast_time_s==0, or at cast completion when cast_time_s>0.
+func resolve_action(_snapshot) -> bool:
 	return false

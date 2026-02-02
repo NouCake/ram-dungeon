@@ -5,14 +5,13 @@ extends BaseActionTargeting
 @export var heal_amount := 2
 @export var heal_vfx: PackedScene
 
-func perform_action() -> bool:
-	return heal()
+func resolve_action(snapshot) -> bool:
+	return heal(snapshot)
 
-func heal() -> bool:
-	var target := detector.find_closest(target_filters, action_range, true)
-	
-	if target == null:
+func heal(snapshot) -> bool:
+	if snapshot == null or !snapshot.is_target_valid():
 		return false
+	var target := snapshot.target
 	
 	if not target.has_node("health"):
 		return false
