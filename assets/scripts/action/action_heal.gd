@@ -1,25 +1,15 @@
 class_name ActionHeal
 
-extends Node
+extends BaseActionTargeting
 
 @export var heal_amount := 2
-@export var heal_cooldown := 3.0
-@export var heal_range := 5.0
-@export var target_filters: Array[String] = ["enemy"]
 @export var heal_vfx: PackedScene
 
-@onready var detector := TargetDetectorComponent.Get(get_parent())
-
-var time_since_last_heal: float = heal_cooldown
-
-func _process(delta: float) -> void:
-	time_since_last_heal += delta
-	if time_since_last_heal >= heal_cooldown:
-		if heal():
-			time_since_last_heal -= heal_cooldown
+func perform_action() -> bool:
+	return heal()
 
 func heal() -> bool:
-	var target := detector.find_closest(target_filters, heal_range, true)
+	var target := detector.find_closest(target_filters, action_range, true)
 	
 	if target == null:
 		return false

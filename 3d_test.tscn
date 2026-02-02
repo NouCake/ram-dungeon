@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="6_ktnak"]
 [ext_resource type="PackedScene" uid="uid://cl8ficbqh4tlg" path="res://assets/entities/enemy_ranged.tscn" id="7_cawg3"]
 [ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="7_ktnak"]
-[ext_resource type="Script" uid="uid://b618m7ot1kyeq" path="res://assets/scripts/action/action_heal.gd" id="8_cawg3"]
+[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="8_cawg3"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_buu1m"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ktnak"]
 viewport_path = NodePath("SubViewport")
 
 [node name="Node3D" type="Node3D" unique_id=686898999]
@@ -47,10 +47,12 @@ size = 7.5
 
 [node name="base_player" parent="." unique_id=170676981 instance=ExtResource("4_cawg3")]
 
-[node name="ActionHeal" type="Node" parent="base_player" unique_id=1057619562]
+[node name="ActionHeal" type="Node3D" parent="base_player" unique_id=389237940]
 script = ExtResource("8_cawg3")
 heal_vfx = ExtResource("7_ktnak")
-metadata/_custom_type_script = "uid://b618m7ot1kyeq"
+action_range = 5.0
+action_interval = 3.0
+pause_until_action_success = true
 
 [node name="enemy" parent="." unique_id=1773388456 instance=ExtResource("7_cawg3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.039795, 0, 0.89990234)
@@ -59,6 +61,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.039795, 0, 0.89990234)
 max_health = 100
 
 [node name="healthbar" parent="enemy" index="11" unique_id=944459381]
-texture = SubResource("ViewportTexture_buu1m")
+texture = SubResource("ViewportTexture_ktnak")
 
 [editable path="enemy"]

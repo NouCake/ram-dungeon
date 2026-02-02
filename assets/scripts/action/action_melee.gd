@@ -1,26 +1,18 @@
 class_name MeleeComponent
 
-extends Node
+extends BaseActionTargeting
 
-@export var melee_range := 1.5
 @export var melee_damage := 2
-@export var melee_cooldown := 0.5
 
-@onready var detector := TargetDetectorComponent.Get(get_parent())
+func perform_action() -> bool:
+	return attack()
 
-var time_since_last_attack: float = melee_cooldown
-
-func _process(delta: float) -> void:
-	time_since_last_attack += delta
-	if time_since_last_attack >= melee_cooldown:
-		time_since_last_attack -= melee_cooldown
-		attack()
-
-func attack() -> void:
+func attack() -> bool:
 	var parent: Entity = get_parent()
-	var targets := detector.find_all(["player"], melee_range, false)
+	var targets := detector.find_all(target_filters, action_range, false)
 	
-	
+	if targets.size() == 0:
+		return false
 
 	for target in targets:
 		if not target.has_node("health"):
@@ -34,4 +26,4 @@ func attack() -> void:
 		info.knockback_amount = 1.0
 		health.do_damage(info)
 
-	pass
+	return true
