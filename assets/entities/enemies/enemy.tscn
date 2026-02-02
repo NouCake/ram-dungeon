@@ -113,27 +113,17 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_ib121"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqdf7"]
-render_priority = 0
-shader = ExtResource("2_ptjtg")
-shader_parameter/main_texture = ExtResource("3_v24pw")
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/enable_billboard = true
-
-[sub_resource type="QuadMesh" id="QuadMesh_fanso"]
-material = SubResource("ShaderMaterial_bqdf7")
-
 [node name="enemy" type="CharacterBody3D" unique_id=1773388456]
 script = ExtResource("7_ten6w")
 
 [node name="sprite" type="Sprite3D" parent="." unique_id=1123765104]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
-visible = false
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.29, 0)
 layers = 2
 material_override = SubResource("ShaderMaterial_v24pw")
 instance_shader_parameters/flash_modifier = 0.0
 instance_shader_parameters/skew_amount = 0.0
 pixel_size = 0.005
+billboard = 2
 no_depth_test = true
 texture_filter = 2
 texture = ExtResource("1_7k104")
@@ -189,9 +179,5 @@ texture = SubResource("ViewportTexture_ib121")
 [node name="caster" type="Node" parent="." unique_id=1090191015]
 script = ExtResource("9_ib121")
 metadata/_custom_type_script = "uid://b0ubjb54menfu"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1001814779]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38317963, 0)
-mesh = SubResource("QuadMesh_fanso")
 
 [connection signal="was_hit" from="health" to="." method="_on_health_was_hit"]

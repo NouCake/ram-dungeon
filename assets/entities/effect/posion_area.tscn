@@ -58,6 +58,7 @@ grows = true
 max_range = 3.0
 
 [node name="mesh" parent="." index="1" unique_id=1293802551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03910038, 0)
 mesh = SubResource("CylinderMesh_h7aau")
 
 [node name="particles" parent="." index="2" unique_id=1130558367]

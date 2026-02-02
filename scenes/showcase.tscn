@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="7_68wvi"]
 [ext_resource type="Script" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
-[ext_resource type="PackedScene" path="res://assets/entities/shroom.tscn" id="8_vwee6"]
+[ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="8_vwee6"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_68wvi"]
 viewport_path = NodePath("SubViewport")
@@ -120,12 +120,10 @@ environment = SubResource("Environment_dxudb")
 projection = 1
 size = 7.5
 
-[node name="dummy" parent="." unique_id=1773388456 instance=ExtResource("3_bcga6")]
+[node name="dummy" parent="." unique_id=854267946 instance=ExtResource("3_bcga6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
 [node name="sprite" parent="dummy" index="0" unique_id=1123765104]
-visible = true
-billboard = 2
 no_depth_test = false
 
 [node name="targetable" parent="dummy" index="3" unique_id=1001078350]
@@ -138,8 +136,6 @@ texture = SubResource("ViewportTexture_8clt3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
 
 [node name="sprite" parent="dummy2" index="0" unique_id=1123765104]
-visible = true
-billboard = 2
 no_depth_test = false
 
 [node name="targetable" parent="dummy2" index="3" unique_id=1001078350]
@@ -152,8 +148,6 @@ texture = SubResource("ViewportTexture_4lbig")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
 
 [node name="sprite" parent="dummy3" index="0" unique_id=1123765104]
-visible = true
-billboard = 2
 no_depth_test = false
 
 [node name="targetable" parent="dummy3" index="3" unique_id=1001078350]
@@ -166,8 +160,6 @@ texture = SubResource("ViewportTexture_30wxc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
 
 [node name="sprite" parent="dummy4" index="0" unique_id=1123765104]
-visible = true
-billboard = 2
 no_depth_test = false
 
 [node name="targetable" parent="dummy4" index="3" unique_id=1001078350]

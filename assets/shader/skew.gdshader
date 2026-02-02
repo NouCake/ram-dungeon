@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_back, depth_prepass_alpha, unshaded;
 
 uniform sampler2D main_texture : source_color, filter_nearest;
 instance uniform float skew_amount : hint_range(-0.5, 0.5) = 0.0;

@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Dungeon Masters Reloaded 3D"
-run/main_scene="uid://23xvue7jhyh6"
+run/main_scene="uid://da7lgh61332we"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://assets/sprites/icon.svg"
 
