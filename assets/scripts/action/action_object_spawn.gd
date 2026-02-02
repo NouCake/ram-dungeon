@@ -1,3 +1,4 @@
+class_name ActionObjectSpawn
 extends BaseActionTargeting
 
 @export var to_spawn: PackedScene

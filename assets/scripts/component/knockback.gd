@@ -8,6 +8,9 @@ static var component_name: String = "knockback"
 
 func _ready() -> void:
 	assert(name == component_name, "Component must be named " + component_name + " to be recognized by other components.")
+	var health_comp := HealthComponent.Get(get_parent())
+	if health_comp != null:
+		health_comp.connect("was_hit", Callable(self, "_on_health_was_hit"))
 
 func do_knockback(knockback_source: Vector3) -> void:
 	var parent: Node3D = get_parent();

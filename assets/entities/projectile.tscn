@@ -2,21 +2,45 @@
 
 [ext_resource type="Script" uid="uid://dt2v81ftcbt68" path="res://assets/scripts/projectile.gd" id="1_v8qja"]
 [ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="2_t4vbm"]
+[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/GD/trail_renderer.gd" id="3_m3grp"]
+[ext_resource type="Shader" uid="uid://cnwgry1k3pm76" path="res://assets/shader/trail.gdshader" id="4_6r5b6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xx3v5"]
 radius = 0.1
+
+[sub_resource type="Curve" id="Curve_m3grp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.10798123, 0.9383089), 0.31435913, 0.31435913, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_valgu"]
+render_priority = 0
+shader = ExtResource("4_6r5b6")
+
+[sub_resource type="Gradient" id="Gradient_m3grp"]
+colors = PackedColorArray(0.05490196, 0.06666667, 0.09803922, 0.2509804, 0.05490196, 0.06666667, 0.09803922, 0.5019608)
 
 [node name="projectile" type="Area3D" unique_id=110607796]
 monitorable = false
 script = ExtResource("1_v8qja")
 
 [node name="sprite" type="Sprite3D" parent="." unique_id=852118871]
-transform = Transform3D(0.25, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, 1, 0, -0.25, -4.371139e-08, 0, 0, -0.08380127)
 pixel_size = 0.005
 texture = ExtResource("2_t4vbm")
 
 [node name="shape" type="CollisionShape3D" parent="." unique_id=1370709062]
 shape = SubResource("SphereShape3D_xx3v5")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1177483307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033, -0.033, -0.106)
+script = ExtResource("3_m3grp")
+lifetime = 0.075
+min_vertex_distance = 0.01
+curve = SubResource("Curve_m3grp")
+alignment = 2
+line_width = 0.1
+material = SubResource("ShaderMaterial_valgu")
+color_gradient = SubResource("Gradient_m3grp")
 
 [connection signal="area_entered" from="." to="." method="on_hit"]
 [connection signal="body_entered" from="." to="." method="on_hit"]

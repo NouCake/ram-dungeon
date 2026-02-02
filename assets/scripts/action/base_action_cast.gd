@@ -30,7 +30,6 @@ func _process(delta: float) -> void:
 @export var cancel_on_damage_taken := false
 
 func perform_action() -> bool:
-	print("perform action called")
 	var caster := CasterComponent.Get(get_parent())
 	if caster.is_casting():
 		return false

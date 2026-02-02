@@ -5,6 +5,7 @@ extends Node
 @export var current_health := 5
 @export var max_health := 5
 @export var auto_delete := true
+@export var invulnerable := false
 
 signal was_hit(info: DamageInfo)
 
@@ -26,6 +27,12 @@ func _ready() -> void:
 	assert(name == component_name, "Component must be named " + component_name + " to be recognized by other components.")
 
 func do_damage(info: DamageInfo) -> void:
+	was_hit.emit(info)
+	Global.damage.emit(info)
+	
+	if invulnerable:
+		return
+
 	if info.type == DamageInfo.DamageType.HEAL:
 		# Healing - amount is positive, restore health
 		current_health = min(current_health + info.amount, max_health)
@@ -36,5 +43,3 @@ func do_damage(info: DamageInfo) -> void:
 	if auto_delete && current_health <= 0:
 		get_parent().queue_free()
 	
-	was_hit.emit(info)
-	Global.damage.emit(info)

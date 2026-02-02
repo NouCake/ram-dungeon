@@ -2,13 +2,23 @@
 
 [ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="1_7k104"]
 [ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="2_ckwqw"]
+[ext_resource type="Shader" uid="uid://dxtd6kwgmv3p1" path="res://assets/shader/skew.gdshader" id="2_ptjtg"]
+[ext_resource type="Texture2D" uid="uid://by85pua0wckur" path="res://assets/sprites/dummy.png" id="3_v24pw"]
 [ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="5_ces2i"]
+[ext_resource type="Script" uid="uid://cf12rme7sumlp" path="res://assets/scripts/base_entity_animation.gd" id="6_bqdf7"]
 [ext_resource type="Script" uid="uid://4qe386rc0yio" path="res://assets/scripts/component/moving.gd" id="6_hhy8k"]
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="6_ten6w"]
 [ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="7_oebcf"]
 [ext_resource type="Script" path="res://assets/scripts/entity.gd" id="7_ten6w"]
 [ext_resource type="PackedScene" uid="uid://crarjc5ro56mv" path="res://assets/components/ui/health_bar.tscn" id="8_oebcf"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_ib121"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v24pw"]
+render_priority = 0
+shader = ExtResource("2_ptjtg")
+shader_parameter/main_texture = ExtResource("3_v24pw")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/enable_billboard = true
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o1qma"]
 margin = 0.0
@@ -20,14 +30,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:modulate")
+tracks/0/path = NodePath("sprite:material_override:shader_parameter/skew_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:instance_shader_parameters/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:instance_shader_parameters/skew_amount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_7koad"]
@@ -36,14 +70,38 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:modulate")
+tracks/0/path = NodePath("sprite:material_override:shader_parameter/skew_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.13333334, 0.16666669, 0.23333335),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.25000003562499995, -0.049999978625, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:instance_shader_parameters/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+"values": [1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:instance_shader_parameters/skew_amount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.25000003562499995, -0.049999978625, 2.3749999966682367e-08]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ckwqw"]
@@ -55,14 +113,28 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_ib121"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqdf7"]
+render_priority = 0
+shader = ExtResource("2_ptjtg")
+shader_parameter/main_texture = ExtResource("3_v24pw")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/enable_billboard = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_fanso"]
+material = SubResource("ShaderMaterial_bqdf7")
+
 [node name="enemy" type="CharacterBody3D" unique_id=1773388456]
 script = ExtResource("7_ten6w")
 
 [node name="sprite" type="Sprite3D" parent="." unique_id=1123765104]
-transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
+visible = false
 layers = 2
+material_override = SubResource("ShaderMaterial_v24pw")
+instance_shader_parameters/flash_modifier = 0.0
+instance_shader_parameters/skew_amount = 0.0
 pixel_size = 0.005
-shaded = true
+no_depth_test = true
 texture_filter = 2
 texture = ExtResource("1_7k104")
 
@@ -82,6 +154,7 @@ tags = Array[String](["enemy", "entity"])
 
 [node name="animation" type="AnimationPlayer" parent="." unique_id=1252434596]
 libraries/ = SubResource("AnimationLibrary_ckwqw")
+script = ExtResource("6_bqdf7")
 
 [node name="knockback" type="Node" parent="." unique_id=1202752396]
 script = ExtResource("5_ces2i")
@@ -117,5 +190,8 @@ texture = SubResource("ViewportTexture_ib121")
 script = ExtResource("9_ib121")
 metadata/_custom_type_script = "uid://b0ubjb54menfu"
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1001814779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38317963, 0)
+mesh = SubResource("QuadMesh_fanso")
+
 [connection signal="was_hit" from="health" to="." method="_on_health_was_hit"]
-[connection signal="was_hit" from="health" to="knockback" method="_on_health_was_hit"]

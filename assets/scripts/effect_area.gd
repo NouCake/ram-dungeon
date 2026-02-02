@@ -38,16 +38,16 @@ func _process(delta:float) -> void:
 		_apply_burn_to_targets()
 
 	if grows:
-		do_grow(delta)
+		do_grow()
 
 func _apply_burn_to_targets() -> void:
 	var targets: Array[Node3D] = detector.find_all(["entity"], effect_range, false)
 	for target in targets:
 		#print("Applying effect to target: " + str(target))
 		var entity: Entity = Entity.Get(target)
-		entity.apply_effect(effect.duplicate())
+		entity.apply_effect(effect.duplicate() as TickEffect)
 
-func do_grow(delta: float) -> void:
+func do_grow() -> void:
 	var new_range: float = lerp(effect_range, max_range, alive_timer / time_alive)
 	update_range(new_range)
 

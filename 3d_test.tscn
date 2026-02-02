@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="4_cawg3"]
 [ext_resource type="Script" path="res://assets/scripts/damage_number_spawner.gd" id="5_buu1m"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="6_ktnak"]
-[ext_resource type="PackedScene" uid="uid://cl8ficbqh4tlg" path="res://assets/entities/enemy_ranged.tscn" id="7_cawg3"]
+[ext_resource type="PackedScene" uid="uid://cl8ficbqh4tlg" path="res://assets/entities/enemies/enemy_ranged.tscn" id="7_cawg3"]
 [ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="7_ktnak"]
 [ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="8_cawg3"]
 
@@ -40,7 +40,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 script = ExtResource("5_buu1m")
 damage_number_scene = ExtResource("6_ktnak")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=2043249066]
+[node name="camera" type="Camera3D" parent="." unique_id=2043249066]
 transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, -0.24810791, 5.6119924, 8.694057)
 projection = 1
 size = 7.5
@@ -72,5 +72,7 @@ cancel_on_damage_taken = true
 
 [node name="healthbar" parent="enemy" index="11" unique_id=944459381]
 texture = SubResource("ViewportTexture_ktnak")
+
+[connection signal="was_hit" from="enemy/health" to="enemy/knockback" method="_on_health_was_hit"]
 
 [editable path="enemy"]
