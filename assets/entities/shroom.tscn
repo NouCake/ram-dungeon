@@ -1,28 +1,58 @@
 [gd_scene format=3 uid="uid://dmvgub50oj4me"]
 
-[ext_resource type="Script" path="res://assets/scripts/shroom.gd" id="1_jmkq7"]
+[ext_resource type="Script" uid="uid://d3ge7gg1eivw2" path="res://assets/scripts/shroom.gd" id="1_jmkq7"]
 [ext_resource type="PackedScene" uid="uid://c7761vqql2xr4" path="res://assets/entities/effect/posion_area.tscn" id="2_ii0w5"]
 [ext_resource type="Texture2D" uid="uid://bnablq4r6c8p5" path="res://assets/sprites/shroom.png" id="2_mqp23"]
 [ext_resource type="Shader" uid="uid://dxtd6kwgmv3p1" path="res://assets/shader/skew.gdshader" id="3_ii0w5"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivju7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ii0w5"]
 render_priority = 0
 shader = ExtResource("3_ii0w5")
 shader_parameter/main_texture = ExtResource("2_mqp23")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/enable_billboard = true
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqp23"]
+atlas = ExtResource("2_mqp23")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ii0w5"]
+atlas = ExtResource("2_mqp23")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivju7"]
+atlas = ExtResource("2_mqp23")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4plcx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqp23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii0w5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivju7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
 [node name="shroom" type="Node3D" unique_id=226675831]
 script = ExtResource("1_jmkq7")
-grow_time = 2.0
+grow_time = 1.0
 effect_scene = ExtResource("2_ii0w5")
 time_alive = 10.0
 
-[node name="sprite" type="Sprite3D" parent="." unique_id=1758272844]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27994055, 0)
-material_override = SubResource("ShaderMaterial_ivju7")
+[node name="sprite" type="AnimatedSprite3D" parent="." unique_id=1207843985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12951148, 0)
+material_override = SubResource("ShaderMaterial_ii0w5")
 pixel_size = 0.005
 billboard = 1
-texture = ExtResource("2_mqp23")
-region_enabled = true
-region_rect = Rect2(0, 0, 128, 128)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_4plcx")
+frame = 2
+frame_progress = 1.0

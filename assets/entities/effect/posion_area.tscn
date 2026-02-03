@@ -1,21 +1,30 @@
 [gd_scene format=3 uid="uid://c7761vqql2xr4"]
 
-[ext_resource type="PackedScene" uid="uid://dsw2erf0grtoe" path="res://assets/entities/effect/effect_area_base.tscn" id="1_4l252"]
+[ext_resource type="Script" uid="uid://dlargacl3hbam" path="res://assets/scripts/effect_area.gd" id="1_0hih3"]
 [ext_resource type="Script" uid="uid://c6ewowv1erviy" path="res://assets/scripts/effects/poison.gd" id="2_h7aau"]
 [ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="3_h7aau"]
+[ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="3_ydmgc"]
+[ext_resource type="Shader" uid="uid://coobsve6j2484" path="res://assets/shader/poison.gdshader" id="5_r7lri"]
 
 [sub_resource type="Resource" id="Resource_vduma"]
 script = ExtResource("2_h7aau")
 stackable = true
 metadata/_custom_type_script = "uid://c6ewowv1erviy"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4l252"]
-transparency = 1
-albedo_color = Color(0.42745098, 0.13333334, 0.56078434, 0.5019608)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_owo7t"]
+render_priority = 0
+shader = ExtResource("5_r7lri")
+shader_parameter/scale = 3.0000001392401203
+shader_parameter/rim_strength = 1.690000080275
+shader_parameter/rim_color = Color(0.54922414, 0.12603176, 0.8665544, 1)
+shader_parameter/base_color = Color(0.26874012, 0.018891754, 0.4492941, 1)
+shader_parameter/rim_power = 4.490000210015119
+shader_parameter/offset_strength = 0.10000000475
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_h7aau"]
-material = SubResource("StandardMaterial3D_4l252")
-height = 0.1
+[sub_resource type="PlaneMesh" id="PlaneMesh_ws1ls"]
+size = Vector2(1, 1)
+subdivide_width = 20
+subdivide_depth = 20
 
 [sub_resource type="Curve" id="Curve_4l252"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -49,28 +58,44 @@ material = SubResource("StandardMaterial3D_h7aau")
 radius = 0.1
 height = 0.2
 
-[node name="posion_area" unique_id=1804886747 instance=ExtResource("1_4l252")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_vkin5"]
+
+[node name="posion_area" type="Area3D" unique_id=1804886747]
 collision_layer = 2
 collision_mask = 0
-monitorable = true
+monitoring = false
+script = ExtResource("1_0hih3")
 effect = SubResource("Resource_vduma")
-effect_range = 0.75
+effect_range = 0.5
 grows = true
 max_range = 1.0
 time_alive = 8.0
 
-[node name="mesh" parent="." index="1" unique_id=1293802551]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03910038, 0)
-mesh = SubResource("CylinderMesh_h7aau")
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=977527921]
+transform = Transform3D(0.9997108, 0, -0.024048317, 0, 1, 0, 0.024048317, 0, 0.9997108, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_owo7t")
+instance_shader_parameters/fade = 1.0
+mesh = SubResource("PlaneMesh_ws1ls")
 
-[node name="particles" parent="." index="2" unique_id=1130558367]
+[node name="detector" parent="." unique_id=100270341 instance=ExtResource("3_ydmgc")]
+
+[node name="particles" type="GPUParticles3D" parent="." unique_id=1130558367]
+transform = Transform3D(0.9999999, 0, 0, 0, -4.371139e-08, 0.99999994, 0, -0.99999994, -4.371138e-08, 0, 0, 0)
 amount = 2
+lifetime = 5.0
+explosiveness = 0.12
+randomness = 1.0
+trail_lifetime = 2.1799999999999997
 process_material = SubResource("ParticleProcessMaterial_vduma")
 draw_pass_1 = SubResource("SphereMesh_vduma")
 
-[node name="targetable" type="Node" parent="." index="3" unique_id=627368385]
+[node name="targetable" type="Node" parent="." unique_id=627368385]
 script = ExtResource("3_h7aau")
 tags = Array[String](["cloud"])
 metadata/_custom_type_script = "uid://df8j4a2b2mtth"
+
+[node name="shape" type="CollisionShape3D" parent="." unique_id=1816349994]
+shape = SubResource("SphereShape3D_vkin5")
+debug_fill = false
 
 [editable path="detector"]

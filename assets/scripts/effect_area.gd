@@ -22,7 +22,7 @@ var time_since_last_update := effect_interval
 var alive_timer := 0.0
 
 func _ready():
-	mesh.mesh = mesh.mesh.duplicate()
+	mesh.set_instance_shader_parameter("fade", 0.0)
 
 func _process(delta:float) -> void:
 	alive_timer += delta
@@ -40,7 +40,12 @@ func _process(delta:float) -> void:
 		do_grow()
 
 func _apply_burn_to_targets() -> void:
-	var targets: Array[Node3D] = detector.find_all(["entity"], effect_range, false)
+	var range: float
+	if grows:
+		range = lerp(effect_range, max_range, alive_timer / time_alive)
+	else:
+		range = effect_range
+	var targets: Array[Node3D] = detector.find_all(["entity"], range, false)
 	for target in targets:
 		#print("Applying effect to target: " + str(target))
 		var entity: Entity = Entity.Get(target)
@@ -51,7 +56,16 @@ func do_grow() -> void:
 	update_range(new_range)
 
 func update_range(new_range: float) -> void:
-	var _mesh: CylinderMesh = mesh.mesh;
-	_mesh.top_radius = new_range
-	_mesh.bottom_radius = new_range
-	particles.process_material.emission_ring_radius = new_range
+	(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
+	mesh.scale = Vector3.ONE * new_range / effect_range
+	var t: float
+	if alive_timer < time_alive * 0.1:
+		# First 10%: fade in from 0 to 1
+		t = alive_timer / (time_alive * 0.1)
+	elif alive_timer > time_alive * 0.75:
+		# Last 25%: fade out from 1 to 0
+		t = 1.0 - (alive_timer - time_alive * 0.75) / (time_alive * 0.25)
+	else:
+		# Middle 65%: stay at 1
+		t = 1.0
+	mesh.set_instance_shader_parameter("fade", t)

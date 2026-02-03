@@ -6,35 +6,25 @@ extends Node3D
 @export var time_alive := 5.0
 @export var spawn_area_radius := 1.0
 
-@onready var sprite: Sprite3D = get_node("sprite")
-
-const GROW_FRAMES := 3
-const FRAME_WIDTH := 128
-
-var grow_timer := 0.0
-var poison_timer := poison_interval
+var poison_timer := 0.0
 var alive_timer := 0.0
 
+@onready var sprite: AnimatedSprite3D = get_node("sprite")
+
+func _ready() -> void:
+	sprite.play("default")
+	sprite.speed_scale = 3 / grow_time
+
 func _process(delta: float) -> void:
+	if alive_timer > grow_time:
+		do_poison(delta)
+
 	alive_timer += delta
 	
 	if alive_timer >= time_alive:
 		queue_free()
 		return
 
-	# update growth frame while growing; once growth is finished, keep the last frame
-	if grow_timer <= grow_time:
-		do_grow(delta)
-	else:
-		# ensure sprite stays on last growth frame after growth finishes
-		sprite.region_rect.position = Vector2((GROW_FRAMES - 1) * FRAME_WIDTH, 0)
-		do_poison(delta)
-
-func do_grow(delta: float) -> void:
-	grow_timer += delta
-	# pick frame index in [0, GROW_FRAMES-1], clamp to avoid overshoot
-	var t := int(clamp(floor(grow_timer / grow_time * GROW_FRAMES), 0, GROW_FRAMES - 1))
-	sprite.region_rect.position = Vector2(t * FRAME_WIDTH, 0)
 
 func do_poison(delta: float) -> void:
 	poison_timer += delta
