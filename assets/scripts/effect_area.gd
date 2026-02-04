@@ -6,6 +6,11 @@ extends Area3D
 ## Which effect to apply
 @export var effect: TickEffect
 
+## Optional source entity (for damage/heal attribution, e.g., effect.origin)
+var source_entity: Entity = null
+
+@export var target_filters: Array[String] = ["entity"]
+
 @export var effect_range := 3.0
 ## the interval (in seconds) at which the effect is applied
 @export var effect_interval := 0.5
@@ -18,54 +23,52 @@ extends Area3D
 @onready var mesh: MeshInstance3D = get_node("mesh")
 @onready var particles: GPUParticles3D = get_node("particles")
 
-var time_since_last_update := effect_interval
-var alive_timer := 0.0
+var current_range := effect_range
 
-func _ready():
+func _ready() -> void:
 	mesh.set_instance_shader_parameter("fade", 0.0)
+	_schedule_lifecycle()
 
-func _process(delta:float) -> void:
-	alive_timer += delta
-	if alive_timer >= time_alive:
-		queue_free()
-		return
-
-	time_since_last_update += delta
-
-	if time_since_last_update >= effect_interval:
-		time_since_last_update -= effect_interval
-		_apply_burn_to_targets()
-
+func _schedule_lifecycle() -> void:
 	if grows:
-		do_grow()
+		_setup_grow_tween()
+	
+	_setup_fade_tween()
+	
+	TimerUtil.repeat(self, effect_interval, _apply_effect_to_targets)
+	TimerUtil.delay(self, time_alive, queue_free)
 
-func _apply_burn_to_targets() -> void:
-	var range: float
-	if grows:
-		range = lerp(effect_range, max_range, alive_timer / time_alive)
-	else:
-		range = effect_range
-	var targets: Array[Node3D] = detector.find_all(["entity"], range, false)
-	for target in targets:
-		#print("Applying effect to target: " + str(target))
-		var entity: Entity = Entity.Get(target)
-		entity.apply_effect(effect.duplicate() as TickEffect)
+func _setup_grow_tween() -> void:
+	var tween := create_tween()
+	tween.tween_method(_update_range, effect_range, max_range, time_alive)
 
-func do_grow() -> void:
-	var new_range: float = lerp(effect_range, max_range, alive_timer / time_alive)
-	update_range(new_range)
+func _setup_fade_tween() -> void:
+	var fade_in_duration := time_alive * 0.1
+	var fade_out_start := time_alive * 0.75
+	var fade_out_duration := time_alive * 0.25
+	
+	var tween := create_tween()
+	# Fade in (0 to 1)
+	tween.tween_method(_set_fade, 0.0, 1.0, fade_in_duration)
+	# Hold at 1
+	tween.tween_interval(fade_out_start - fade_in_duration)
+	# Fade out (1 to 0)
+	tween.tween_method(_set_fade, 1.0, 0.0, fade_out_duration)
 
-func update_range(new_range: float) -> void:
+func _set_fade(value: float) -> void:
+	mesh.set_instance_shader_parameter("fade", value)
+
+func _update_range(new_range: float) -> void:
+	current_range = new_range
+	## @futureme Not all effect areas use particles, so this should be more generic
 	(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
 	mesh.scale = Vector3.ONE * new_range / effect_range
-	var t: float
-	if alive_timer < time_alive * 0.1:
-		# First 10%: fade in from 0 to 1
-		t = alive_timer / (time_alive * 0.1)
-	elif alive_timer > time_alive * 0.75:
-		# Last 25%: fade out from 1 to 0
-		t = 1.0 - (alive_timer - time_alive * 0.75) / (time_alive * 0.25)
-	else:
-		# Middle 65%: stay at 1
-		t = 1.0
-	mesh.set_instance_shader_parameter("fade", t)
+
+func _apply_effect_to_targets() -> void:
+	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
+	for target in targets:
+		var entity: Entity = Entity.Get(target) ## only applicable because filter is "entity"
+		var effect_instance := effect.duplicate() as TickEffect
+		effect_instance.source_entity = source_entity
+		
+		entity.apply_effect(effect_instance)

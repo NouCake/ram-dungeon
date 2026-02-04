@@ -5,9 +5,5 @@ extends Node3D
 
 @export var lifetime := 1.0
 
-var timer := 0.0
-
-func _process(delta: float) -> void:
-	timer += delta
-	if timer >= lifetime:
-		queue_free()
+func _ready() -> void:
+	TimerUtil.delay(self, lifetime, queue_free)
