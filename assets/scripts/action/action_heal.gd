@@ -5,6 +5,11 @@ extends BaseActionTargeting
 @export var heal_amount := 2
 @export var heal_vfx: PackedScene
 
+func _enter_tree() -> void:
+	# Default to lowest HP% targeting (makes sense for heal)
+	if not targeting_strategy:
+		targeting_strategy = TargetLowestHPPercent.new()
+
 func resolve_action(snapshot: TargetSnapshot) -> bool:
 	return heal(snapshot)
 

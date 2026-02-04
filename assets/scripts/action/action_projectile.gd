@@ -8,6 +8,10 @@ extends BaseActionTargeting
 
 func _enter_tree() -> void:
 	assert(projectile != null, "ActionProjectile requires a valid projectile PackedScene to instantiate.")
+	
+	# Default to closest targeting if not set in scene
+	if not targeting_strategy:
+		targeting_strategy = TargetClosest.new()
 
 func resolve_action(target: TargetSnapshot) -> bool:
 	return shoot(target)
