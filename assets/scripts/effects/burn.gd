@@ -9,7 +9,8 @@ func _init() -> void:
 	tick_interval = 1.0
 
 func do_effect_trigger(entity: Entity) -> void:
-	var damage_info := DamageInfo.new(null, entity)
+	var damage_info := DamageInfo.new(source_entity, entity)
 	damage_info.amount = stack_size
 	damage_info.type = DamageInfo.DamageType.FIRE
+	
 	entity.health.do_damage(damage_info)

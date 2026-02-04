@@ -13,13 +13,7 @@ var _poison_timer: Timer
 func _ready() -> void:
 	sprite.play("default")
 	sprite.speed_scale = 3 / grow_time
-	_schedule_lifecycle()
-
-func _schedule_lifecycle() -> void:
-	# Wait for grow phase, then start repeating poison spawns
 	TimerUtil.delay(self, grow_time, _start_poison_spawning)
-	
-	# Auto-destroy after total lifetime
 	TimerUtil.delay(self, time_alive, queue_free)
 
 func _start_poison_spawning() -> void:
@@ -30,7 +24,6 @@ func spawn_effect() -> void:
 	get_tree().current_scene.add_child(effect_instance)
 	var random_offset := random_point_in_circle(spawn_area_radius)
 	effect_instance.global_position = global_position + random_offset
-	effect_instance.global_position.y = 0
 
 func random_point_in_circle(radius: float) -> Vector3:
 	var angle := randf() * TAU

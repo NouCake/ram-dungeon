@@ -25,13 +25,3 @@ static func repeat(parent_node: Node, interval_sec: float, callback: Callable) -
 	parent_node.add_child(timer)
 	timer.start()
 	return timer
-
-## Create a one-shot timer for await pattern.
-## Returns timer that can be awaited: await TimerUtil.await_delay(self, 1.0).timeout
-static func await_delay(parent_node: Node, delay_sec: float) -> Timer:
-	var timer := Timer.new()
-	timer.wait_time = delay_sec
-	timer.one_shot = true
-	parent_node.add_child(timer)
-	timer.start()
-	return timer

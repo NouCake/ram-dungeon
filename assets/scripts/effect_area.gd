@@ -9,7 +9,6 @@ extends Area3D
 ## Optional source entity (for damage/heal attribution, e.g., effect.origin)
 var source_entity: Entity = null
 
-## Target filters (e.g., ["enemy"], ["ally"], ["entity"])
 @export var target_filters: Array[String] = ["entity"]
 
 @export var effect_range := 3.0
@@ -25,24 +24,18 @@ var source_entity: Entity = null
 @onready var particles: GPUParticles3D = get_node("particles")
 
 var current_range := effect_range
-var _effect_timer: Timer
 
-func _ready():
+func _ready() -> void:
 	mesh.set_instance_shader_parameter("fade", 0.0)
 	_schedule_lifecycle()
 
 func _schedule_lifecycle() -> void:
-	# Use tween for grow animation
 	if grows:
 		_setup_grow_tween()
 	
-	# Use tween for fade in/out
 	_setup_fade_tween()
 	
-	# Start repeating effect application
-	_effect_timer = TimerUtil.repeat(self, effect_interval, _apply_effect_to_targets)
-	
-	# Auto-destroy after lifetime
+	TimerUtil.repeat(self, effect_interval, _apply_effect_to_targets)
 	TimerUtil.delay(self, time_alive, queue_free)
 
 func _setup_grow_tween() -> void:
@@ -67,17 +60,15 @@ func _set_fade(value: float) -> void:
 
 func _update_range(new_range: float) -> void:
 	current_range = new_range
+	## @futureme Not all effect areas use particles, so this should be more generic
 	(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
 	mesh.scale = Vector3.ONE * new_range / effect_range
 
 func _apply_effect_to_targets() -> void:
 	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
 	for target in targets:
-		var entity: Entity = Entity.Get(target)
+		var entity: Entity = Entity.Get(target) ## only applicable because filter is "entity"
 		var effect_instance := effect.duplicate() as TickEffect
-		
-		# Set source if available (for damage/heal attribution)
-		if source_entity and effect_instance.has("origin"):
-			effect_instance.origin = source_entity
+		effect_instance.source_entity = source_entity
 		
 		entity.apply_effect(effect_instance)

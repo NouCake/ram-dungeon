@@ -8,6 +8,7 @@ var type : String
 @export var stackable: bool = false
 @export var tick_interval := 1.0  # How often effect triggers (for damage/heal)
 
+var source_entity: Entity
 var stack_size := 1
 var elapsed_time := 0.0
 var time_since_last_tick := 0.0
