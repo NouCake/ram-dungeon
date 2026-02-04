@@ -19,10 +19,8 @@ func get_target_snapshot() -> TargetSnapshot:
 	# Use override if set (e.g., debuff), otherwise use configured strategy
 	var active_strategy := targeting_override if targeting_override else targeting_strategy
 	
-	# No fallback - strategy must be set
-	if not active_strategy:
-		push_error("No targeting strategy set for " + name + ". Action requires targeting_strategy to be configured.")
-		return null
+	# Strategy must be set (dev-time check)
+	assert(active_strategy != null, "No targeting strategy set for " + name + ". Action requires targeting_strategy to be configured.")
 	
 	# Use strategy to find targets
 	var targets := active_strategy.select_targets(detector, target_filters, action_range, true)
