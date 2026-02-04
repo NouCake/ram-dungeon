@@ -4,7 +4,7 @@ class_name EffectArea
 extends Area3D
 
 ## Which effect to apply
-@export var effect: TickEffect
+@export var effect: Effect
 
 ## Optional source entity (for damage/heal attribution, e.g., effect.origin)
 var source_entity: Entity = null
@@ -68,7 +68,7 @@ func _apply_effect_to_targets() -> void:
 	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
 	for target in targets:
 		var entity: Entity = Entity.Get(target) ## only applicable because filter is "entity"
-		var effect_instance := effect.duplicate() as TickEffect
-		effect_instance.source_entity = source_entity
+		var effect_instance := effect.duplicate() as Effect
+		effect_instance.source = source_entity
 		
 		entity.apply_effect(effect_instance)

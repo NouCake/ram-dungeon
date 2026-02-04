@@ -14,24 +14,26 @@ static func Get(node: Node) -> Entity:
 
 @onready var health := HealthComponent.Get(self)
 
-var effects : Array[TickEffect] = []
+var effects: Array[Effect] = []
 
-func apply_effect(effect: TickEffect) -> void:
-	assert(effect != null, "Cannot apply null effect to entity, you suck!" + name)
-	for e in effects:
-		if e.type == effect.type:
-			if e.stackable:
-				e.stack_size += effect.stack_size
+func apply_effect(effect: Effect) -> void:
+	assert(effect != null, "Cannot apply null effect to entity: " + name)
+	effect.target = self
+	
+	for existing in effects:
+		if existing.is_same_type(effect):
+			if existing.stackable:
+				existing.merge(effect)
 				return
-			else:
-				e.elapsed_time = 0.0
-				return
-
+			return
+	
 	effects.append(effect)
+	effect.on_applied()
+	
+	# cleanup
+	if effect._duration_timer:
+		effect._duration_timer.timeout.connect(_on_effect_expired.bind(effect))
 
-func _process(delta: float) -> void:
-	for effect in effects:
-		if effect.is_expired():
-			effects.erase(effect)
-			continue
-		effect.tick(delta, self)
+func _on_effect_expired(effect: Effect) -> void:
+	if effect in effects:
+		effects.erase(effect)
