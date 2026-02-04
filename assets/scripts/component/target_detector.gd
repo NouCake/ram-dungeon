@@ -50,14 +50,11 @@ func _get_all_near_targets() -> Array[Node3D]:
 		
 	var found_targets: Array[Node3D] = [];
 	
-	# print("Found " + str(overlapping.size()) + " overlapping targets: " + str(overlapping))
 	for target in overlapping:
 		if (target == get_parent()):
-			#print("Skipping self")
 			continue;
 
 		if !Targetable.Is(target):
-			#print("Target " + target.name + " has no Targetable component")
 			continue;
 
 		found_targets.append(target)
@@ -73,7 +70,6 @@ func _is_in_line_of_sight(target: Node3D) -> bool:
 	var result := get_world_3d().direct_space_state.intersect_ray(query)
 	
 	if result:
-		#print("Couldn't target at: " + target.name + " because " + result.collider.name + " was in the way")
 		return false
 	
 	return true

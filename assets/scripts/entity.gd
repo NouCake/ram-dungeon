@@ -33,6 +33,5 @@ func _process(delta: float) -> void:
 	for effect in effects:
 		if effect.is_expired():
 			effects.erase(effect)
-			print("Effect of type " + effect.type + " expired on entity " + name)
 			continue
 		effect.tick(delta, self)

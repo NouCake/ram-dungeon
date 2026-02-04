@@ -7,17 +7,27 @@ extends BaseTimedCast
 @export var target_filters: Array[String] = ["enemy"]
 ## How far the action can reach targets
 @export var action_range: float
+## Targeting strategy to use (configurable per action)
+@export var targeting_strategy: TargetingStrategy
+@export var line_of_sight := true
+
+## Runtime override for targeting (e.g., debuffs like "Desynced")
+var targeting_override: TargetingStrategy = null
 
 @onready var detector := TargetDetectorComponent.Get(get_parent())
 
 func get_target_snapshot() -> TargetSnapshot:
-	var target := detector.find_closest(target_filters, action_range, true)
-
-	if target == null:
+	var active_strategy := targeting_override if targeting_override else targeting_strategy
+	assert(active_strategy != null, "No targeting strategy set for " + name + ". Action requires targeting_strategy to be configured.")
+	
+	var targets := active_strategy.select_targets(detector, target_filters, action_range, line_of_sight)
+	
+	if targets.is_empty():
 		return null
-
+	
+	var t := targets[0] # @futureme lacks multi-target support for now
 	var snapshot := TargetSnapshot.new()
 	snapshot.max_range = action_range
-	snapshot.target = target
-	snapshot.target_position = snapshot.target.global_position
+	snapshot.target = t
+	snapshot.target_position = t.global_position
 	return snapshot

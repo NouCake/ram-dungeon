@@ -8,6 +8,7 @@ extends BaseActionTargeting
 
 func _enter_tree() -> void:
 	assert(projectile != null, "ActionProjectile requires a valid projectile PackedScene to instantiate.")
+	assert(targeting_strategy != null, "ActionProjectile requires a targeting_strategy to be set.")
 
 func resolve_action(target: TargetSnapshot) -> bool:
 	return shoot(target)
@@ -17,7 +18,7 @@ func shoot(target: TargetSnapshot) -> bool:
 	var instance: Projectile = projectile.instantiate()
 	
 	var dist := target.target.global_position - global_position
-	dist.y = 0
+	dist.y = 0  # @futureme future enemies might be flying
 
 	instance.projectile_speed = projectile_speed
 	instance.projectile_damage = projectile_damage

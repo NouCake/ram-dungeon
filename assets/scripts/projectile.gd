@@ -25,7 +25,6 @@ func _physics_process(delta: float) -> void:
 
 func on_hit(other: Node) -> void:
 	if other == shoot_origin || !is_instance_valid(other) || !is_instance_valid(shoot_origin):
-		# print("I was about to hit my source, so ignore")
 		return
 		
 	
@@ -37,7 +36,6 @@ func on_hit(other: Node) -> void:
 		info.knockback_amount = 1.0
 		health_component.do_damage(info)
 	else:
-		print("Hit something without health: " + other.name)
 		pass
 	
 	if death_spawn:

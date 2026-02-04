@@ -10,7 +10,6 @@ func play_blink(_hit_source: Node3D) -> void:
 	sprite.play("blink")
 
 func on_animation_finished() -> void:
-	print("Animation finished:", sprite.animation)
 	sprite.play("idle")
 
 func _process(_delta: float) -> void:
