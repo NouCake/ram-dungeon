@@ -26,44 +26,11 @@ Returns array of targets (for future multi-target support).
 4. **TargetHighestHP** - Target with highest current HP
 5. **TargetLowestHPPercent** - Target with lowest HP%
 
-## Usage in Actions
-
-### ActionProjectile (default: TargetClosest)
-```gdscript
-func _enter_tree() -> void:
-    if not targeting_strategy:
-        targeting_strategy = TargetClosest.new()
-```
-
-### ActionHeal (default: TargetLowestHPPercent)
-```gdscript
-func _enter_tree() -> void:
-    if not targeting_strategy:
-        targeting_strategy = TargetLowestHPPercent.new()
-```
-
 Strategies can be overridden in Godot editor by assigning a different strategy resource.
 
 ## Runtime Modification (Debuffs)
 
 `BaseActionTargeting` has `targeting_override: TargetingStrategy` which takes precedence over the configured strategy.
-
-### Example: Desynced Debuff
-```gdscript
-# Flip targeting for all actions on an entity
-var debuff := DebuffDesynced.new()
-debuff.target_entity = entity
-debuff.duration = 5.0
-entity.add_child(debuff)
-```
-
-The debuff:
-- Stores original strategies
-- Swaps target filters (enemy↔ally)
-- Auto-removes after duration
-- Restores original targeting
-
-See `assets/scripts/debuff/debuff_desynced.gd` for implementation.
 
 ## Future Extensions
 

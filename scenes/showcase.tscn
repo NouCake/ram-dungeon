@@ -5,37 +5,48 @@
 [ext_resource type="PackedScene" uid="uid://bj3oiln7hc7bj" path="res://assets/entities/dummy.tscn" id="3_bcga6"]
 [ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="3_o36fe"]
 [ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="4_xq7gy"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="5_owfbn"]
 [ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="5_xq7gy"]
 [ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="6_lgn12"]
 [ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="7_68wvi"]
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
+[ext_resource type="Script" uid="uid://dayefw8tbcn3n" path="res://assets/scripts/action/target_lowest_hp.gd" id="8_8clt3"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
 [ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="8_vwee6"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_68wvi"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_4lbig"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vwee6"]
+[sub_resource type="Resource" id="Resource_30wxc"]
+script = ExtResource("5_owfbn")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2m47e"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_owfbn"]
+[sub_resource type="Resource" id="Resource_3myhx"]
+script = ExtResource("8_8clt3")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_42jun"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Resource" id="Resource_ys14l"]
+script = ExtResource("5_owfbn")
 
 [sub_resource type="Environment" id="Environment_dxudb"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8clt3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_aak5o"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4lbig"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_hapmf"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_30wxc"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tj4ad"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_2m47e"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_wrlhd"]
 viewport_path = NodePath("SubViewport")
 
 [node name="Node3D" type="Node3D" unique_id=1600318940]
@@ -59,7 +70,7 @@ move_speed = 0.0
 
 [node name="healthbar" parent="base_player" index="10" unique_id=1172448389]
 visible = false
-texture = SubResource("ViewportTexture_68wvi")
+texture = SubResource("ViewportTexture_4lbig")
 
 [node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=723096821]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -67,6 +78,7 @@ script = ExtResource("3_o36fe")
 projectile = ExtResource("4_xq7gy")
 projectile_speed = 16.0
 target_filters = Array[String](["enemy1"])
+targeting_strategy = SubResource("Resource_30wxc")
 action_interval = 2.0
 pause_until_action_success = true
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
@@ -82,13 +94,14 @@ move_speed = 0.0
 
 [node name="healthbar" parent="base_player2" index="10" unique_id=1172448389]
 visible = false
-texture = SubResource("ViewportTexture_vwee6")
+texture = SubResource("ViewportTexture_2m47e")
 
 [node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=483451215]
 script = ExtResource("5_xq7gy")
 heal_vfx = ExtResource("6_lgn12")
 target_filters = Array[String](["enemy2"])
 action_range = 5.0
+targeting_strategy = SubResource("Resource_3myhx")
 action_interval = 2.0
 metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
 
@@ -103,13 +116,14 @@ move_speed = 0.0
 
 [node name="healthbar" parent="base_player3" index="10" unique_id=1172448389]
 visible = false
-texture = SubResource("ViewportTexture_owfbn")
+texture = SubResource("ViewportTexture_42jun")
 
 [node name="ActionObjectSpawn" type="Node3D" parent="base_player3" unique_id=972035719]
 script = ExtResource("7_68wvi")
 to_spawn = ExtResource("8_vwee6")
 target_filters = Array[String](["enemy3"])
 action_range = 5.0
+targeting_strategy = SubResource("Resource_ys14l")
 action_interval = 6.0
 pause_until_action_success = true
 metadata/_custom_type_script = "uid://628trxcomqbm"
@@ -130,7 +144,7 @@ no_depth_test = false
 tags = Array[String](["enemy1", "entity"])
 
 [node name="healthbar" parent="dummy" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_8clt3")
+texture = SubResource("ViewportTexture_aak5o")
 
 [node name="dummy2" parent="." unique_id=312009439 instance=ExtResource("3_bcga6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
@@ -142,7 +156,7 @@ no_depth_test = false
 tags = Array[String](["enemy2", "entity"])
 
 [node name="healthbar" parent="dummy2" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_4lbig")
+texture = SubResource("ViewportTexture_hapmf")
 
 [node name="dummy3" parent="." unique_id=1253583673 instance=ExtResource("3_bcga6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
@@ -154,7 +168,7 @@ no_depth_test = false
 tags = Array[String](["enemy3", "entity"])
 
 [node name="healthbar" parent="dummy3" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_30wxc")
+texture = SubResource("ViewportTexture_tj4ad")
 
 [node name="dummy4" parent="." unique_id=29855468 instance=ExtResource("3_bcga6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
@@ -166,7 +180,7 @@ no_depth_test = false
 tags = Array[String](["enemy4", "entity"])
 
 [node name="healthbar" parent="dummy4" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_2m47e")
+texture = SubResource("ViewportTexture_wrlhd")
 
 [node name="grid_walls" type="GridMap" parent="." unique_id=547799591]
 mesh_library = ExtResource("1_uwtp6")

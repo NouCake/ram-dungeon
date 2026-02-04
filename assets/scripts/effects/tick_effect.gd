@@ -17,9 +17,7 @@ func is_expired() -> bool:
 	return elapsed_time >= duration
 
 func tick(delta: float, entity: Entity) -> void:
-	if is_expired():
-		print("Effect tick called on expired effect")
-		return
+	assert(!is_expired(), "Cannot tick an expired effect: " + type)
 
 	elapsed_time += delta
 	time_since_last_tick += delta

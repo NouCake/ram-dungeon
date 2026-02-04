@@ -8,13 +8,13 @@ func _init() -> void:
 	duration = 5.0
 
 func merge_stack(other: TickEffect) -> void:
-	if other is PoisonEffect:
-		var other_poison: PoisonEffect = other as PoisonEffect
-		stack_size += other_poison.stack_size
-		duration = max(duration, other_poison.duration)
-		time_since_last_tick = min(time_since_last_tick, other_poison.time_since_last_tick)
-	else: 
-		print("Tried to merge non-poison effect into poison effect")
+	assert(other is PoisonEffect, "Cannot merge non-PoisonEffect into PoisonEffect")
+	
+	var other_poison: PoisonEffect = other as PoisonEffect
+	stack_size += other_poison.stack_size
+	duration = max(duration, other_poison.duration)
+	time_since_last_tick = min(time_since_last_tick, other_poison.time_since_last_tick)
+		
 
 func do_effect_trigger(entity: Entity) -> void:
 	var damage_info := DamageInfo.new(source_entity, entity)

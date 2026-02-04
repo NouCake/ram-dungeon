@@ -7,6 +7,5 @@ extends Node3D
 
 func _process(delta: float) -> void:
 	var targets := detector.find_all(["cloud"], 0, false)
-	print("Wind affecting %d targets" % targets.size())
 	for target in targets:
 		target.global_position += wind_director.normalized() * delta * strength
