@@ -18,13 +18,8 @@ func _on_applied() -> void:
 	if effect_type.is_empty():
 		effect_type = get_script().resource_path.get_file().get_basename()
 	
-	# Create repeating tick timer on target entity
-	_tick_timer = Timer.new()
-	_tick_timer.wait_time = tick_interval
-	_tick_timer.one_shot = false  # repeating
-	_tick_timer.timeout.connect(_on_tick)
-	target.add_child(_tick_timer)
-	_tick_timer.start()
+	# Create repeating tick timer using TimerUtil
+	_tick_timer = TimerUtil.repeat(target, tick_interval, _on_tick)
 
 func _on_expired() -> void:
 	# Clean up tick timer

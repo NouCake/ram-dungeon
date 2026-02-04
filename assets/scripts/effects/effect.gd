@@ -26,13 +26,8 @@ var _duration_timer: Timer = null
 func on_applied() -> void:
 	assert(target != null, "Effect must have a target when applied")
 	
-	# Create duration timer on target entity
-	_duration_timer = Timer.new()
-	_duration_timer.wait_time = duration
-	_duration_timer.one_shot = true
-	_duration_timer.timeout.connect(_on_expired)
-	target.add_child(_duration_timer)
-	_duration_timer.start()
+	# Create duration timer using TimerUtil
+	_duration_timer = TimerUtil.delay(target, duration, _on_expired)
 	
 	# Subclass hook
 	_on_applied()
