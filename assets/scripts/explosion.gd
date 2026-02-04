@@ -5,23 +5,16 @@ extends Node3D
 var origin: Entity
 
 @export var damage := 3
-var _timer := 0.0
 
 func _ready() -> void:
-	assert(origin != null, "Explosion must have an origin set");
-
-func _physics_process(delta: float) -> void:
-	if _timer == 0:
-		deal_damage()
-
-	_timer += delta
-	if _timer > 0.2:
-		queue_free()
+	assert(origin != null, "Explosion must have an origin set")
+	deal_damage()
+	await get_tree().create_timer(0.2).timeout
+	queue_free()
 
 func deal_damage() -> void:
 	var detector := TargetDetectorComponent.Get(self)
 	var targets := detector._get_all_near_targets()
-
 
 	print("Explosion dealing damage to " + str(targets.size()) + " targets")
 	for target in targets:
