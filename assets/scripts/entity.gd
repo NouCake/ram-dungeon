@@ -24,28 +24,21 @@ func apply_effect(effect: Effect) -> void:
 	
 	# Check for existing effect of same type
 	for existing in effects:
-		if existing.effect_type == effect.effect_type:
+		if existing.is_same_type(effect):
 			# If stackable, merge
-			if existing is TickEffect and effect is TickEffect:
-				var existing_tick := existing as TickEffect
-				var new_tick := effect as TickEffect
-				if existing_tick.stackable:
-					existing_tick.merge_stack(new_tick)
-					return
-			
-			# If refresh on reapply, refresh duration
-			if existing.refresh_on_reapply:
-				existing.refresh()
+			if existing.stackable:
+				existing.merge(effect)
+				print("Merged effect into existing: " + existing.get_script().resource_path.get_file())
 				return
-			else:
-				# Replace old effect
-				existing.on_expired()
-				effects.erase(existing)
-				break
+			
+			# If not stackable, reject new application
+			print("Effect already applied (not stackable): " + existing.get_script().resource_path.get_file())
+			return
 	
 	# Add new effect
 	effects.append(effect)
 	effect.on_applied()
+	print("Applied new effect: " + effect.get_script().resource_path.get_file())
 	
 	# Connect expiry to cleanup
 	if effect._duration_timer:
@@ -54,4 +47,4 @@ func apply_effect(effect: Effect) -> void:
 func _on_effect_expired(effect: Effect) -> void:
 	if effect in effects:
 		effects.erase(effect)
-		print("Effect " + effect.effect_type + " expired on entity " + name)
+		print("Effect expired: " + effect.get_script().resource_path.get_file())

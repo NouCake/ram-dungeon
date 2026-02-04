@@ -6,7 +6,7 @@ extends Node
 func apply_poison_to_entity(entity: Entity, source: Entity = null, stacks: int = 1) -> void:
 	var poison := PoisonEffect.new()
 	poison.source = source
-	poison.stack_size = stacks
+	poison.stack_count = stacks
 	entity.apply_effect(poison)
 	print("Applied " + str(stacks) + " stack(s) of poison to " + entity.name)
 
@@ -14,7 +14,7 @@ func apply_poison_to_entity(entity: Entity, source: Entity = null, stacks: int =
 func apply_burn_to_entity(entity: Entity, source: Entity = null, stacks: int = 1) -> void:
 	var burn := BurnEffect.new()
 	burn.source = source
-	burn.stack_size = stacks
+	burn.stack_count = stacks
 	entity.apply_effect(burn)
 	print("Applied " + str(stacks) + " stack(s) of burn to " + entity.name)
 

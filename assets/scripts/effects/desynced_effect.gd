@@ -8,7 +8,6 @@ extends Effect
 var _modified_actions: Dictionary = {}  # action -> {original_override, original_filters}
 
 func _init() -> void:
-	effect_type = "Desynced"
 	duration = 5.0
 	refresh_on_reapply = true
 

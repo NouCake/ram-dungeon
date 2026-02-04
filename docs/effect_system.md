@@ -14,13 +14,19 @@ var target: Entity          # Required
 var source: Entity = null   # Optional (for attribution)
 @export var duration := 5.0
 @export var refresh_on_reapply := true
-@export var effect_type: String
+@export var stackable := false
+var stack_count := 1
 ```
 
-**Timer Management:**
-- Effect creates Timer node(s) during `on_applied()`
-- Timers are added as children of `target` entity
-- Timers auto-cleanup when effect expires or entity is freed
+**Effect Type Detection:**
+- Effect type is auto-detected using `get_script()`
+- No manual `effect_type` string needed
+- `is_same_type(other)` checks if two effects are the same class
+
+**Stacking:**
+- Set `stackable = true` to allow multiple applications
+- `merge(other)` combines stacks automatically
+- Non-stackable effects are rejected on reapplication
 
 ### TickEffect
 For effects that trigger repeatedly (damage/heal over time):
@@ -28,14 +34,12 @@ For effects that trigger repeatedly (damage/heal over time):
 class_name TickEffect extends Effect
 
 @export var tick_interval := 1.0
-@export var stackable := false
-var stack_size := 1
 ```
 
-**Stacking:**
-- If `stackable = true`, multiple applications add to `stack_size`
-- If `refresh_on_reapply = true`, duration is refreshed
-- Override `_on_tick()` for effect logic
+**Usage:**
+- Override `on_tick()` for effect logic
+- Stacking inherited from base Effect class
+- Use `stack_count` for damage/heal calculations
 
 ## Built-in Effects
 
@@ -61,8 +65,11 @@ var stack_size := 1
 ```gdscript
 var poison = PoisonEffect.new()
 poison.source = attacker
-poison.stack_size = 3
+poison.stack_count = 3
 target_entity.apply_effect(poison)
+
+# If poison already exists and is stackable, stacks will merge
+# If poison exists but not stackable, application is rejected
 ```
 
 ### Apply from EffectArea
@@ -78,9 +85,9 @@ area.target_filters = ["enemy"]
 class_name MyCustomEffect extends Effect
 
 func _init():
-    effect_type = "MyEffect"
     duration = 10.0
     refresh_on_reapply = false
+    stackable = false  # Optional: allow stacking
 
 func on_applied():
     super()  # MUST call to create timers
@@ -98,13 +105,13 @@ func on_expired():
 class_name MyTickEffect extends TickEffect
 
 func _init():
-    effect_type = "MyTick"
     tick_interval = 0.5
     stackable = true
 
 func on_tick():
     # This runs every 0.5 seconds
-    target.health.heal(stack_size * 2)
+    # Use stack_count for scaling
+    target.health.heal(stack_count * 2)
 ```
 
 ## Effect Lifecycle
@@ -130,11 +137,11 @@ Effects respect `get_tree().paused` because Timers are used.
 
 ## Best Practices
 
-1. **Effect Type**: Always set `effect_type` in `_init()` for stacking logic
+1. **No Manual Type**: Effect type auto-detected via `get_script()` - don't set manually
 2. **Timers on Target**: Never `add_child()` timers to effect (effects are Resources)
 3. **super() Calls**: MUST call `super()` when overriding `on_applied()` or `on_expired()`
-4. **Source Attribution**: Set `source` for damage/heal attribution in logs/UI
-5. **Refresh Toggle**: Use `refresh_on_reapply = false` for effects that shouldn't stack or refresh
+4. **Stacking**: Set `stackable = true` in `_init()` to allow multiple applications
+5. **stack_count**: Use `stack_count` (not `stack_size`) for damage/heal scaling
 
 ## Migration from Old System
 
