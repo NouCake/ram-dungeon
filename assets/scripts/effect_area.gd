@@ -6,6 +6,12 @@ extends Area3D
 ## Which effect to apply
 @export var effect: TickEffect
 
+## Optional source entity (for damage/heal attribution, e.g., effect.origin)
+var source_entity: Entity = null
+
+## Target filters (e.g., ["enemy"], ["ally"], ["entity"])
+@export var target_filters: Array[String] = ["entity"]
+
 @export var effect_range := 3.0
 ## the interval (in seconds) at which the effect is applied
 @export var effect_interval := 0.5
@@ -70,7 +76,13 @@ func _process(delta:float) -> void:
 		_apply_effect_to_targets()
 
 func _apply_effect_to_targets() -> void:
-	var targets: Array[Node3D] = detector.find_all(["entity"], current_range, false)
+	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
 	for target in targets:
 		var entity: Entity = Entity.Get(target)
-		entity.apply_effect(effect.duplicate() as TickEffect)
+		var effect_instance := effect.duplicate() as TickEffect
+		
+		# Set source if available (for damage/heal attribution)
+		if source_entity and effect_instance.has("origin"):
+			effect_instance.origin = source_entity
+		
+		entity.apply_effect(effect_instance)
