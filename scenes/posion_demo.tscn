@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://ddy3y7kb3fhcb"]
 
-[ext_resource type="Script" uid="uid://drng2kdiqatl6" path="res://test.gd" id="1_ojkpu"]
+[ext_resource type="PackedScene" uid="uid://c7761vqql2xr4" path="res://assets/entities/effect/poison_area.tscn" id="2_6pkya"]
 [ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="2_fjegx"]
-[ext_resource type="PackedScene" uid="uid://c7761vqql2xr4" path="res://assets/entities/effect/posion_area.tscn" id="3_ojkpu"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ojkpu"]
 
@@ -12,7 +11,6 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
 [node name="Node3D" type="Node3D" unique_id=211146522]
-script = ExtResource("1_ojkpu")
 
 [node name="grid_floor" type="GridMap" parent="." unique_id=1770044489]
 mesh_library = ExtResource("2_fjegx")
@@ -41,5 +39,5 @@ environment = SubResource("Environment_ojkpu")
 projection = 1
 size = 7.5
 
-[node name="posion_area" parent="." unique_id=1804886747 instance=ExtResource("3_ojkpu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1518555, 0, 5.4000244)
+[node name="posion_area" parent="." unique_id=1804886747 instance=ExtResource("2_6pkya")]
+transform = Transform3D(9.227, 0, 0, 0, 9.227, 0, 0, 0, 9.227, -0.59643555, 0.068847656, 2.418457)
