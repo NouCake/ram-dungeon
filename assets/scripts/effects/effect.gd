@@ -27,7 +27,7 @@ func on_applied() -> void:
 	assert(target != null, "Effect must have a target when applied")
 	
 	# Create duration timer using TimerUtil
-	_duration_timer = TimerUtil.delay(target, duration, _on_expired)
+	_duration_timer = TimerUtil.delay(target, duration, on_expired)
 	
 	# Subclass hook
 	_on_applied()
