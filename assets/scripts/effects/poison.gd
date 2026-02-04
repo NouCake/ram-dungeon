@@ -8,7 +8,7 @@ func _init() -> void:
 	duration = 5.0
 	stackable = true
 
-func _on_tick() -> void:
+func on_tick() -> void:
 	var damage_info := DamageInfo.new(source, target)
 	damage_info.amount = stack_size
 	damage_info.type = DamageInfo.DamageType.POISON

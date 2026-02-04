@@ -22,19 +22,17 @@ var source: Entity = null
 ## Internal: timer node managing effect lifetime (lives on target)
 var _duration_timer: Timer = null
 
-## Called when effect is first applied to target
+## Called when effect is first applied to target.
+## Override in subclasses, call super() to preserve timer setup.
 func on_applied() -> void:
 	assert(target != null, "Effect must have a target when applied")
 	
 	# Create duration timer using TimerUtil
 	_duration_timer = TimerUtil.delay(target, duration, on_expired)
-	
-	# Subclass hook
-	_on_applied()
 
-## Called when effect expires naturally or is removed
+## Called when effect expires naturally or is removed.
+## Override in subclasses, MUST call super() to ensure cleanup.
 func on_expired() -> void:
-	_on_expired()
 	_cleanup()
 
 ## Refresh the effect duration (if refresh_on_reapply is true)
@@ -47,11 +45,3 @@ func _cleanup() -> void:
 	if _duration_timer and is_instance_valid(_duration_timer):
 		_duration_timer.queue_free()
 		_duration_timer = null
-
-## Override in subclasses: called when effect is applied
-func _on_applied() -> void:
-	pass
-
-## Override in subclasses: called when effect expires
-func _on_expired() -> void:
-	pass

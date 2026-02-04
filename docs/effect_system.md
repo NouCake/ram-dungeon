@@ -82,13 +82,15 @@ func _init():
     duration = 10.0
     refresh_on_reapply = false
 
-func _on_applied():
+func on_applied():
+    super()  # MUST call to create timers
     print("Effect applied to ", target.name)
     # Add custom logic here
 
-func _on_expired():
+func on_expired():
     print("Effect expired from ", target.name)
     # Cleanup custom logic
+    super()  # MUST call to clean up timers
 ```
 
 ### Create Custom Tick Effect
@@ -100,7 +102,7 @@ func _init():
     tick_interval = 0.5
     stackable = true
 
-func _on_tick():
+func on_tick():
     # This runs every 0.5 seconds
     target.health.heal(stack_size * 2)
 ```
@@ -130,7 +132,7 @@ Effects respect `get_tree().paused` because Timers are used.
 
 1. **Effect Type**: Always set `effect_type` in `_init()` for stacking logic
 2. **Timers on Target**: Never `add_child()` timers to effect (effects are Resources)
-3. **Cleanup**: Override `_on_expired()` for custom cleanup
+3. **super() Calls**: MUST call `super()` when overriding `on_applied()` or `on_expired()`
 4. **Source Attribution**: Set `source` for damage/heal attribution in logs/UI
 5. **Refresh Toggle**: Use `refresh_on_reapply = false` for effects that shouldn't stack or refresh
 
@@ -160,8 +162,20 @@ func do_effect_trigger(entity: Entity):
 
 **New effect code:**
 ```gdscript
-func _on_tick():
+func on_tick():
     target.health.do_damage(...)
+    # No super() needed for on_tick (it's the leaf callback)
+```
+
+**Override pattern:**
+```gdscript
+func on_applied():
+    super()  # MUST call to preserve timer setup
+    # your logic here
+
+func on_expired():
+    # your cleanup here
+    super()  # MUST call to clean up timers
 ```
 
 ## Future Extensions

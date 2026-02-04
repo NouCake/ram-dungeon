@@ -12,7 +12,10 @@ func _init() -> void:
 	duration = 5.0
 	refresh_on_reapply = true
 
-func _on_applied() -> void:
+## Override, call super() to preserve timer setup.
+func on_applied() -> void:
+	super()  # Create duration timer
+	
 	print("Applying Desynced effect to " + target.name)
 	
 	# Find all BaseActionTargeting actions on target
@@ -34,7 +37,8 @@ func _on_applied() -> void:
 				print("  - Flipping " + action.name + ": ally→enemy")
 				action.target_filters = ["enemy"]
 
-func _on_expired() -> void:
+## Override, MUST call super() to clean up timers.
+func on_expired() -> void:
 	print("Removing Desynced effect from " + target.name)
 	
 	# Restore original state only if not overwritten by another effect
@@ -53,3 +57,5 @@ func _on_expired() -> void:
 			print("  - Skipped " + action.name + " (override was changed by another effect)")
 	
 	_modified_actions.clear()
+	
+	super()  # Clean up timers
