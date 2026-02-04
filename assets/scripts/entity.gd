@@ -14,24 +14,44 @@ static func Get(node: Node) -> Entity:
 
 @onready var health := HealthComponent.Get(self)
 
-var effects : Array[TickEffect] = []
+var effects: Array[Effect] = []
 
-func apply_effect(effect: TickEffect) -> void:
-	assert(effect != null, "Cannot apply null effect to entity, you suck!" + name)
-	for e in effects:
-		if e.type == effect.type:
-			if e.stackable:
-				e.stack_size += effect.stack_size
+func apply_effect(effect: Effect) -> void:
+	assert(effect != null, "Cannot apply null effect to entity: " + name)
+	
+	# Set target
+	effect.target = self
+	
+	# Check for existing effect of same type
+	for existing in effects:
+		if existing.effect_type == effect.effect_type:
+			# If stackable, merge
+			if existing is TickEffect and effect is TickEffect:
+				var existing_tick := existing as TickEffect
+				var new_tick := effect as TickEffect
+				if existing_tick.stackable:
+					existing_tick.merge_stack(new_tick)
+					return
+			
+			# If refresh on reapply, refresh duration
+			if existing.refresh_on_reapply:
+				existing.refresh()
 				return
 			else:
-				e.elapsed_time = 0.0
-				return
-
+				# Replace old effect
+				existing.on_expired()
+				effects.erase(existing)
+				break
+	
+	# Add new effect
 	effects.append(effect)
+	effect.on_applied()
+	
+	# Connect expiry to cleanup
+	if effect._duration_timer:
+		effect._duration_timer.timeout.connect(_on_effect_expired.bind(effect))
 
-func _process(delta: float) -> void:
-	for effect in effects:
-		if effect.is_expired():
-			effects.erase(effect)
-			continue
-		effect.tick(delta, self)
+func _on_effect_expired(effect: Effect) -> void:
+	if effect in effects:
+		effects.erase(effect)
+		print("Effect " + effect.effect_type + " expired on entity " + name)
