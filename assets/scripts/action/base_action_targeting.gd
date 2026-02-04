@@ -19,17 +19,10 @@ func get_target_snapshot() -> TargetSnapshot:
 	# Use override if set (e.g., debuff), otherwise use configured strategy
 	var active_strategy := targeting_override if targeting_override else targeting_strategy
 	
-	# Fallback to closest if no strategy configured
+	# No fallback - strategy must be set
 	if not active_strategy:
-		push_warning("No targeting strategy set for " + name + ", falling back to closest")
-		var target := detector.find_closest(target_filters, action_range, true)
-		if target == null:
-			return null
-		var snapshot := TargetSnapshot.new()
-		snapshot.max_range = action_range
-		snapshot.target = target
-		snapshot.target_position = snapshot.target.global_position
-		return snapshot
+		push_error("No targeting strategy set for " + name + ". Action requires targeting_strategy to be configured.")
+		return null
 	
 	# Use strategy to find targets
 	var targets := active_strategy.select_targets(detector, target_filters, action_range, true)
