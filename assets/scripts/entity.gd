@@ -14,7 +14,15 @@ static func Get(node: Node) -> Entity:
 
 @onready var health := HealthComponent.Get(self)
 
-var effects: Array[Effect] = []
+## Active effects on this entity, exported for debugging purposes.
+@export var effects: Array[Effect] = []
+
+func _ready() -> void:
+	# correctly applying initial effects if any were added in the editor
+	var start_effects := effects;
+	effects = [];
+	for effect in start_effects:
+		apply_effect(effect);
 
 func apply_effect(effect: Effect) -> void:
 	assert(effect != null, "Cannot apply null effect to entity: " + name)

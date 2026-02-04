@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://dayefw8tbcn3n" path="res://assets/scripts/action/target_lowest_hp.gd" id="8_8clt3"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
 [ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="8_vwee6"]
+[ext_resource type="Script" uid="uid://ce67pcictb5ll" path="res://assets/scripts/effects/effect.gd" id="11_4lbig"]
+[ext_resource type="Script" uid="uid://cg4bna82pp0ku" path="res://assets/scripts/effects/hallucinating.gd" id="12_30wxc"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_4lbig"]
 viewport_path = NodePath("SubViewport")
@@ -31,6 +33,21 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Resource" id="Resource_ys14l"]
 script = ExtResource("5_owfbn")
+
+[sub_resource type="Curve" id="Curve_4lbig"]
+_limits = [0.0, 1.0, 0.0, 20.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(20, 0.90082926), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_2m47e"]
+script = ExtResource("12_30wxc")
+curve = SubResource("Curve_4lbig")
+duration = 999999.0
+stack_count = 2
+metadata/_custom_type_script = "uid://cg4bna82pp0ku"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3myhx"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Environment" id="Environment_dxudb"]
 ambient_light_source = 2
@@ -128,6 +145,31 @@ action_interval = 6.0
 pause_until_action_success = true
 metadata/_custom_type_script = "uid://628trxcomqbm"
 
+[node name="base_player4" parent="." unique_id=130129833 instance=ExtResource("2_bcga6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+effects = Array[ExtResource("11_4lbig")]([SubResource("Resource_2m47e")])
+
+[node name="world_light" parent="base_player4" index="2" unique_id=1345461555]
+visible = false
+
+[node name="move_dungeon_clear" parent="base_player4" index="5" unique_id=378278260]
+move_speed = 0.0
+
+[node name="healthbar" parent="base_player4" index="10" unique_id=1172448389]
+visible = false
+texture = SubResource("ViewportTexture_3myhx")
+
+[node name="ActionProjectile" type="Node3D" parent="base_player4" unique_id=816245820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("3_o36fe")
+projectile = ExtResource("4_xq7gy")
+projectile_speed = 16.0
+target_filters = Array[String](["enemy4"])
+targeting_strategy = SubResource("Resource_30wxc")
+action_interval = 0.25
+pause_until_action_success = true
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
 [node name="camera" type="Camera3D" parent="." unique_id=967101517]
 transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, -0.24810791, 5.6119924, 11.268732)
 environment = SubResource("Environment_dxudb")
@@ -197,6 +239,7 @@ damage_number_scene = ExtResource("8_lgn12")
 [editable path="base_player"]
 [editable path="base_player2"]
 [editable path="base_player3"]
+[editable path="base_player4"]
 [editable path="dummy"]
 [editable path="dummy2"]
 [editable path="dummy3"]

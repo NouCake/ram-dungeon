@@ -20,7 +20,7 @@ var source: Entity = null
 @export var stackable := false
 
 ## For stackable effects: how many stacks are currently active
-var stack_count := 1
+@export var stack_count := 1
 
 var _duration_timer: Timer = null
 
