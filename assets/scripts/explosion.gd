@@ -9,8 +9,7 @@ var origin: Entity
 func _ready() -> void:
 	assert(origin != null, "Explosion must have an origin set")
 	deal_damage()
-	await get_tree().create_timer(0.2).timeout
-	queue_free()
+	TimerUtil.delay(self, 0.2, queue_free)
 
 func deal_damage() -> void:
 	var detector := TargetDetectorComponent.Get(self)

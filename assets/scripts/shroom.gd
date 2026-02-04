@@ -8,24 +8,22 @@ extends Node3D
 
 @onready var sprite: AnimatedSprite3D = get_node("sprite")
 
+var _poison_timer: Timer
+
 func _ready() -> void:
 	sprite.play("default")
 	sprite.speed_scale = 3 / grow_time
 	_schedule_lifecycle()
 
 func _schedule_lifecycle() -> void:
-	# Wait for grow phase before starting poison spawning
-	await get_tree().create_timer(grow_time).timeout
-	_start_poison_spawning()
+	# Wait for grow phase, then start repeating poison spawns
+	TimerUtil.delay(self, grow_time, _start_poison_spawning)
 	
 	# Auto-destroy after total lifetime
-	await get_tree().create_timer(time_alive - grow_time).timeout
-	queue_free()
+	TimerUtil.delay(self, time_alive, queue_free)
 
 func _start_poison_spawning() -> void:
-	while true:
-		spawn_effect()
-		await get_tree().create_timer(poison_interval).timeout
+	_poison_timer = TimerUtil.repeat(self, poison_interval, spawn_effect)
 
 func spawn_effect() -> void:
 	var effect_instance: Node3D = effect_scene.instantiate()

@@ -24,8 +24,8 @@ var source_entity: Entity = null
 @onready var mesh: MeshInstance3D = get_node("mesh")
 @onready var particles: GPUParticles3D = get_node("particles")
 
-var time_since_last_update := effect_interval
 var current_range := effect_range
+var _effect_timer: Timer
 
 func _ready():
 	mesh.set_instance_shader_parameter("fade", 0.0)
@@ -39,9 +39,11 @@ func _schedule_lifecycle() -> void:
 	# Use tween for fade in/out
 	_setup_fade_tween()
 	
+	# Start repeating effect application
+	_effect_timer = TimerUtil.repeat(self, effect_interval, _apply_effect_to_targets)
+	
 	# Auto-destroy after lifetime
-	await get_tree().create_timer(time_alive).timeout
-	queue_free()
+	TimerUtil.delay(self, time_alive, queue_free)
 
 func _setup_grow_tween() -> void:
 	var tween := create_tween()
@@ -67,13 +69,6 @@ func _update_range(new_range: float) -> void:
 	current_range = new_range
 	(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
 	mesh.scale = Vector3.ONE * new_range / effect_range
-
-func _process(delta:float) -> void:
-	time_since_last_update += delta
-
-	if time_since_last_update >= effect_interval:
-		time_since_last_update -= effect_interval
-		_apply_effect_to_targets()
 
 func _apply_effect_to_targets() -> void:
 	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
