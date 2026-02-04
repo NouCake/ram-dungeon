@@ -23,7 +23,9 @@ var current_range := effect_range
 
 func _ready():
 	mesh.set_instance_shader_parameter("fade", 0.0)
-	
+	_schedule_lifecycle()
+
+func _schedule_lifecycle() -> void:
 	# Use tween for grow animation
 	if grows:
 		_setup_grow_tween()
