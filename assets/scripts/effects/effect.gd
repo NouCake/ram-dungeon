@@ -22,19 +22,16 @@ var source: Entity = null
 ## For stackable effects: how many stacks are currently active
 var stack_count := 1
 
-## Internal: timer node managing effect lifetime (lives on target)
 var _duration_timer: Timer = null
 
-## Returns true if this effect is the same type as other (based on script).
 func is_same_type(other: Effect) -> bool:
 	return get_script() == other.get_script()
 
 ## Merge another effect of the same type (for stackable effects).
-## Override in subclasses for custom merge behavior.
 func merge(other: Effect) -> void:
-	if stackable and is_same_type(other):
+	assert(is_same_type(other), "Cannot merge effects of different types.")
+	if stackable:
 		stack_count += other.stack_count
-		# Optionally refresh duration
 		if refresh_on_reapply:
 			refresh()
 
@@ -42,8 +39,6 @@ func merge(other: Effect) -> void:
 ## Override in subclasses, call super() to preserve timer setup.
 func on_applied() -> void:
 	assert(target != null, "Effect must have a target when applied")
-	
-	# Create duration timer using TimerUtil
 	_duration_timer = TimerUtil.delay(target, duration, on_expired)
 
 ## Called when effect expires naturally or is removed.
