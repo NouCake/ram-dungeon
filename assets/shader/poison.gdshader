@@ -61,6 +61,19 @@ float rim_light(vec3 vertex, vec3 view, vec3 normal) {
 	return pow(rim, rim_power) * rim_strength;
 }
 
+float quantasize(float value, float n) {
+	float stepped_value = floor(value * (n - 1.0)) / (n - 1.0);
+	return stepped_value;
+}
+
+vec3 quantasize(vec3 value, float n) {
+	return vec3(
+		quantasize(value.x, n),
+		quantasize(value.y, n),
+		quantasize(value.z, n)
+	);
+}
+
 void fragment() {
 	vec3 rim_light = rim_color.rgb;
 	
@@ -81,6 +94,6 @@ void fragment() {
 	float linear_depth = -(view.xyz/view.w).z; // This is your distance in world units
 	
 	float depth_difference = clamp((linear_depth + VERTEX.z) * 2.0, 0.0, 0.5);
-	ALBEDO = mix(base_color.rgb, rim_color.rgb, displacement);
-	ALPHA = min(cutoff, depth_difference * circle * (displacement + 0.5)) * fade;
+	ALBEDO = quantasize(mix(base_color.rgb, rim_color.rgb, displacement), 32.0);
+	ALPHA = quantasize(min(cutoff, depth_difference * circle * (displacement + 0.5)) * fade, 32.0);
 }
