@@ -14,6 +14,9 @@ static func Get(node: Node) -> Entity:
 
 @onready var health := HealthComponent.Get(self)
 
+## Emitted whenever effects array changes (apply, expire, merge)
+signal effects_changed
+
 ## Active effects on this entity, exported for debugging purposes.
 @export var effects: Array[Effect] = []
 
@@ -32,6 +35,7 @@ func apply_effect(effect: Effect) -> void:
 		if existing.is_same_type(effect):
 			if existing.stackable:
 				existing.merge(effect)
+				effects_changed.emit()
 				return
 			return
 	
@@ -41,7 +45,10 @@ func apply_effect(effect: Effect) -> void:
 	# cleanup
 	if effect._duration_timer:
 		effect._duration_timer.timeout.connect(_on_effect_expired.bind(effect))
+	
+	effects_changed.emit()
 
 func _on_effect_expired(effect: Effect) -> void:
 	if effect in effects:
 		effects.erase(effect)
+		effects_changed.emit()
