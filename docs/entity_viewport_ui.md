@@ -72,9 +72,13 @@ Player (extends Entity)
 ```
 EntityViewportUI
 └─ VBoxContainer
-   ├─ TextureProgressBar [HP: ████████░░]
-   ├─ TextureProgressBar [Poison x4 ███░░░]
-   └─ TextureProgressBar [Burn x1 ██████]
+   ├─ TextureProgressBar [████████░░] (health, no text)
+   ├─ VBoxContainer (effect entry)
+   │  ├─ Label "Poison x4"
+   │  └─ TextureProgressBar [███░░░]
+   └─ VBoxContainer (effect entry)
+      ├─ Label "Burn x1"
+      └─ TextureProgressBar [██████]
 ```
 
 ## Render Mode Logic

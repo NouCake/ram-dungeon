@@ -11,11 +11,11 @@ var _entity: Entity
 ## UI container
 var _container: VBoxContainer
 
-## Health bar
+## Health bar (no text, visual only)
 var _health_bar: TextureProgressBar
 
-## Effect bars (one per effect)
-var _effect_bars: Dictionary[Effect, TextureProgressBar] = {}
+## Effect entries (Label + ProgressBar per effect)
+var _effect_entries: Dictionary[Effect, VBoxContainer] = {}
 
 func _ready() -> void:
 	# Auto-detect entity parent
@@ -31,7 +31,7 @@ func _ready() -> void:
 	_container = VBoxContainer.new()
 	add_child(_container)
 	
-	# Create health bar
+	# Create health bar (no text)
 	_health_bar = TextureProgressBar.new()
 	_health_bar.custom_minimum_size = Vector2(256, 32)
 	_health_bar.max_value = _entity.health.max_health
@@ -47,7 +47,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	# Update effect bar values (time remaining)
-	if _effect_bars.size() > 0:
+	if _effect_entries.size() > 0:
 		_update_effect_bars()
 
 func _on_health_changed(_info: DamageInfo) -> void:
@@ -58,37 +58,44 @@ func _on_health_changed(_info: DamageInfo) -> void:
 		render_target_update_mode = UPDATE_ONCE
 
 func _on_effects_changed() -> void:
-	_rebuild_effect_bars()
+	_rebuild_effect_entries()
 	_update_render_mode()
 
-func _rebuild_effect_bars() -> void:
-	# Remove old bars
-	for bar in _effect_bars.values():
-		bar.queue_free()
-	_effect_bars.clear()
+func _rebuild_effect_entries() -> void:
+	# Remove old entries
+	for entry in _effect_entries.values():
+		entry.queue_free()
+	_effect_entries.clear()
 	
-	# Create bar for each effect
+	# Create entry (Label + ProgressBar) for each effect
 	for effect in _entity.effects:
-		var bar := TextureProgressBar.new()
-		bar.custom_minimum_size = Vector2(256, 24)
-		bar.max_value = effect.duration
-		bar.value = _get_remaining_time(effect)
+		var entry := VBoxContainer.new()
 		
-		# Set text (effect name + stack)
+		# Label with effect name + stack
+		var label := Label.new()
 		var effect_name := _get_effect_name(effect)
 		if effect.stack_count > 1:
-			bar.text = "%s x%d" % [effect_name, effect.stack_count]
+			label.text = "%s x%d" % [effect_name, effect.stack_count]
 		else:
-			bar.text = effect_name
+			label.text = effect_name
+		entry.add_child(label)
 		
-		_container.add_child(bar)
-		_effect_bars[effect] = bar
+		# ProgressBar for time remaining
+		var bar := TextureProgressBar.new()
+		bar.custom_minimum_size = Vector2(256, 20)
+		bar.max_value = effect.duration
+		bar.value = _get_remaining_time(effect)
+		entry.add_child(bar)
+		
+		_container.add_child(entry)
+		_effect_entries[effect] = entry
 
 func _update_effect_bars() -> void:
 	# Update time remaining on all effect bars
-	for effect in _effect_bars.keys():
+	for effect in _effect_entries.keys():
 		if effect in _entity.effects:
-			var bar: TextureProgressBar = _effect_bars[effect]
+			var entry: VBoxContainer = _effect_entries[effect]
+			var bar: TextureProgressBar = entry.get_child(1) as TextureProgressBar
 			bar.value = _get_remaining_time(effect)
 
 func _update_render_mode() -> void:
