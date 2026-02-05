@@ -12,9 +12,7 @@ extends VBoxContainer
 var _effect_bars: Dictionary[Effect, ProgressBar] = {}
 
 func _ready() -> void:
-	if not target_entity:
-		push_warning("EffectHUD: no target_entity set, will not display effects")
-		return
+	assert(target_entity != null, "EffectHUD: target_entity must be set in editor")
 	
 	# Connect to entity's effects_changed signal
 	target_entity.effects_changed.connect(_rebuild_display)

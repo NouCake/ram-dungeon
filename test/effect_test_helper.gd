@@ -6,13 +6,9 @@ extends Node
 @export var target_entity: Entity
 
 func _ready() -> void:
-	if not target_entity:
-		push_warning("EffectTestHelper: no target_entity set")
+	assert(target_entity != null, "EffectTestHelper: target_entity must be set")
 
 func _input(event: InputEvent) -> void:
-	if not target_entity:
-		return
-	
 	# Press 1: Apply poison (stackable)
 	if event.is_action_pressed("ui_text_submit"):  # numpad enter or 1
 		_apply_poison()
