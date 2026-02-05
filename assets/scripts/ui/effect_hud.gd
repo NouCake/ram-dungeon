@@ -1,18 +1,15 @@
-## Displays active effects on an entity as a text list.
-## Shows effect name and stack count (if > 1).
+## Displays active effects on an entity as progress bars.
+## Each effect shows name + stack count, with bar indicating time remaining.
 ## Auto-updates when entity's effects change.
 class_name EffectHUD
 
-extends Label
+extends VBoxContainer
 
 ## Entity to watch for effects (e.g., player)
 @export var target_entity: Entity
 
-## Maximum number of effects to display (0 = unlimited)
-@export var max_lines := 10
-
-## If true, sort debuffs before buffs (damage effects first)
-@export var sort_debuffs_first := false
+## Track progress bars for each effect
+var _effect_bars: Dictionary = {}  # Effect -> ProgressBar
 
 func _ready() -> void:
 	if not target_entity:
@@ -20,41 +17,52 @@ func _ready() -> void:
 		return
 	
 	# Connect to entity's effects_changed signal
-	target_entity.effects_changed.connect(_update_display)
+	target_entity.effects_changed.connect(_rebuild_display)
 	
 	# Initial display
-	_update_display()
+	_rebuild_display()
 
-func _update_display() -> void:
+func _process(_delta: float) -> void:
+	# Update progress bars each frame
+	_update_bars()
+
+func _rebuild_display() -> void:
+	# Clear existing bars
+	for bar in _effect_bars.values():
+		bar.queue_free()
+	_effect_bars.clear()
+	
 	if not target_entity:
-		text = ""
 		return
 	
-	var effect_list := target_entity.effects.duplicate()
-	
-	# Optional: sort effects
-	if sort_debuffs_first:
-		effect_list.sort_custom(_sort_debuffs_first)
-	
-	# Build text lines
-	var lines: Array[String] = []
-	var count := 0
-	
-	for effect in effect_list:
-		if max_lines > 0 and count >= max_lines:
-			lines.append("... (%d more)" % (effect_list.size() - count))
-			break
+	# Create progress bar for each effect
+	for effect in target_entity.effects:
+		var bar := ProgressBar.new()
+		bar.show_percentage = false  # We'll set custom text
+		bar.max_value = effect.duration
+		bar.value = _get_remaining_time(effect)
 		
+		# Set text (name + stack count)
 		var effect_name := _get_effect_name(effect)
-		
 		if effect.stack_count > 1:
-			lines.append("%s x%d" % [effect_name, effect.stack_count])
+			bar.text = "%s x%d" % [effect_name, effect.stack_count]
 		else:
-			lines.append(effect_name)
+			bar.text = effect_name
 		
-		count += 1
-	
-	text = "\n".join(lines)
+		add_child(bar)
+		_effect_bars[effect] = bar
+
+func _update_bars() -> void:
+	# Update progress bar values based on remaining time
+	for effect in _effect_bars.keys():
+		if effect in target_entity.effects:
+			var bar: ProgressBar = _effect_bars[effect]
+			bar.value = _get_remaining_time(effect)
+
+func _get_remaining_time(effect: Effect) -> float:
+	if not effect._duration_timer or not is_instance_valid(effect._duration_timer):
+		return 0.0
+	return effect._duration_timer.time_left
 
 ## Extract human-readable name from effect script path
 func _get_effect_name(effect: Effect) -> String:
@@ -67,20 +75,3 @@ func _get_effect_name(effect: Effect) -> String:
 	
 	# Capitalize and add spaces (e.g., "Poison" or "Desynced")
 	return file_name.capitalize()
-
-## Sort comparator: debuffs (damage effects) before buffs
-func _sort_debuffs_first(a: Effect, b: Effect) -> bool:
-	var a_is_debuff := _is_debuff(a)
-	var b_is_debuff := _is_debuff(b)
-	
-	if a_is_debuff and not b_is_debuff:
-		return true
-	if not a_is_debuff and b_is_debuff:
-		return false
-	
-	# If both same type, sort alphabetically
-	return _get_effect_name(a) < _get_effect_name(b)
-
-## Heuristic: TickEffect = debuff (damage over time)
-func _is_debuff(effect: Effect) -> bool:
-	return effect is TickEffect
