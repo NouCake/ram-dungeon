@@ -9,7 +9,7 @@ extends VBoxContainer
 @export var target_entity: Entity
 
 ## Track progress bars for each effect
-var _effect_bars: Dictionary = {}  # Effect -> ProgressBar
+var _effect_bars: Dictionary[Effect, ProgressBar] = {}
 
 func _ready() -> void:
 	if not target_entity:
