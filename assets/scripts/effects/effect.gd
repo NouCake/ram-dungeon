@@ -19,6 +19,9 @@ var source: Entity = null
 ## If true, multiple applications of this effect can stack
 @export var stackable := false
 
+## Maximum number of stacks allowed (0 = unlimited)
+@export var max_stack_count := 0
+
 ## For stackable effects: how many stacks are currently active
 @export var stack_count := 1
 
@@ -31,7 +34,14 @@ func is_same_type(other: Effect) -> bool:
 func merge(other: Effect) -> void:
 	assert(is_same_type(other), "Cannot merge effects of different types.")
 	if stackable:
-		stack_count += other.stack_count
+		var new_stacks := stack_count + other.stack_count
+		
+		# Cap at max_stack_count if set
+		if max_stack_count > 0:
+			stack_count = mini(new_stacks, max_stack_count)
+		else:
+			stack_count = new_stacks
+		
 		if refresh_on_reapply:
 			refresh()
 
