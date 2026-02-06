@@ -15,13 +15,18 @@ var source: Entity = null   # Optional
 @export var duration := 5.0
 @export var refresh_on_reapply := true
 @export var stackable := false
+@export var max_stack_count := 0  # 0 = unlimited
 var stack_count := 1
 ```
 
 **Stacking:**
 - Set `stackable = true` to allow multiple applications
-- `merge(other)` combines stacks automatically
+- Set `max_stack_count > 0` to cap stacks (0 = unlimited)
+- `merge(other)` combines stacks automatically and takes higher max
 - Non-stackable effects are rejected on reapplication
+
+**Future consideration:**
+> Dynamic max_stack_count modifiers (e.g., buffs that increase poison cap) may be added via entity-wide effect modifiers. Current system: merge() takes higher max_stack_count when combining effects.
 
 ### TickEffect
 For effects that trigger repeatedly (damage/heal over time):
