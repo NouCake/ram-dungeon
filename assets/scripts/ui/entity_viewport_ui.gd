@@ -72,7 +72,7 @@ func _update_effect_bars() -> void:
 
 func _update_render_mode() -> void:
 	if _entity.effects.size() > 0:
-		_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		_viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
 	else:
 		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 
