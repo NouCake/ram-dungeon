@@ -1,70 +1,34 @@
 [gd_scene format=3 uid="uid://da7lgh61332we"]
 
 [ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="1_uwtp6"]
-[ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="2_bcga6"]
-[ext_resource type="PackedScene" uid="uid://bj3oiln7hc7bj" path="res://assets/entities/dummy.tscn" id="3_bcga6"]
 [ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="3_o36fe"]
+[ext_resource type="PackedScene" uid="uid://bj3oiln7hc7bj" path="res://assets/entities/enemies/dummy.tscn" id="4_o36fe"]
 [ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="4_xq7gy"]
 [ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="5_owfbn"]
-[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="5_xq7gy"]
-[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="6_lgn12"]
-[ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="7_68wvi"]
+[ext_resource type="PackedScene" uid="uid://n3xeai5drsr" path="res://assets/entities/showcase_player_immovable.tscn" id="5_xq7gy"]
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
-[ext_resource type="Script" uid="uid://dayefw8tbcn3n" path="res://assets/scripts/action/target_lowest_hp.gd" id="8_8clt3"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
-[ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="8_vwee6"]
-[ext_resource type="Script" uid="uid://ce67pcictb5ll" path="res://assets/scripts/effects/effect.gd" id="11_4lbig"]
-[ext_resource type="Script" uid="uid://cg4bna82pp0ku" path="res://assets/scripts/effects/hallucinating.gd" id="12_30wxc"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_4lbig"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="Resource" id="Resource_30wxc"]
-script = ExtResource("5_owfbn")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_2m47e"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="Resource" id="Resource_3myhx"]
-script = ExtResource("8_8clt3")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_42jun"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="Resource" id="Resource_ys14l"]
-script = ExtResource("5_owfbn")
-
-[sub_resource type="Curve" id="Curve_4lbig"]
-_limits = [0.0, 1.0, 0.0, 20.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(20, 0.90082926), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_2m47e"]
-script = ExtResource("12_30wxc")
-curve = SubResource("Curve_4lbig")
-duration = 999999.0
-stack_count = 2
-metadata/_custom_type_script = "uid://cg4bna82pp0ku"
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_3myhx"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="9_vwee6"]
+[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="10_owfbn"]
+[ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="11_8clt3"]
+[ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="12_4lbig"]
 
 [sub_resource type="Environment" id="Environment_dxudb"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_aak5o"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="Resource" id="Resource_dxudb"]
+script = ExtResource("5_owfbn")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_hapmf"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="Resource" id="Resource_vwee6"]
+script = ExtResource("5_owfbn")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_tj4ad"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_wrlhd"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="Resource" id="Resource_owfbn"]
+script = ExtResource("5_owfbn")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
 [node name="Node3D" type="Node3D" unique_id=1600318940]
 
@@ -77,152 +41,11 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("2_bcga6")]
-
-[node name="world_light" parent="base_player" index="2" unique_id=1345461555]
-visible = false
-
-[node name="move_dungeon_clear" parent="base_player" index="5" unique_id=378278260]
-move_speed = 0.0
-
-[node name="healthbar" parent="base_player" index="10" unique_id=1172448389]
-visible = false
-texture = SubResource("ViewportTexture_4lbig")
-
-[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=723096821]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-script = ExtResource("3_o36fe")
-projectile = ExtResource("4_xq7gy")
-projectile_speed = 16.0
-target_filters = Array[String](["enemy1"])
-targeting_strategy = SubResource("Resource_30wxc")
-action_interval = 2.0
-pause_until_action_success = true
-metadata/_custom_type_script = "uid://cnp3jo4lruyy"
-
-[node name="base_player2" parent="." unique_id=1358831431 instance=ExtResource("2_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-
-[node name="world_light" parent="base_player2" index="2" unique_id=1345461555]
-visible = false
-
-[node name="move_dungeon_clear" parent="base_player2" index="5" unique_id=378278260]
-move_speed = 0.0
-
-[node name="healthbar" parent="base_player2" index="10" unique_id=1172448389]
-visible = false
-texture = SubResource("ViewportTexture_2m47e")
-
-[node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=483451215]
-script = ExtResource("5_xq7gy")
-heal_vfx = ExtResource("6_lgn12")
-target_filters = Array[String](["enemy2"])
-action_range = 5.0
-targeting_strategy = SubResource("Resource_3myhx")
-action_interval = 2.0
-metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
-
-[node name="base_player3" parent="." unique_id=1742669283 instance=ExtResource("2_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-
-[node name="world_light" parent="base_player3" index="2" unique_id=1345461555]
-visible = false
-
-[node name="move_dungeon_clear" parent="base_player3" index="5" unique_id=378278260]
-move_speed = 0.0
-
-[node name="healthbar" parent="base_player3" index="10" unique_id=1172448389]
-visible = false
-texture = SubResource("ViewportTexture_42jun")
-
-[node name="ActionObjectSpawn" type="Node3D" parent="base_player3" unique_id=972035719]
-script = ExtResource("7_68wvi")
-to_spawn = ExtResource("8_vwee6")
-target_filters = Array[String](["enemy3"])
-action_range = 5.0
-targeting_strategy = SubResource("Resource_ys14l")
-action_interval = 6.0
-pause_until_action_success = true
-metadata/_custom_type_script = "uid://628trxcomqbm"
-
-[node name="base_player4" parent="." unique_id=130129833 instance=ExtResource("2_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
-effects = Array[ExtResource("11_4lbig")]([SubResource("Resource_2m47e")])
-
-[node name="world_light" parent="base_player4" index="2" unique_id=1345461555]
-visible = false
-
-[node name="move_dungeon_clear" parent="base_player4" index="5" unique_id=378278260]
-move_speed = 0.0
-
-[node name="healthbar" parent="base_player4" index="10" unique_id=1172448389]
-visible = false
-texture = SubResource("ViewportTexture_3myhx")
-
-[node name="ActionProjectile" type="Node3D" parent="base_player4" unique_id=816245820]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-script = ExtResource("3_o36fe")
-projectile = ExtResource("4_xq7gy")
-projectile_speed = 16.0
-target_filters = Array[String](["enemy4"])
-targeting_strategy = SubResource("Resource_30wxc")
-action_interval = 0.25
-pause_until_action_success = true
-metadata/_custom_type_script = "uid://cnp3jo4lruyy"
-
 [node name="camera" type="Camera3D" parent="." unique_id=967101517]
 transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, -0.24810791, 5.6119924, 11.268732)
 environment = SubResource("Environment_dxudb")
 projection = 1
 size = 7.5
-
-[node name="dummy" parent="." unique_id=854267946 instance=ExtResource("3_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-
-[node name="sprite" parent="dummy" index="0" unique_id=1123765104]
-no_depth_test = false
-
-[node name="targetable" parent="dummy" index="3" unique_id=1001078350]
-tags = Array[String](["enemy1", "entity"])
-
-[node name="healthbar" parent="dummy" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_aak5o")
-
-[node name="dummy2" parent="." unique_id=312009439 instance=ExtResource("3_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
-
-[node name="sprite" parent="dummy2" index="0" unique_id=1123765104]
-no_depth_test = false
-
-[node name="targetable" parent="dummy2" index="3" unique_id=1001078350]
-tags = Array[String](["enemy2", "entity"])
-
-[node name="healthbar" parent="dummy2" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_hapmf")
-
-[node name="dummy3" parent="." unique_id=1253583673 instance=ExtResource("3_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
-
-[node name="sprite" parent="dummy3" index="0" unique_id=1123765104]
-no_depth_test = false
-
-[node name="targetable" parent="dummy3" index="3" unique_id=1001078350]
-tags = Array[String](["enemy3", "entity"])
-
-[node name="healthbar" parent="dummy3" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_tj4ad")
-
-[node name="dummy4" parent="." unique_id=29855468 instance=ExtResource("3_bcga6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
-
-[node name="sprite" parent="dummy4" index="0" unique_id=1123765104]
-no_depth_test = false
-
-[node name="targetable" parent="dummy4" index="3" unique_id=1001078350]
-tags = Array[String](["enemy4", "entity"])
-
-[node name="healthbar" parent="dummy4" index="10" unique_id=944459381]
-texture = SubResource("ViewportTexture_wrlhd")
 
 [node name="grid_walls" type="GridMap" parent="." unique_id=547799591]
 mesh_library = ExtResource("1_uwtp6")
@@ -236,11 +59,59 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 script = ExtResource("7_dxudb")
 damage_number_scene = ExtResource("8_lgn12")
 
-[editable path="base_player"]
-[editable path="base_player2"]
-[editable path="base_player3"]
-[editable path="base_player4"]
-[editable path="dummy"]
-[editable path="dummy2"]
-[editable path="dummy3"]
-[editable path="dummy4"]
+[node name="dummy" parent="." unique_id=1773388456 instance=ExtResource("4_o36fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
+tags = "enemy1,entity"
+
+[node name="dummy2" parent="." unique_id=911492444 instance=ExtResource("4_o36fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
+tags = "enemy2,entity"
+
+[node name="dummy3" parent="." unique_id=1588154927 instance=ExtResource("4_o36fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
+tags = "enemy3,entity"
+
+[node name="dummy4" parent="." unique_id=1378709544 instance=ExtResource("4_o36fe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 8)
+tags = "enemy4,entity"
+
+[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("5_xq7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+tags = "entity"
+
+[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=468950535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("3_o36fe")
+projectile = ExtResource("4_xq7gy")
+target_filters = Array[String](["enemy1"])
+targeting_strategy = SubResource("Resource_dxudb")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="base_player2" parent="." unique_id=1343113177 instance=ExtResource("5_xq7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+tags = "entity"
+
+[node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=223223996]
+script = ExtResource("9_vwee6")
+heal_vfx = ExtResource("10_owfbn")
+target_filters = Array[String](["enemy2"])
+targeting_strategy = SubResource("Resource_vwee6")
+metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
+
+[node name="base_player3" parent="." unique_id=117337697 instance=ExtResource("5_xq7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+tags = "entity"
+
+[node name="ActionObjectSpawn" type="Node3D" parent="base_player3" unique_id=79923416]
+script = ExtResource("11_8clt3")
+to_spawn = ExtResource("12_4lbig")
+spawn_radius = 1.5
+target_filters = Array[String](["enemy3"])
+targeting_strategy = SubResource("Resource_owfbn")
+action_interval = 5.0
+pause_until_action_success = true
+metadata/_custom_type_script = "uid://628trxcomqbm"
+
+[node name="base_player4" parent="." unique_id=354098001 instance=ExtResource("5_xq7gy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+tags = "entity"

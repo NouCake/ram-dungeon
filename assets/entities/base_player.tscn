@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkao87oawcvs5"]
 
-[ext_resource type="Script" path="res://assets/scripts/entity.gd" id="1_nc8pj"]
+[ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="1_nc8pj"]
 [ext_resource type="Texture2D" uid="uid://danx10rq6kmyi" path="res://assets/sprites/knight.png" id="2_nc8pj"]
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="4_ixvt8"]
 [ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="6_f7i5o"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://cf35qhl3q52e2" path="res://assets/scripts/move_dungeon_clear.gd" id="8_wiayc"]
 [ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="9_jsamf"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_ufriv"]
-[ext_resource type="PackedScene" uid="uid://crarjc5ro56mv" path="res://assets/components/ui/health_bar.tscn" id="11_ftfp5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wiayc"]
 atlas = ExtResource("2_nc8pj")
@@ -200,9 +199,6 @@ animations = [{
 margin = 0.0
 height = 1.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ftfp5"]
-viewport_path = NodePath("SubViewport")
-
 [node name="base_player" type="CharacterBody3D" unique_id=1116852983]
 script = ExtResource("1_nc8pj")
 
@@ -233,7 +229,6 @@ omni_range = 7.5
 
 [node name="targetable" type="Node" parent="." unique_id=1298045655]
 script = ExtResource("6_f7i5o")
-tags = Array[String](["player", "entity"])
 
 [node name="move_dungeon_clear" type="Node" parent="." unique_id=378278260]
 script = ExtResource("8_wiayc")
@@ -254,22 +249,6 @@ metadata/_custom_type_script = "uid://p1i5c8q40s43"
 script = ExtResource("9_jsamf")
 knockback_resistance = 1.0
 metadata/_custom_type_script = "uid://dklepcgv41dhm"
-
-[node name="SubViewport" type="SubViewport" parent="." unique_id=712846435]
-transparent_bg = true
-size = Vector2i(128, 64)
-
-[node name="health_bar" parent="SubViewport" unique_id=1245805486 instance=ExtResource("11_ftfp5")]
-anchors_preset = 8
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -8.0
-offset_bottom = 8.0
-grow_vertical = 2
-
-[node name="healthbar" type="Sprite3D" parent="." unique_id=1172448389]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
-texture = SubResource("ViewportTexture_ftfp5")
 
 [node name="caster" type="Node" parent="." unique_id=652821613]
 script = ExtResource("9_ufriv")
