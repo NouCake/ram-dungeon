@@ -34,6 +34,10 @@ func is_same_type(other: Effect) -> bool:
 func merge(other: Effect) -> void:
 	assert(is_same_type(other), "Cannot merge effects of different types.")
 	if stackable:
+		# Use higher max_stack_count (buffs can increase cap)
+		if other.max_stack_count > max_stack_count:
+			max_stack_count = other.max_stack_count
+		
 		var new_stacks := stack_count + other.stack_count
 		
 		# Cap at max_stack_count if set
