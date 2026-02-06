@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bbpqmblpblvyh"]
+
+[ext_resource type="Script" uid="uid://dwr2ta3n4k88l" path="res://assets/scripts/ui/entity_viewport_ui.gd" id="1_4nsjj"]
+[ext_resource type="Texture2D" uid="uid://niojes4chkc6" path="res://assets/sprites/health_empty.png" id="1_dxx5x"]
+[ext_resource type="Texture2D" uid="uid://trmevv52uwua" path="res://assets/sprites/health_filled.png" id="2_4nsjj"]
+[ext_resource type="PackedScene" uid="uid://bth4xv6ukjw1g" path="res://assets/components/ui/effect.tscn" id="4_4nsjj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0bmqq"]
+viewport_path = NodePath("viewport")
+
+[node name="hud" type="Sprite3D" unique_id=1119696046]
+billboard = 1
+texture = SubResource("ViewportTexture_0bmqq")
+script = ExtResource("1_4nsjj")
+effect_bar_scene = ExtResource("4_4nsjj")
+
+[node name="viewport" type="SubViewport" parent="." unique_id=1822547064]
+transparent_bg = true
+size = Vector2i(64, 64)
+
+[node name="container" type="VBoxContainer" parent="viewport" unique_id=1839058123]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="health_bar" type="TextureProgressBar" parent="viewport/container" unique_id=1188016155]
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 8
+stretch_margin_top = 8
+stretch_margin_right = 8
+stretch_margin_bottom = 8
+texture_under = ExtResource("1_dxx5x")
+texture_progress = ExtResource("2_4nsjj")

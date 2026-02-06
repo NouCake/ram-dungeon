@@ -51,7 +51,6 @@ func refresh() -> void:
 	if _duration_timer and is_instance_valid(_duration_timer):
 		_duration_timer.start(duration)
 
-## Stop the effect and clean up timers
 func _cleanup() -> void:
 	if _duration_timer and is_instance_valid(_duration_timer):
 		_duration_timer.queue_free()

@@ -20,12 +20,24 @@ signal effects_changed
 ## Active effects on this entity, exported for debugging purposes.
 @export var effects: Array[Effect] = []
 
+## helper value to quickly override tags in editor, but not intended for prod use
+@export var tags: String;
+
+## Helper for editor to show tags as comma-separated string, but store as array
+@onready var _targetable: Targetable = Targetable.Get(self)
+
 func _ready() -> void:
+	if tags != null and tags.length() > 0 and ",".join(_targetable.tags) != tags:
+		push_warning("Overriding tags from Entity. Should be not used for prod build")
+		_targetable.tags = PackedStringArray(tags.split(","))
+		_targetable.tags.append("entity")
+
 	# correctly applying initial effects if any were added in the editor
 	var start_effects := effects;
 	effects = [];
 	for effect in start_effects:
 		apply_effect(effect);
+
 
 func apply_effect(effect: Effect) -> void:
 	assert(effect != null, "Cannot apply null effect to entity: " + name)

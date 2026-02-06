@@ -4,7 +4,7 @@ class_name BaseTimedCast
 extends Node3D
 
 ## Time in seconds between each action attempt
-@export var action_interval: float
+@export var action_interval: float = 1.0
 ## If true, the action is ready immediately on start
 @export var start_ready := true
 ## If true, the action will only reset its timer on a successful action

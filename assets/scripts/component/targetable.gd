@@ -2,7 +2,7 @@ class_name Targetable
 
 extends Node
 
-@export var tags: Array[String] = []
+@export var tags: PackedStringArray = []
 
 static var component_name: String = "targetable"
 static func Is(node: Node) -> bool:
@@ -20,6 +20,8 @@ static func Get(node: Node) -> Targetable:
 
 func _ready() -> void:
 	assert(name == component_name, "Component must be named " + component_name + " to be recognized by other components.")
+	if not tags.has("entity"):
+		tags.append("entity")
 
 func has_tag(tag: String) -> bool:
 	return tag in tags

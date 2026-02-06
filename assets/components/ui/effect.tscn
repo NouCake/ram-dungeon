@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bth4xv6ukjw1g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pbynl"]
+font_size = 10
+
+[node name="effect" type="Control" unique_id=2063778696]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1216.0
+offset_bottom = -704.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="progress" type="ProgressBar" parent="." unique_id=9946819]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false
+
+[node name="name" type="Label" parent="." unique_id=1114198865]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_pbynl")
+vertical_alignment = 1
