@@ -68,12 +68,18 @@ Entity **MUST** have these child nodes or it will crash:
 
 These are common but not required by Entity base class:
 
-### 3. Caster
+### 3. MovementComponent (Recommended)
+**Node name:** `movement`
+**Path:** `assets/scripts/component/movement.gd`
+**Usage:** Movement physics, speed modifiers, CC locks, forces
+**See:** `docs/movement_system.md`
+
+### 4. Caster
 **Node name:** `caster`
 **Path:** `assets/scripts/component/caster.gd`
 **Usage:** Casting actions/spells
 
-### 4. Knockback
+### 5. Knockback
 **Node name:** `knockback`
 **Path:** `assets/scripts/component/knockback.gd`
 **Usage:** Knockback physics
