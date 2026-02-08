@@ -229,6 +229,7 @@ omni_range = 7.5
 
 [node name="targetable" type="Node" parent="." unique_id=1298045655]
 script = ExtResource("6_f7i5o")
+tags = ["entity", "player"]
 
 [node name="move_dungeon_clear" type="Node" parent="." unique_id=378278260]
 script = ExtResource("8_wiayc")

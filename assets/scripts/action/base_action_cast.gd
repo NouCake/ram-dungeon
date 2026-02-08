@@ -34,15 +34,15 @@ func perform_action() -> bool:
 	if caster.is_casting():
 		return false
 
-	var target := get_target_snapshot()
-	if target == null:
+	var snapshot := get_target_snapshot()
+	if snapshot == null or snapshot.targets.is_empty():
 		return false
 
 	if cast_time <= 0.0001:
-		resolve_action(target)
+		resolve_action(snapshot)
 		return true
 
-	return caster.try_start_cast(self, target, cast_time, can_move_while_casting, cancel_on_target_out_of_range, cancel_on_damage_taken)
+	return caster.try_start_cast(self, snapshot, cast_time, can_move_while_casting, cancel_on_target_out_of_range, cancel_on_damage_taken)
 
 ## Override: return a snapshot of the target at cast start, if relevant.
 func get_target_snapshot() -> TargetSnapshot:

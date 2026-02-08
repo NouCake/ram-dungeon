@@ -25,9 +25,7 @@ func get_target_snapshot() -> TargetSnapshot:
 	if targets.is_empty():
 		return null
 	
-	var t := targets[0] # @futureme lacks multi-target support for now
 	var snapshot := TargetSnapshot.new()
 	snapshot.max_range = action_range
-	snapshot.target = t
-	snapshot.target_position = t.global_position
+	snapshot.targets = targets
 	return snapshot

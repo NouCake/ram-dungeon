@@ -13,11 +13,13 @@ func _enter_tree() -> void:
 func resolve_action(target: TargetSnapshot) -> bool:
 	return shoot(target)
 	
-func shoot(target: TargetSnapshot) -> bool:
+func shoot(snapshot: TargetSnapshot) -> bool:
+	assert(snapshot.targets.size() == 1, "ActionProjectile only supports single target snapshots. Got " + str(snapshot.targets.size()))
+
 	var parent: Node3D = get_parent()
 	var instance: Projectile = projectile.instantiate()
 	
-	var dist := target.target.global_position - global_position
+	var dist := snapshot.targets[0].global_position - global_position
 	dist.y = 0  # @futureme future enemies might be flying
 
 	instance.projectile_speed = projectile_speed

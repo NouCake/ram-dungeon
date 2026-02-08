@@ -1,20 +1,13 @@
-class_name MeleeComponent
+class_name ActionMelee
 
 extends BaseActionTargeting
 
 @export var melee_damage := 2
 
-func perform_action() -> bool:
-	return attack()
-
-func attack() -> bool:
+func resolve_action(snapshot: TargetSnapshot):
 	var parent: Entity = get_parent()
-	var targets := detector.find_all(target_filters, action_range, false)
-	
-	if targets.size() == 0:
-		return false
 
-	for target in targets:
+	for target in snapshot.targets:
 		if not target.has_node("health"):
 			assert(false, "MeleeComponent.attack(): Target has no health node")
 			continue

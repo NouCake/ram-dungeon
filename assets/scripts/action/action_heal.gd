@@ -14,10 +14,13 @@ func resolve_action(snapshot: TargetSnapshot) -> bool:
 	return heal(snapshot)
 
 func heal(snapshot: TargetSnapshot) -> bool:
-	var health := snapshot.target.get_node("health") as HealthComponent
+	assert(snapshot.targets.size() == 1, "ActionHeal only supports single target. Found: " + str(snapshot.targets.size()))
+	var target := snapshot.targets[0]
+
+	var health := target.get_node("health") as HealthComponent
 	var parent: Entity = get_parent()
 	
-	var info := DamageInfo.new(parent, snapshot.target as Entity)
+	var info := DamageInfo.new(parent, target as Entity)
 	info.type = DamageInfo.DamageType.HEAL
 	info.amount = heal_amount
 	health.do_damage(info)
@@ -26,6 +29,6 @@ func heal(snapshot: TargetSnapshot) -> bool:
 	if heal_vfx:
 		var vfx_instance: Node3D = heal_vfx.instantiate()
 		get_tree().get_current_scene().add_child(vfx_instance)
-		vfx_instance.global_position = snapshot.target.global_position
+		vfx_instance.global_position = target.global_position
 	
 	return true

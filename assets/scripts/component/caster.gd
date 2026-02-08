@@ -25,7 +25,7 @@ var _elapsed_time_s := 0.0
 
 var _current_action: BaseTimedCast = null
 ## Target snapshot taken at cast start (required, never null while casting).
-var _target: TargetSnapshot = null
+var _snapshot: TargetSnapshot = null
 
 ## Total windup time.
 var _cast_time_s := 0.0
@@ -54,7 +54,7 @@ func try_start_cast(
 	_is_casting = true
 	_elapsed_time_s = 0.0
 	_current_action = action
-	_target = snapshot
+	_snapshot = snapshot
 	_cast_time_s = max(cast_time_s, 0.0)
 	_can_move_while_casting = can_move_while_casting
 	_cancel_on_target_out_of_range = cancel_on_target_out_of_range
@@ -72,11 +72,11 @@ func _process(delta: float) -> void:
 		return
 
 	# Cancel if target moved out of range (only relevant for entity targets).
-	if _cancel_on_target_out_of_range and _target.is_target_valid() and _target.max_range > 0.001:
+	if _cancel_on_target_out_of_range and _snapshot.is_target_valid() and _snapshot.max_range > 0.001:
 		var parent_3d := get_parent() as Node3D
 		if parent_3d:
-			var dist := (parent_3d.global_position - _target.target.global_position).length()
-			if dist > _target.max_range:
+			var dist := (parent_3d.global_position - _snapshot.targets[0].global_position).length()
+			if dist > _snapshot.max_range:
 				cancel_cast()
 				return
 
@@ -85,7 +85,7 @@ func _process(delta: float) -> void:
 	#cast_progress.emit(_current_action, progress)
 
 	if _elapsed_time_s >= _cast_time_s:
-		_current_action.resolve_action(_target)
+		_current_action.resolve_action(_snapshot)
 		_reset_state()
 
 	# resolve via BaseTimedAction contract (no runtime has_method checks)
@@ -95,7 +95,7 @@ func _reset_state() -> void:
 	_is_casting = false
 	_elapsed_time_s = 0.0
 	_current_action = null
-	_target = null
+	_snapshot = null
 	_cast_time_s = 0.0
 	_can_move_while_casting = true
 	_cancel_on_target_out_of_range = true
