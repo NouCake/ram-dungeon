@@ -40,7 +40,8 @@ float perlin_noise(vec2 p) {
 
 void vertex() {
 	// Called for every vertex the material is visible on.
-	float noise = perlin_noise(UV * scale + vec2(1.0) * TIME * 0.3);
+	vec2 noise_offset = (MODEL_MATRIX * vec4(1.0)).xz;
+	float noise = perlin_noise((UV + noise_offset) * scale + vec2(1.0) * TIME * 0.3);
 	
 	float dist_to_center = distance(UV, vec2(0.5));
 	float radius   = 0.4;

@@ -1,19 +1,33 @@
-[gd_scene format=3 uid="uid://ddy3y7kb3fhcb"]
+[gd_scene format=3 uid="uid://br5fcxopipvy7"]
 
-[ext_resource type="PackedScene" uid="uid://c7761vqql2xr4" path="res://assets/entities/effect/posion_area.tscn" id="2_6pkya"]
-[ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="2_fjegx"]
+[ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="1_q1xtv"]
+[ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="2_a3erw"]
+[ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="3_2olep"]
+[ext_resource type="PackedScene" uid="uid://n3xeai5drsr" path="res://assets/entities/showcase_player_immovable.tscn" id="5_s22dk"]
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_tmkc7"]
+[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_a6t5f"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_ettor"]
+[ext_resource type="Script" uid="uid://4qe386rc0yio" path="res://assets/scripts/component/moving.gd" id="9_4l5sp"]
+[ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="10_h2xpl"]
+[ext_resource type="PackedScene" uid="uid://cpehfwgnkug00" path="res://assets/entities/ant.tscn" id="13_o1wap"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ojkpu"]
-
-[sub_resource type="Environment" id="Environment_ojkpu"]
+[sub_resource type="Environment" id="Environment_dxudb"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
-[node name="Node3D" type="Node3D" unique_id=211146522]
+[sub_resource type="Resource" id="Resource_dxudb"]
+script = ExtResource("8_ettor")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
-[node name="grid_floor" type="GridMap" parent="." unique_id=1770044489]
-mesh_library = ExtResource("2_fjegx")
+[sub_resource type="Resource" id="Resource_h2xpl"]
+script = ExtResource("8_ettor")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[node name="Node3D" type="Node3D" unique_id=1600318940]
+
+[node name="grid_floor" type="GridMap" parent="." unique_id=1467566150]
+mesh_library = ExtResource("1_q1xtv")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
@@ -21,23 +35,46 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="grid_walls" type="GridMap" parent="." unique_id=1244153198]
-mesh_library = ExtResource("2_fjegx")
+[node name="camera" type="Camera3D" parent="." unique_id=967101517]
+transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, -0.24810791, 5.6119924, 11.268732)
+environment = SubResource("Environment_dxudb")
+projection = 1
+size = 7.5
+
+[node name="grid_walls" type="GridMap" parent="." unique_id=547799591]
+mesh_library = ExtResource("1_q1xtv")
 cell_size = Vector3(4, 3, 4)
 data = {
 "cells": PackedInt32Array(65544, 65535, 524291, 65543, 65535, 524291, 65542, 65535, 524291, 65541, 65535, 524291, 65540, 65535, 524291, 65539, 65535, 524291, 65538, 65535, 524291, 65537, 65535, 524291, 65536, 65535, 524291, 131071, 65535, 524291, 8, 65535, 655362, 7, 65535, 655361, 6, 65535, 655362, 5, 65535, 655361, 4, 65535, 655362, 3, 65535, 655361, 2, 65535, 655362, 1, 65535, 655361, 0, 65535, 655362, 65535, 65535, 655361)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1927246952]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.745175, 0.022791266, 4.4736385)
-mesh = SubResource("CylinderMesh_ojkpu")
+[node name="damage_numbers" type="Node3D" parent="." unique_id=1025485108]
+script = ExtResource("2_a3erw")
+damage_number_scene = ExtResource("3_2olep")
 
-[node name="camera" type="Camera3D" parent="." unique_id=1001138333]
-transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, -0.24810791, 5.6119924, 11.268732)
-environment = SubResource("Environment_ojkpu")
-projection = 1
-size = 7.5
+[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("5_s22dk")]
+transform = Transform3D(0.9999999, 0.0002558976, -0.0004270716, -0.0002559578, 1, -0.00016206944, 0.0004270355, 0.00016216449, 0.9999999, 0, 0, 2)
 
-[node name="posion_area" parent="." unique_id=1804886747 instance=ExtResource("2_6pkya")]
-transform = Transform3D(9.227, 0, 0, 0, 9.227, 0, 0, 0, 9.227, -0.31262207, 0.026306152, 4.6847534)
+[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=468950535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("7_a6t5f")
+target_filters = Array[String](["enemy1"])
+targeting_strategy = SubResource("Resource_dxudb")
+action_interval = 3.0
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant" parent="." unique_id=426652526 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
+tags = "enemy1"
+
+[node name="Moving" type="Node" parent="ant" unique_id=1682619328]
+script = ExtResource("9_4l5sp")
+metadata/_custom_type_script = "uid://4qe386rc0yio"
+
+[node name="ActionMelee" type="Node3D" parent="ant" unique_id=1877610719]
+script = ExtResource("10_h2xpl")
+targeting_strategy = SubResource("Resource_h2xpl")
+start_ready = false
+metadata/_custom_type_script = "uid://c12suihu63rbg"

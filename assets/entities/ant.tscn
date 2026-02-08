@@ -1,0 +1,410 @@
+[gd_scene format=3 uid="uid://cpehfwgnkug00"]
+
+[ext_resource type="Texture2D" uid="uid://bu0f41u2nbwv0" path="res://assets/sprites/ant.png" id="1_fmjpc"]
+[ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="1_g70yx"]
+[ext_resource type="Texture2D" uid="uid://bsmcpk5leon8q" path="res://assets/sprites/and_leg.png" id="2_5u4l6"]
+[ext_resource type="Script" uid="uid://cf12rme7sumlp" path="res://assets/scripts/base_entity_animation.gd" id="4_p7r1a"]
+[ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="5_f1we4"]
+[ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="6_3k2np"]
+[ext_resource type="PackedScene" uid="uid://bbpqmblpblvyh" path="res://assets/components/ui/hud.tscn" id="7_p7r1a"]
+[ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="8_f1we4"]
+[ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_3k2np"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fmjpc"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("2_5u4l6")
+uv1_scale = Vector3(1, 0.5, 1)
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_2m47e"]
+size = Vector2(0.05, 0.075)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3myhx"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("2_5u4l6")
+uv1_scale = Vector3(1, 0.5, 1)
+uv1_offset = Vector3(0, 0.5, 0)
+texture_filter = 0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5u4l6"]
+radius = 0.28909215
+
+[sub_resource type="Animation" id="Animation_fmjpc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/leg_start:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.12740904, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/leg_start3:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/leg_start2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.43982297, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("body:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.034674704, 0.34938705, 0.08033177)]
+}
+
+[sub_resource type="Animation" id="Animation_b32fg"]
+resource_name = "attack"
+length = 0.36666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.17453292), Vector3(0, 0, -0.34906584), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/leg_start:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.12740904, 0, 0), Vector3(0.12740904, 0, -0.17453292), Vector3(0.12740904, 0, 0.34906584), Vector3(0.12740904, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/leg_start2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.43982297, 0, 0), Vector3(0.43982297, 0, -0.17453292), Vector3(0.43982297, 0, 0.34906584), Vector3(0.43982297, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body/leg_start3:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.17453292), Vector3(0, 0, 0.34906584), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g70yx"]
+resource_name = "hit"
+length = 0.16666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.034674704, 0.34938705, 0.08033177), Vector3(0.07350522, 0.29454476, 0.08033177), Vector3(-0.034674704, 0.34938705, 0.08033177)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/leg_start:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.12740904, 0, 0), Vector3(0.12740904, -0.34906584, 0), Vector3(0.12740904, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/leg_start2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.43982297, 0, 0), Vector3(0.43982297, -0.34906584, 0), Vector3(0.43982297, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body/leg_start3:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.34906584, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mgagh"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_5u4l6"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body/leg_start:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.12740904, 0, 0), Vector3(0.12740904, -0.17453292, 0), Vector3(0.12740904, 0, 0), Vector3(0.12740904, 0.17453292, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body/leg_start3:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.17453292, 0), Vector3(0, 0, 0), Vector3(0, 0.17453292, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/leg_start2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.43982297, 0, 0), Vector3(0.43982297, 0.17453292, 0), Vector3(0.43982297, 0, 0), Vector3(0.43982297, -0.17453292, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b32fg"]
+_data = {
+&"RESET": SubResource("Animation_fmjpc"),
+&"attack": SubResource("Animation_b32fg"),
+&"blink": SubResource("Animation_g70yx"),
+&"idle": SubResource("Animation_mgagh"),
+&"walk": SubResource("Animation_5u4l6")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_61ooc"]
+viewport_path = NodePath("viewport")
+
+[node name="ant" type="CharacterBody3D" unique_id=141348389]
+script = ExtResource("1_g70yx")
+
+[node name="body" type="Sprite3D" parent="." unique_id=1940437366]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.034674704, 0.34938705, 0.08033177)
+alpha_cut = 3
+texture_filter = 0
+texture = ExtResource("1_fmjpc")
+
+[node name="leg" type="Sprite3D" parent="body" unique_id=1008129397]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0540618, 0.05987549)
+visible = false
+texture_filter = 0
+texture = ExtResource("2_5u4l6")
+
+[node name="leg_start" type="Node3D" parent="body" unique_id=818754131]
+transform = Transform3D(1, 0, 0, 0, 0.9918941, -0.12706463, 0, 0.12706457, 0.99189454, -0.030896187, -0.035857834, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start" unique_id=833380486]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
+material_override = SubResource("StandardMaterial3D_fmjpc")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../..")
+
+[node name="leg_end" type="Node3D" parent="body/leg_start" unique_id=848389079]
+transform = Transform3D(1, 0, 0, 0, 0.6777619, -0.73528147, 0, 0.73528147, 0.6777619, 0, 0, 0.07627201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start/leg_end" unique_id=1695260687]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
+material_override = SubResource("StandardMaterial3D_3myhx")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../../..")
+
+[node name="leg_start2" type="Node3D" parent="body" unique_id=1518122270]
+transform = Transform3D(1, 0, 0, 0, 0.9048272, -0.42577934, 0, 0.42577934, 0.9048272, 0.0053687543, -0.016352043, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start2" unique_id=1827699560]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
+material_override = SubResource("StandardMaterial3D_fmjpc")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../..")
+
+[node name="leg_end" type="Node3D" parent="body/leg_start2" unique_id=250738269]
+transform = Transform3D(1, 0, 0, 0, 0.8765422, -0.4813255, 0, 0.4813255, 0.8765422, 0, 0, 0.07627201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start2/leg_end" unique_id=1060263634]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
+material_override = SubResource("StandardMaterial3D_3myhx")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../../..")
+
+[node name="leg_start3" type="Node3D" parent="body" unique_id=1514782875]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.039638083, -0.0002900362, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start3" unique_id=2141845376]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
+material_override = SubResource("StandardMaterial3D_fmjpc")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../..")
+
+[node name="leg_end" type="Node3D" parent="body/leg_start3" unique_id=627508303]
+transform = Transform3D(1, 0, 0, 0, 0.9299754, -0.36762157, 0, 0.36762157, 0.9299754, 0, -1.4901161e-08, 0.07627201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start3/leg_end" unique_id=1615479597]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
+material_override = SubResource("StandardMaterial3D_3myhx")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../../..")
+
+[node name="leg_start4" type="Node3D" parent="body" unique_id=130364347]
+transform = Transform3D(1, 0, 0, 0, 0.9918941, 0.1270646, 0, 0.12706456, -0.9918944, -0.030896187, -0.035857834, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start4" unique_id=1871547074]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
+material_override = SubResource("StandardMaterial3D_fmjpc")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../..")
+
+[node name="leg_end" type="Node3D" parent="body/leg_start4" unique_id=587188216]
+transform = Transform3D(1, 0, 0, 0, 0.6777619, -0.73528147, 0, 0.73528147, 0.6777619, 0, 0, 0.07627201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start4/leg_end" unique_id=2058166519]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
+material_override = SubResource("StandardMaterial3D_3myhx")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../../..")
+
+[node name="leg_start5" type="Node3D" parent="body" unique_id=814799126]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, -1, 0.006841421, -0.006270446, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start5" unique_id=639699373]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
+material_override = SubResource("StandardMaterial3D_fmjpc")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../..")
+
+[node name="leg_end" type="Node3D" parent="body/leg_start5" unique_id=224110286]
+transform = Transform3D(1, 0, 0, 0, 0.8765422, -0.4813255, 0, 0.4813255, 0.8765422, 0, 0, 0.07627201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start5/leg_end" unique_id=623523498]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
+material_override = SubResource("StandardMaterial3D_3myhx")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../../..")
+
+[node name="leg_start6" type="Node3D" parent="body" unique_id=314406134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0.039638083, -0.00029004365, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start6" unique_id=1145182981]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
+material_override = SubResource("StandardMaterial3D_fmjpc")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../..")
+
+[node name="leg_end" type="Node3D" parent="body/leg_start6" unique_id=1914734772]
+transform = Transform3D(1, 0, 0, 0, 0.7521274, -0.6590177, 0, 0.6590177, 0.7521274, 0, 0, 0.07627201)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start6/leg_end" unique_id=1319241441]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
+material_override = SubResource("StandardMaterial3D_3myhx")
+mesh = SubResource("QuadMesh_2m47e")
+skeleton = NodePath("../../..")
+
+[node name="shape" type="CollisionShape3D" parent="." unique_id=943408978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29987794, 0)
+shape = SubResource("SphereShape3D_5u4l6")
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=242352271]
+libraries/ = SubResource("AnimationLibrary_b32fg")
+script = ExtResource("4_p7r1a")
+
+[node name="health" type="Node" parent="." unique_id=253557326]
+script = ExtResource("5_f1we4")
+current_health = 10
+max_health = 10
+invulnerable = true
+metadata/_custom_type_script = "uid://p1i5c8q40s43"
+
+[node name="targetable" type="Node" parent="." unique_id=598695681]
+script = ExtResource("6_3k2np")
+metadata/_custom_type_script = "uid://df8j4a2b2mtth"
+
+[node name="hud" parent="." unique_id=1119696046 instance=ExtResource("7_p7r1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+texture = SubResource("ViewportTexture_61ooc")
+
+[node name="detector" parent="." unique_id=100270341 instance=ExtResource("8_f1we4")]
+
+[node name="caster" type="Node" parent="." unique_id=1807285677]
+script = ExtResource("9_3k2np")
+metadata/_custom_type_script = "uid://b0ubjb54menfu"
