@@ -10,17 +10,31 @@ extends Node3D
 ## If true, the action will only reset its timer on a successful action
 @export var pause_until_action_success := false
 
-@onready var time_since_last_action: float = action_interval if start_ready else 0.0
+## Cooldown timer
+var _cooldown_timer: Timer
 
-func _process(delta: float) -> void:
-	if time_since_last_action >= action_interval:
-		if !pause_until_action_success:
-			time_since_last_action -= action_interval
-			
-		if perform_action() && pause_until_action_success:
-			time_since_last_action -= action_interval
-	else:
-		time_since_last_action += delta
+func _ready() -> void:
+	# Create cooldown timer
+	_cooldown_timer = Timer.new()
+	_cooldown_timer.wait_time = action_interval
+	_cooldown_timer.one_shot = true
+	add_child(_cooldown_timer)
+	
+	# Start ready or start cooldown
+	if not start_ready:
+		_cooldown_timer.start()
+
+func _process(_delta: float) -> void:
+	if is_cooldown_ready():
+		if not pause_until_action_success:
+			_cooldown_timer.start()  # Start cooldown
+		
+		if perform_action() and pause_until_action_success:
+			_cooldown_timer.start()  # Start cooldown only on success
+
+## Check if cooldown is ready (timer stopped)
+func is_cooldown_ready() -> bool:
+	return _cooldown_timer.is_stopped()
 
 
 ## Time before action is performed
