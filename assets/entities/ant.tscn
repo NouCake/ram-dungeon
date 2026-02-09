@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bbpqmblpblvyh" path="res://assets/components/ui/hud.tscn" id="7_p7r1a"]
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="8_f1we4"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_3k2np"]
+[ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="10_61ooc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fmjpc"]
 transparency = 1
@@ -273,7 +274,7 @@ texture_filter = 0
 texture = ExtResource("2_5u4l6")
 
 [node name="leg_start" type="Node3D" parent="body" unique_id=818754131]
-transform = Transform3D(1, 0, 0, 0, 0.9918941, -0.12706463, 0, 0.12706457, 0.99189454, -0.030896187, -0.035857834, 0)
+transform = Transform3D(1, 0, 0, 0, 0.991894, -0.12706463, 0, 0.12706456, 0.99189454, -0.030896187, -0.035857834, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start" unique_id=833380486]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
@@ -408,3 +409,7 @@ texture = SubResource("ViewportTexture_61ooc")
 [node name="caster" type="Node" parent="." unique_id=1807285677]
 script = ExtResource("9_3k2np")
 metadata/_custom_type_script = "uid://b0ubjb54menfu"
+
+[node name="knockback" type="Node" parent="." unique_id=1686485444]
+script = ExtResource("10_61ooc")
+metadata/_custom_type_script = "uid://dklepcgv41dhm"

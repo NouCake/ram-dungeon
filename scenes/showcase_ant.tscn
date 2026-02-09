@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://n3xeai5drsr" path="res://assets/entities/showcase_player_immovable.tscn" id="5_s22dk"]
 [ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_tmkc7"]
 [ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_a6t5f"]
+[ext_resource type="Script" uid="uid://bqq584ho5r3jy" path="res://assets/scripts/component/movement.gd" id="8_dwrjp"]
 [ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_ettor"]
-[ext_resource type="Script" uid="uid://4qe386rc0yio" path="res://assets/scripts/component/moving.gd" id="9_4l5sp"]
 [ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="10_h2xpl"]
 [ext_resource type="PackedScene" uid="uid://cpehfwgnkug00" path="res://assets/entities/ant.tscn" id="13_o1wap"]
 
@@ -62,19 +62,23 @@ script = ExtResource("6_tmkc7")
 projectile = ExtResource("7_a6t5f")
 target_filters = Array[String](["enemy1"])
 targeting_strategy = SubResource("Resource_dxudb")
-action_interval = 3.0
+pause_until_action_success = true
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="movement" type="Node" parent="base_player" unique_id=768159237]
+script = ExtResource("8_dwrjp")
+metadata/_custom_type_script = "uid://bqq584ho5r3jy"
 
 [node name="ant" parent="." unique_id=426652526 instance=ExtResource("13_o1wap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
 tags = "enemy1"
-
-[node name="Moving" type="Node" parent="ant" unique_id=1682619328]
-script = ExtResource("9_4l5sp")
-metadata/_custom_type_script = "uid://4qe386rc0yio"
 
 [node name="ActionMelee" type="Node3D" parent="ant" unique_id=1877610719]
 script = ExtResource("10_h2xpl")
 targeting_strategy = SubResource("Resource_h2xpl")
 start_ready = false
 metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="movement" type="Node" parent="ant" unique_id=1202723664]
+script = ExtResource("8_dwrjp")
+metadata/_custom_type_script = "uid://bqq584ho5r3jy"

@@ -9,6 +9,8 @@ extends BaseTimedCast
 @export var action_range: float
 ## Targeting strategy to use (configurable per action)
 @export var targeting_strategy: TargetingStrategy
+@export var movement_strategy: MovementStrategy
+
 @export var line_of_sight := true
 
 ## Runtime override for targeting (e.g., debuffs like "Desynced")
