@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_a6t5f"]
 [ext_resource type="Script" uid="uid://bqq584ho5r3jy" path="res://assets/scripts/component/movement.gd" id="8_dwrjp"]
 [ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_ettor"]
-[ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="10_h2xpl"]
 [ext_resource type="PackedScene" uid="uid://cpehfwgnkug00" path="res://assets/entities/ant.tscn" id="13_o1wap"]
 
 [sub_resource type="Environment" id="Environment_dxudb"]
@@ -17,10 +16,6 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
 [sub_resource type="Resource" id="Resource_dxudb"]
-script = ExtResource("8_ettor")
-metadata/_custom_type_script = "uid://csosmshhpx6pj"
-
-[sub_resource type="Resource" id="Resource_h2xpl"]
 script = ExtResource("8_ettor")
 metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
@@ -72,12 +67,6 @@ metadata/_custom_type_script = "uid://bqq584ho5r3jy"
 [node name="ant" parent="." unique_id=426652526 instance=ExtResource("13_o1wap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
 tags = "enemy1"
-
-[node name="ActionMelee" type="Node3D" parent="ant" unique_id=1877610719]
-script = ExtResource("10_h2xpl")
-targeting_strategy = SubResource("Resource_h2xpl")
-start_ready = false
-metadata/_custom_type_script = "uid://c12suihu63rbg"
 
 [node name="movement" type="Node" parent="ant" unique_id=1202723664]
 script = ExtResource("8_dwrjp")

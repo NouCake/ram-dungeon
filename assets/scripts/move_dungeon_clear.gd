@@ -30,7 +30,7 @@ func move_towards_target() -> void:
 func _physics_process(_delta: float) -> void:
 	if detector.find_closest(["enemy"], target_detection_range, true):
 		move_towards_target()
-		return;
+		return
 	
 	var target_position := Vector3(character_controller.global_position.x + 3, 0, 0)
 	var target_dist := target_position - character_controller.global_position

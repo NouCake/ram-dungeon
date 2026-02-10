@@ -9,7 +9,7 @@ func _ready() -> void:
 func _on_damage_dealt(info: DamageInfo) -> void:
 	var damage_number: Label3D = damage_number_scene.instantiate()
 	damage_number.text = str(info.amount)
-	damage_number.position.y = 1;
+	damage_number.position.y = 1
 	damage_number.position.x += randf_range(-0.5, 0.5)
 
 	if (info.type == DamageInfo.DamageType.FIRE):

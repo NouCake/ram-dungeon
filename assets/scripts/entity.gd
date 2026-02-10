@@ -10,7 +10,7 @@ static func Get(node: Node) -> Entity:
 	if !(node is Entity):
 		push_error("Node " + node.name + " is not an Entity.")
 		
-	return node;
+	return node
 
 @onready var health := HealthComponent.Get(self)
 
@@ -21,7 +21,7 @@ signal effects_changed
 @export var effects: Array[Effect] = []
 
 ## helper value to quickly override tags in editor, but not intended for prod use
-@export var tags: String;
+@export var tags: String
 
 ## Helper for editor to show tags as comma-separated string, but store as array
 @onready var _targetable: Targetable = Targetable.Get(self)
@@ -33,10 +33,10 @@ func _ready() -> void:
 		_targetable.tags.append("entity")
 
 	# correctly applying initial effects if any were added in the editor
-	var start_effects := effects;
-	effects = [];
+	var start_effects := effects
+	effects = []
 	for effect in start_effects:
-		apply_effect(effect);
+		apply_effect(effect)
 
 
 func apply_effect(effect: Effect) -> void:

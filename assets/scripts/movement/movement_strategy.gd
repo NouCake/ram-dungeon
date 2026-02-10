@@ -12,11 +12,11 @@ extends Resource
 ## Calculate target position for entity to move toward.
 ## Override in subclasses for specific movement logic.
 ## Returns Vector3.ZERO if no movement needed.
-func get_target_position(entity: Entity, target: Entity) -> Vector3:
+func get_target_position() -> Vector3:
 	push_warning("MovementStrategy.get_target_position not implemented in " + get_script().resource_path)
 	return Vector3.ZERO
 
 ## Check if this strategy wants to control movement right now.
 ## Override for conditional strategies (e.g., only move if target out of range).
-func should_move(entity: Entity, target: Entity) -> bool:
+func should_move() -> bool:
 	return true

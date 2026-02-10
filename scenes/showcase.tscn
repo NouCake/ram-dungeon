@@ -83,8 +83,19 @@ tags = "entity"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 script = ExtResource("3_o36fe")
 projectile = ExtResource("4_xq7gy")
+projectile_speed = null
+projectile_damage = null
 target_filters = Array[String](["enemy1"])
+action_range = null
 targeting_strategy = SubResource("Resource_dxudb")
+line_of_sight = null
+action_interval = null
+start_ready = null
+pause_until_action_success = null
+cast_time = null
+can_move_while_casting = null
+cancel_on_target_out_of_range = null
+cancel_on_damage_taken = null
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
 [node name="base_player2" parent="." unique_id=1343113177 instance=ExtResource("5_xq7gy")]
@@ -93,9 +104,19 @@ tags = "entity"
 
 [node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=223223996]
 script = ExtResource("9_vwee6")
+heal_amount = null
 heal_vfx = ExtResource("10_owfbn")
 target_filters = Array[String](["enemy2"])
+action_range = null
 targeting_strategy = SubResource("Resource_vwee6")
+line_of_sight = null
+action_interval = null
+start_ready = null
+pause_until_action_success = null
+cast_time = null
+can_move_while_casting = null
+cancel_on_target_out_of_range = null
+cancel_on_damage_taken = null
 metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
 
 [node name="base_player3" parent="." unique_id=117337697 instance=ExtResource("5_xq7gy")]

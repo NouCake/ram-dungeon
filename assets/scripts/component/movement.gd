@@ -33,9 +33,15 @@ static func Get(node: Node) -> MovementComponent:
 		return node.get_node(component_name)
 	return null
 
+var _actions: Array[BaseActionTargeting] = []
+
 func _ready() -> void:
 	assert(name == component_name, "Component must be named " + component_name + " to be recognized by other components.")
 	assert(_entity != null, "MovementComponent must be child of Entity")
+
+	for child in get_children():
+		if child is BaseActionTargeting:
+			_actions.append(child)
 
 func _physics_process(delta: float) -> void:
 	if is_movement_locked:
@@ -43,13 +49,32 @@ func _physics_process(delta: float) -> void:
 	
 	_apply_forces(delta)
 
+	var action := _get_highest_priority_action()
+	if action and action.movement_strategy.should_move():
+		pass
+
+
+func _get_highest_priority_action() -> BaseActionTargeting:
+	var highest_priority := -1
+	var best_action: BaseActionTargeting = null
+	for action in _actions:
+		if not best_action.is_cooldown_ready():
+			continue
+
+		if action.movement_strategy.priority > highest_priority:
+			highest_priority = action.movement_strategy.priority
+			best_action = action
+	
+	return best_action
+
 func _calculate_speed_multiplier() -> float:
 	var speed_multiplier := 1.0
 	
 	for effect in _entity.effects:
 		## Todo: Make entity have stats and effects modify stats
 		if effect.has_method("get_move_speed_mult"):
-			speed_multiplier *= effect.get_move_speed_mult()
+			#speed_multiplier *= effect.get_move_speed_mult()
+			pass
 	return speed_multiplier
 
 ## Apply external one-time forces (knockback, pull)

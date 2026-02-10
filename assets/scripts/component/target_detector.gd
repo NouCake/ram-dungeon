@@ -39,7 +39,7 @@ func _trigger_search() -> void:
 		_overlapping_nodes = _get_all_near_targets()
 
 func _get_all_near_targets() -> Array[Node3D]:
-	var overlapping: Array[Node3D] = [];
+	var overlapping: Array[Node3D] = []
 	
 	# Shouldn't be necessary to check areas since targets are bodies
 	for target in get_overlapping_areas():
@@ -48,22 +48,22 @@ func _get_all_near_targets() -> Array[Node3D]:
 	for target in get_overlapping_bodies():
 		overlapping.append(target)
 		
-	var found_targets: Array[Node3D] = [];
+	var found_targets: Array[Node3D] = []
 	
 	for target in overlapping:
 		if (target == get_parent()):
-			continue;
+			continue
 
 		if !Targetable.Is(target):
-			continue;
+			continue
 
 		found_targets.append(target)
 	
 	return found_targets
 
 func _is_in_line_of_sight(target: Node3D) -> bool:
-	var ray_origin := (get_parent() as Node3D).global_position;
-	var ray_end := target.global_position;
+	var ray_origin := (get_parent() as Node3D).global_position
+	var ray_end := target.global_position
 	
 	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	query.exclude = [get_parent(), target]
@@ -97,12 +97,12 @@ func find_all(filter_tags: Array[String], max_distance: float, line_of_sight: bo
 			continue
 		
 		possible_targets.append(t)
-	return possible_targets;
+	return possible_targets
 
 func find_closest(filter_tags: Array[String], max_distance: float, line_of_sight: bool) -> Node3D:
 	var possible_targets := find_all(filter_tags, max_distance, line_of_sight)
 
-	var parent: Node3D = get_parent();
+	var parent: Node3D = get_parent()
 	return possible_targets.reduce(func(target: Node3D, acc: Node3D) -> Node3D:
 		if (acc == null):
 			return target

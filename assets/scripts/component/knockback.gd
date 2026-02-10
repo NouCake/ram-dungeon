@@ -17,11 +17,11 @@ func _ready() -> void:
 		health_comp.connect("was_hit", Callable(self, "_on_health_was_hit"))
 
 func do_knockback(knockback_source: Vector3) -> void:
-	var parent: Node3D = get_parent();
+	var parent: Node3D = get_parent()
 	
-	var dist := (parent.global_position - knockback_source).normalized();
-	dist.y = 0;
-	var knock := dist * (1.0 - knockback_resistance) * 100.0;
+	var dist := (parent.global_position - knockback_source).normalized()
+	dist.y = 0
+	var knock := dist * (1.0 - knockback_resistance) * 100.0
 	_movement_component.apply_force(knock)
 
 

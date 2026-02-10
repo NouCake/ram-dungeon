@@ -11,7 +11,7 @@ func resolve_action(snapshot: TargetSnapshot):
 		if not target.has_node("health"):
 			assert(false, "MeleeComponent.attack(): Target has no health node")
 			continue
-		var health := target.get_node("health") as HealthComponent;
+		var health := target.get_node("health") as HealthComponent
 
 		var info := DamageInfo.new(parent, target as Entity)
 		info.amount = melee_damage

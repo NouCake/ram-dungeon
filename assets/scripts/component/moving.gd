@@ -19,19 +19,19 @@ func _process(delta: float) -> void:
 		return
 	
 	var parent: Node3D = get_parent()
-	var distTarget := target.global_position - parent.global_position;
+	var distTarget := target.global_position - parent.global_position
 	
-	var preffered_position: Vector3;
+	var preffered_position: Vector3
 	
 	var _speed := move_speed
 	if !move_back:
-		var distance_to_target := distTarget.length();
+		var distance_to_target := distTarget.length()
 		if distance_to_target <= prefered_target_distance:
 			return
 		preffered_position = target.global_position
 	else:
 		preffered_position = target.global_position - distTarget.normalized() * prefered_target_distance
 		_speed = move_speed * 0.5
-	preffered_position.y = 0;
+	preffered_position.y = 0
 
 	parent.global_position = parent.global_position + (preffered_position - parent.global_position).normalized() * _speed * delta

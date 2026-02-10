@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="7_ten6w"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_ib121"]
 [ext_resource type="PackedScene" uid="uid://bbpqmblpblvyh" path="res://assets/components/ui/hud.tscn" id="11_akygn"]
+[ext_resource type="Script" path="res://assets/scripts/component/movement.gd" id="12_ba7l7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v24pw"]
 render_priority = 0
@@ -109,7 +110,7 @@ _data = {
 &"blink": SubResource("Animation_7koad")
 }
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_akygn"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_n1wia"]
 viewport_path = NodePath("viewport")
 
 [node name="enemy" type="CharacterBody3D" unique_id=1773388456]
@@ -165,6 +166,9 @@ metadata/_custom_type_script = "uid://b0ubjb54menfu"
 
 [node name="hud" parent="." unique_id=1119696046 instance=ExtResource("11_akygn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
-texture = SubResource("ViewportTexture_akygn")
+texture = SubResource("ViewportTexture_n1wia")
+
+[node name="movement" type="Node" parent="." unique_id=1240368532]
+script = ExtResource("12_ba7l7")
 
 [connection signal="was_hit" from="health" to="." method="_on_health_was_hit"]
