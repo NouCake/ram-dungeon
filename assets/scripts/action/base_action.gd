@@ -57,9 +57,9 @@ func perform_action() -> bool:
 	
 	# Check min execution range (target exists but too close to execute)
 	if min_execution_range > 0.0:
-		var entity = get_parent() as Entity
+		var entity := get_parent() as Entity
 		if entity:
-			var distance = entity.global_position.distance_to(snapshot.targets[0].global_position)
+			var distance := entity.global_position.distance_to(snapshot.targets[0].global_position)
 			if distance < min_execution_range:
 				return false  # Too close to execute, but target still valid for movement
 

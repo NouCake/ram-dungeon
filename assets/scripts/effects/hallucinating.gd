@@ -4,7 +4,7 @@ class_name Hallucinating
 
 extends Effect
 
-var _modified_actions: Dictionary[BaseActionTargeting, TargetingStrategy] = {}
+var _modified_actions: Dictionary[BaseAction, TargetingStrategy] = {}
 @export var curve: Curve
 
 func _init() -> void:
@@ -28,15 +28,15 @@ func on_applied() -> void:
 	super()
 	
 	for child in target.get_children():
-		if child is BaseActionTargeting:
-			var action := child as BaseActionTargeting
+		if child is BaseAction:
+			var action := child as BaseAction
 			_modified_actions[action] = TargetHalucinating.new(action, chance_from_stacks())
 			action.targeting_override = _modified_actions[action]
 
 
 
 func on_expired() -> void:
-	for action: BaseActionTargeting in _modified_actions.keys():
+	for action: BaseAction in _modified_actions.keys():
 		if not is_instance_valid(action):
 			continue
 		

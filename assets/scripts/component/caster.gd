@@ -23,7 +23,7 @@ static func Get(node: Node) -> CasterComponent:
 var _is_casting := false
 var _elapsed_time_s := 0.0
 
-var _current_action: BaseTimedCast = null
+var _current_action: BaseAction = null
 ## Target snapshot taken at cast start (required, never null while casting).
 var _snapshot: TargetSnapshot = null
 

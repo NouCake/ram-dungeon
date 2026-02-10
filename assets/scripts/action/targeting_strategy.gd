@@ -4,7 +4,7 @@ class_name TargetingStrategy
 extends Resource
 
 ## Minimum range for targeting (targets closer than this won't be considered at all, even for movement)
-## Use BaseActionTargeting.min_execution_range instead if you want targets for movement but not execution
+## Use BaseAction.min_execution_range instead if you want targets for movement but not execution
 @export var min_range: float = 0.0
 
 ## Maximum range for targeting (targets farther than this are filtered out)
