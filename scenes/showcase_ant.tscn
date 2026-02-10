@@ -19,7 +19,7 @@ ambient_light_energy = 2.0
 
 [sub_resource type="Resource" id="Resource_iem64"]
 script = ExtResource("10_dwrjp")
-attack_range = 1.5
+attack_range = 0.85
 
 [sub_resource type="Resource" id="Resource_h2xpl"]
 script = ExtResource("8_ettor")
@@ -27,7 +27,7 @@ metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
 [sub_resource type="Resource" id="Resource_q1xtv"]
 script = ExtResource("11_dwrjp")
-min_range = 4.0
+min_range = 3.0
 
 [sub_resource type="Resource" id="Resource_dwrjp"]
 script = ExtResource("8_ettor")
@@ -72,9 +72,13 @@ tags = "enemy1"
 [node name="ActionMelee" type="Node3D" parent="ant" unique_id=1877610719]
 script = ExtResource("10_h2xpl")
 start_ready = false
+pause_until_action_success = true
 movement_strategy = SubResource("Resource_iem64")
 target_filters = Array[String](["player"])
+max_execution_range = 1.0
 targeting_strategy = SubResource("Resource_h2xpl")
+cast_time = 0.25
+can_move_while_casting = false
 metadata/_custom_type_script = "uid://c12suihu63rbg"
 
 [node name="ActionProjectile" type="Node3D" parent="ant" unique_id=1958913989]
@@ -85,7 +89,7 @@ pause_until_action_success = true
 priority = 20
 movement_strategy = SubResource("Resource_q1xtv")
 target_filters = Array[String](["player"])
-min_execution_range = 4.0
+min_execution_range = 3.0
 targeting_strategy = SubResource("Resource_dwrjp")
 cast_time = 1.0
 can_move_while_casting = false

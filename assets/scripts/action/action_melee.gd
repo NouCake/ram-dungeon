@@ -7,6 +7,7 @@ extends BaseAction
 func resolve_action(snapshot: TargetSnapshot):
 	var parent: Entity = get_parent()
 
+	print("MeleeComponent.attack(): Attacking %d targets" % snapshot.targets.size())
 	for target in snapshot.targets:
 		if not target.has_node("health"):
 			assert(false, "MeleeComponent.attack(): Target has no health node")

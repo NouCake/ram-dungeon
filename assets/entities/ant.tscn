@@ -255,9 +255,6 @@ _data = {
 &"walk": SubResource("Animation_5u4l6")
 }
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_61ooc"]
-viewport_path = NodePath("viewport")
-
 [node name="ant" type="CharacterBody3D" unique_id=141348389]
 script = ExtResource("1_g70yx")
 
@@ -399,11 +396,6 @@ metadata/_custom_type_script = "uid://p1i5c8q40s43"
 [node name="targetable" type="Node" parent="." unique_id=598695681]
 script = ExtResource("6_3k2np")
 metadata/_custom_type_script = "uid://df8j4a2b2mtth"
-
-[node name="hud" parent="." unique_id=1119696046 instance=ExtResource("7_p7r1a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-texture = SubResource("ViewportTexture_61ooc")
-
 [node name="detector" parent="." unique_id=100270341 instance=ExtResource("8_f1we4")]
 
 [node name="caster" type="Node" parent="." unique_id=1807285677]

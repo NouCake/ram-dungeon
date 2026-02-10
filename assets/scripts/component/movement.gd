@@ -13,6 +13,8 @@ static func Get(entity: Entity) -> MovementComponent:
 @export var close_enough_threshold := 0.1
 @export var base_move_speed := 5.0
 
+@onready var caster: CasterComponent = CasterComponent.Get(get_parent() as Entity)
+
 var desired_position: Vector3
 
 var _entity: Entity
@@ -30,8 +32,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	
 	# Check if movement is locked by casting
-	var caster = CasterComponent.Get(_entity)
-	if caster and caster.movement_locked():
+	if caster.movement_locked():
 		_entity.velocity = Vector3.ZERO
 		_entity.move_and_slide()
 		return
