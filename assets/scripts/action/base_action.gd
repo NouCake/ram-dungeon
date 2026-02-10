@@ -40,10 +40,13 @@ var targeting_override: TargetingStrategy = null
 
 func _process(delta: float) -> void:
 	if time_since_last_action >= action_interval:
+		var action_succeeded := perform_action()
+		
 		if !pause_until_action_success:
+			# Always reset timer, regardless of success
 			time_since_last_action -= action_interval
-			
-		if perform_action() && pause_until_action_success:
+		elif action_succeeded:
+			# Only reset timer on success
 			time_since_last_action -= action_interval
 	else:
 		time_since_last_action += delta
