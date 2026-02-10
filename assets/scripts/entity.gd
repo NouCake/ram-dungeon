@@ -27,13 +27,13 @@ signal effects_changed
 @onready var health := HealthComponent.Get(self)
 @onready var _movement_component := MovementComponent.Get(self)
 
-var _actions_with_movement: Array[BaseTimedCast] = []
+var _actions_with_movement: Array[BaseAction] = []
 
 func _ready() -> void:
 	assert(_movement_component != null, "Entity %s must have a MovementComponent child named 'Movement'" % name)
 	
 	for child in get_children():
-		if child is BaseTimedCast and (child as BaseTimedCast).movement_strategy != null:
+		if child is BaseAction and (child as BaseAction).movement_strategy != null:
 			_actions_with_movement.append(child)
 	
 	if tags != null and tags.length() > 0 and ",".join(_targetable.tags) != tags:
@@ -96,9 +96,9 @@ func _update_movement_control() -> void:
 ## - When actions ready: highest priority wins
 ## - When all on cooldown: lowest remaining cooldown wins
 ## - Tiebreaker: priority
-func _select_movement_controlling_action() -> BaseTimedCast:
-	var ready_actions: Array[BaseTimedCast] = []
-	var cooldown_actions: Array[BaseTimedCast] = []
+func _select_movement_controlling_action() -> BaseAction:
+	var ready_actions: Array[BaseAction] = []
+	var cooldown_actions: Array[BaseAction] = []
 	
 	for action in _actions_with_movement:
 		if action.is_cooldown_ready():
@@ -108,11 +108,11 @@ func _select_movement_controlling_action() -> BaseTimedCast:
 	
 	# Rule 1: If some ready, pick highest priority
 	if not ready_actions.is_empty():
-		ready_actions.sort_custom(func(a: BaseTimedCast, b: BaseTimedCast) -> bool: return a.priority > b.priority)
+		ready_actions.sort_custom(func(a: BaseAction, b: BaseAction) -> bool: return a.priority > b.priority)
 		return ready_actions[0]
 	
 	# Rule 2: All on cooldown, pick lowest remaining time (priority as tiebreaker)
-	cooldown_actions.sort_custom(func(a: BaseTimedCast, b: BaseTimedCast) -> bool:
+	cooldown_actions.sort_custom(func(a: BaseAction, b: BaseAction) -> bool:
 		var time_a := a.get_cooldown_remaining()
 		var time_b := b.get_cooldown_remaining()
 		if abs(time_a - time_b) < 0.01:  # Essentially same time

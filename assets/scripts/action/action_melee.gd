@@ -1,6 +1,6 @@
 class_name ActionMelee
 
-extends BaseActionTargeting
+extends BaseAction
 
 @export var melee_damage := 2
 

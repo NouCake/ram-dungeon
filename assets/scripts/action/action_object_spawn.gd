@@ -1,5 +1,5 @@
 class_name ActionObjectSpawn
-extends BaseActionTargeting
+extends BaseAction
 
 @export var to_spawn: PackedScene
 @export var spawn_radius: float = 1.0

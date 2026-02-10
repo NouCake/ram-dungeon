@@ -1,6 +1,6 @@
 class_name ActionProjectile
 
-extends BaseActionTargeting
+extends BaseAction
 
 @export var projectile: PackedScene
 @export var projectile_speed := 8.0

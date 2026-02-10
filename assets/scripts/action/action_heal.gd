@@ -1,6 +1,6 @@
 class_name ActionHeal
 
-extends BaseActionTargeting
+extends BaseAction
 
 @export var heal_amount := 2
 @export var heal_vfx: PackedScene

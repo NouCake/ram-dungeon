@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jcn4dosfwb3x"
-path.s3tc="res://.godot/imported/holy-ring.png-9ab5b057943d1e8f814e30ed6a44b048.s3tc.ctex"
+path.etc2="res://.godot/imported/holy-ring.png-9ab5b057943d1e8f814e30ed6a44b048.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/sprites/particles/holy-ring.png"
-dest_files=["res://.godot/imported/holy-ring.png-9ab5b057943d1e8f814e30ed6a44b048.s3tc.ctex"]
+dest_files=["res://.godot/imported/holy-ring.png-9ab5b057943d1e8f814e30ed6a44b048.etc2.ctex"]
 
 [params]
 
