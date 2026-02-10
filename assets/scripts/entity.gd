@@ -85,13 +85,24 @@ func _update_movement_control() -> void:
 	if _actions_with_movement.is_empty():
 		return
 	
-	var target = _get_current_target()
+	var controlling_action = _select_movement_controlling_action(_actions_with_movement)
+	if not controlling_action:
+		return
+	
+	# Get target from the controlling action
+	var target = controlling_action.get_current_target()
 	if not target:
 		return
 	
-	var controlling_action = _select_movement_controlling_action(_actions_with_movement)
-	if controlling_action:
-		controlling_action.update_movement(target)
+	# Check if action has movement strategy
+	if not controlling_action.movement_strategy:
+		push_warning("Action %s is controlling movement but has no movement_strategy. Use StandStillMovementStrategy if this is intentional." % controlling_action.name)
+		return
+	
+	# Apply movement strategy to movement component
+	if controlling_action.movement_strategy.should_move(self, target):
+		var target_pos = controlling_action.movement_strategy.get_target_position(self, target)
+		_movement_component.desired_position = target_pos
 
 ## Selects which action should control movement based on kevin's rules:
 ## - When actions ready: highest priority wins
@@ -122,9 +133,3 @@ func _select_movement_controlling_action(actions: Array[BaseTimedCast]) -> BaseT
 		return time_a < time_b  # Lower cooldown wins
 	)
 	return cooldown_actions[0]
-
-## Get current target for this entity (override in subclasses or use targeting system)
-func _get_current_target() -> Entity:
-	# TODO: Integrate with existing targeting system
-	# For now, return null - subclasses can override
-	return null

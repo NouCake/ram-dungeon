@@ -69,22 +69,10 @@ func get_cooldown_remaining() -> float:
 		return 0.0
 	return action_interval - time_since_last_action
 
-## Update entity movement using this action's movement strategy
-## Called by entity when this action controls movement
-func update_movement(target: Entity) -> void:
-	if not movement_strategy:
-		push_warning("Action %s is controlling movement but has no movement_strategy. Use StandStillMovementStrategy if this is intentional." % name)
-		return
-	
-	var entity = get_parent() as Entity
-	if not entity:
-		return
-	
-	var movement = MovementComponent.Get(entity)
-	if not movement:
-		push_error("Entity %s has action with movement_strategy but no MovementComponent!" % entity.name)
-		return
-	
-	if movement_strategy.should_move(entity, target):
-		var target_pos = movement_strategy.get_target_position(entity, target)
-		movement.desired_position = target_pos
+## Get the current target for this action (from targeting system)
+## Override in subclasses or return first target from snapshot
+func get_current_target() -> Entity:
+	var snapshot = get_target_snapshot()
+	if snapshot and not snapshot.targets.is_empty():
+		return snapshot.targets[0]
+	return null
