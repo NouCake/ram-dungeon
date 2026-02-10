@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="4_ixvt8"]
 [ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="6_f7i5o"]
 [ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="7_wiayc"]
-[ext_resource type="Script" uid="uid://cf35qhl3q52e2" path="res://assets/scripts/move_dungeon_clear.gd" id="8_wiayc"]
+[ext_resource type="Script" uid="uid://dqwr8ec0d35r2" path="res://assets/scripts/component/movement.gd" id="8_h21b8"]
 [ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="9_jsamf"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_ufriv"]
 
@@ -231,12 +231,6 @@ omni_range = 7.5
 script = ExtResource("6_f7i5o")
 tags = ["entity", "player"]
 
-[node name="move_dungeon_clear" type="Node" parent="." unique_id=378278260]
-script = ExtResource("8_wiayc")
-move_speed = 1.5
-target_distance = 1.5
-target_detection_range = 8.0
-
 [node name="detector" parent="." unique_id=100270341 instance=ExtResource("4_ixvt8")]
 
 [node name="health" type="Node" parent="." unique_id=1136559519]
@@ -254,3 +248,7 @@ metadata/_custom_type_script = "uid://dklepcgv41dhm"
 [node name="caster" type="Node" parent="." unique_id=652821613]
 script = ExtResource("9_ufriv")
 metadata/_custom_type_script = "uid://b0ubjb54menfu"
+
+[node name="movement" type="Node" parent="." unique_id=1812569003]
+script = ExtResource("8_h21b8")
+metadata/_custom_type_script = "uid://dqwr8ec0d35r2"

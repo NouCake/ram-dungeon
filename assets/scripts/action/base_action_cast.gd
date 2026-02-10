@@ -72,7 +72,7 @@ func get_cooldown_remaining() -> float:
 ## Get the current target for this action (from targeting system)
 ## Override in subclasses or return first target from snapshot
 func get_current_target() -> Entity:
-	var snapshot = get_target_snapshot()
+	var snapshot := get_target_snapshot()
 	if snapshot and not snapshot.targets.is_empty():
 		return snapshot.targets[0]
 	return null

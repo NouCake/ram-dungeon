@@ -7,8 +7,6 @@ func _select_from_candidates(detector: TargetDetectorComponent, candidates: Arra
 		return []
 	
 	var parent := detector.get_parent() as Node3D
-	if not parent:
-		return [candidates[0]]
 	
 	var closest := candidates[0]
 	var closest_dist := (closest.global_position - parent.global_position).length()

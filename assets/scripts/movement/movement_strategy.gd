@@ -8,7 +8,7 @@ class_name MovementStrategy extends Resource
 ## @param entity: The entity that is moving
 ## @param target: The entity being targeted (can be null)
 ## @return: World position the entity should move toward
-func get_target_position(entity: Entity, target: Entity) -> Vector3:
+func get_target_position(entity: Entity, _target: Entity) -> Vector3:
 	# Default: stay at current position
 	return entity.global_position
 
@@ -17,5 +17,5 @@ func get_target_position(entity: Entity, target: Entity) -> Vector3:
 ## @param entity: The entity that would move
 ## @param target: The entity being targeted (can be null)
 ## @return: true if entity should move, false to stay still
-func should_move(entity: Entity, target: Entity) -> bool:
-	return target != null
+func should_move(_entity: Entity, _target: Entity) -> bool:
+	return false

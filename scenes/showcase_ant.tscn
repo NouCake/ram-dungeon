@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://br5fcxopipvy7"]
+[gd_scene format=3 uid="uid://caqe7j1avb7si"]
 
 [ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="1_q1xtv"]
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="2_a3erw"]
@@ -7,9 +7,10 @@
 [ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_tmkc7"]
 [ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_a6t5f"]
 [ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_ettor"]
-[ext_resource type="Script" uid="uid://4qe386rc0yio" path="res://assets/scripts/component/moving.gd" id="9_4l5sp"]
+[ext_resource type="Script" uid="uid://3vrijt12lefs" path="res://assets/scripts/movement/melee_movement_strategy.gd" id="10_dwrjp"]
 [ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="10_h2xpl"]
-[ext_resource type="PackedScene" uid="uid://cpehfwgnkug00" path="res://assets/entities/ant.tscn" id="13_o1wap"]
+[ext_resource type="Script" path="res://assets/scripts/movement/ranged_movement_strategy.gd" id="11_dwrjp"]
+[ext_resource type="PackedScene" uid="uid://quhe1ope74di" path="res://assets/entities/ant.tscn" id="13_o1wap"]
 
 [sub_resource type="Environment" id="Environment_dxudb"]
 ambient_light_source = 2
@@ -23,6 +24,19 @@ metadata/_custom_type_script = "uid://csosmshhpx6pj"
 [sub_resource type="Resource" id="Resource_h2xpl"]
 script = ExtResource("8_ettor")
 metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_iem64"]
+script = ExtResource("10_dwrjp")
+attack_range = 1.5
+
+[sub_resource type="Resource" id="Resource_dwrjp"]
+script = ExtResource("8_ettor")
+min_range = 4.0
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_q1xtv"]
+script = ExtResource("11_dwrjp")
+min_range = 4.0
 
 [node name="Node3D" type="Node3D" unique_id=1600318940]
 
@@ -63,18 +77,30 @@ projectile = ExtResource("7_a6t5f")
 target_filters = Array[String](["enemy1"])
 targeting_strategy = SubResource("Resource_dxudb")
 action_interval = 3.0
+pause_until_action_success = true
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
 [node name="ant" parent="." unique_id=426652526 instance=ExtResource("13_o1wap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
 tags = "enemy1"
 
-[node name="Moving" type="Node" parent="ant" unique_id=1682619328]
-script = ExtResource("9_4l5sp")
-metadata/_custom_type_script = "uid://4qe386rc0yio"
-
 [node name="ActionMelee" type="Node3D" parent="ant" unique_id=1877610719]
 script = ExtResource("10_h2xpl")
+target_filters = Array[String](["player"])
 targeting_strategy = SubResource("Resource_h2xpl")
 start_ready = false
+movement_strategy = SubResource("Resource_iem64")
 metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant" unique_id=1958913989]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("7_a6t5f")
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+action_interval = 5.0
+pause_until_action_success = true
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+cast_time = 1.0
+can_move_while_casting = false
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"

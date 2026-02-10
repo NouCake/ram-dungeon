@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsmcpk5leon8q"
-path.etc2="res://.godot/imported/and_leg.png-d133cc8412d4e618155464bf5cd7ef2e.etc2.ctex"
+path.s3tc="res://.godot/imported/and_leg.png-d133cc8412d4e618155464bf5cd7ef2e.s3tc.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/sprites/and_leg.png"
-dest_files=["res://.godot/imported/and_leg.png-d133cc8412d4e618155464bf5cd7ef2e.etc2.ctex"]
+dest_files=["res://.godot/imported/and_leg.png-d133cc8412d4e618155464bf5cd7ef2e.s3tc.ctex"]
 
 [params]
 

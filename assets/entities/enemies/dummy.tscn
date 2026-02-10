@@ -15,6 +15,9 @@ shader_parameter/enable_billboard = true
 height = 1.0
 radius = 0.25
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_apblv"]
+viewport_path = NodePath("viewport")
+
 [node name="dummy" unique_id=1773388456 instance=ExtResource("1_fffmj")]
 
 [node name="sprite" parent="." index="0" unique_id=1123765104]
@@ -35,9 +38,9 @@ tags = PackedStringArray("enemy", "entity")
 [node name="knockback" parent="." index="5" unique_id=1202752396]
 knockback_resistance = 1.0
 
-[node name="move" parent="." index="6" unique_id=1125060558]
-move_speed = 0.0
-
-[node name="health" parent="." index="8" unique_id=2044996375]
+[node name="health" parent="." index="7" unique_id=2044996375]
 max_health = 10
 invulnerable = true
+
+[node name="hud" parent="." index="9" unique_id=1119696046]
+texture = SubResource("ViewportTexture_apblv")

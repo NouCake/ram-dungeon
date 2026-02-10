@@ -99,6 +99,8 @@ func find_all(filter_tags: Array[String], max_distance: float, line_of_sight: bo
 		possible_targets.append(t)
 	return possible_targets;
 
+
+# TODO: Remove
 func find_closest(filter_tags: Array[String], max_distance: float, line_of_sight: bool) -> Node3D:
 	var possible_targets := find_all(filter_tags, max_distance, line_of_sight)
 

@@ -4,10 +4,7 @@
 
 [node name="showcase_player" unique_id=1116852983 instance=ExtResource("1_h8yll")]
 
-[node name="move_dungeon_clear" parent="." index="5" unique_id=378278260]
-move_speed = 0.0
-
-[node name="health" parent="." index="7" unique_id=1136559519]
+[node name="health" parent="." index="6" unique_id=1136559519]
 current_health = 5
 max_health = 10
 invulnerable = true
