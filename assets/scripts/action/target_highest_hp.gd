@@ -2,19 +2,13 @@
 class_name TargetHighestHP
 extends TargetingStrategy
 
-func select_targets(
-	detector: TargetDetectorComponent,
-	filters: Array[String],
-	max_range: float,
-	line_of_sight: bool
-) -> Array[Node3D]:
-	var targets := detector.find_all(filters, max_range, line_of_sight)
-	if targets.is_empty():
+func _select_from_candidates(detector: TargetDetectorComponent, candidates: Array[Node3D]) -> Array[Node3D]:
+	if candidates.is_empty():
 		return []
 	
 	# Filter targets that have health component
 	var valid_targets: Array[Node3D] = []
-	for t in targets:
+	for t in candidates:
 		if t.has_node("health"):
 			valid_targets.append(t)
 	

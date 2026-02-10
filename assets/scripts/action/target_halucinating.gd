@@ -14,7 +14,6 @@ func _init(_source_action: BaseActionTargeting, _random_chance: float) -> void:
 func select_targets(
 	detector: TargetDetectorComponent,
 	filters: Array[String],
-	max_range: float,
 	line_of_sight: bool
 ) -> Array[Node3D]:
 	var r := randf()
@@ -22,11 +21,16 @@ func select_targets(
 		return source_action.targeting_strategy.select_targets(
 			detector,
 			filters,
-			max_range,
 			line_of_sight
 		)
 
-	var targets := detector.find_all([], max_range, line_of_sight)
-	if targets.is_empty():
+	# Get all candidates regardless of filters (hallucinating!)
+	var candidates = _get_candidates(detector, [], line_of_sight)
+	if candidates.is_empty():
 		return []
-	return [targets.pick_random()]
+	
+	return [candidates.pick_random()]
+
+func _select_from_candidates(detector: TargetDetectorComponent, candidates: Array[Node3D]) -> Array[Node3D]:
+	# Not used - overriding select_targets directly
+	return []

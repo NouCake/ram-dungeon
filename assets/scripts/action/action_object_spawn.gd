@@ -8,7 +8,7 @@ func perform_action() -> bool:
 	return _spawn_object()
 
 func _spawn_object() -> bool:
-	var target: Entity = detector.find_closest(target_filters, action_range, false)
+	var target: Entity = detector.find_closest(target_filters, targeting_strategy.max_range, false)
 	if !target:
 		return false
 	
