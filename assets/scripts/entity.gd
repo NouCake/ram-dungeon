@@ -18,6 +18,9 @@ static func Get(node: Node) -> Entity:
 ## Emitted whenever effects array changes (apply, expire, merge)
 signal effects_changed
 
+## Cached actions with movement strategies (set once in _ready, never changes)
+var _actions_with_movement: Array[BaseTimedCast] = []
+
 ## Active effects on this entity, exported for debugging purposes.
 @export var effects: Array[Effect] = []
 
@@ -30,6 +33,11 @@ signal effects_changed
 func _ready() -> void:
 	# Assert required components
 	assert(_movement_component != null, "Entity %s must have a MovementComponent child named 'Movement'" % name)
+	
+	# Cache actions with movement strategies (actions don't change at runtime)
+	for child in get_children():
+		if child is BaseTimedCast and child.movement_strategy != null:
+			_actions_with_movement.append(child)
 	
 	if tags != null and tags.length() > 0 and ",".join(_targetable.tags) != tags:
 		push_warning("Overriding tags from Entity. Should be not used for prod build")
@@ -74,20 +82,14 @@ func _process(_delta: float) -> void:
 
 ## Determines which action controls movement based on priority and cooldown rules
 func _update_movement_control() -> void:
-	# Get all actions with movement strategies
-	var actions: Array[BaseTimedCast] = []
-	for child in get_children():
-		if child is BaseTimedCast and child.movement_strategy != null:
-			actions.append(child)
-	
-	if actions.is_empty():
+	if _actions_with_movement.is_empty():
 		return
 	
 	var target = _get_current_target()
 	if not target:
 		return
 	
-	var controlling_action = _select_movement_controlling_action(actions)
+	var controlling_action = _select_movement_controlling_action(_actions_with_movement)
 	if controlling_action:
 		controlling_action.update_movement(target)
 
