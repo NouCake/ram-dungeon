@@ -94,11 +94,6 @@ func _update_movement_control() -> void:
 	if not target:
 		return
 	
-	# Check if action has movement strategy
-	if not controlling_action.movement_strategy:
-		push_warning("Action %s is controlling movement but has no movement_strategy. Use StandStillMovementStrategy if this is intentional." % controlling_action.name)
-		return
-	
 	# Apply movement strategy to movement component
 	if controlling_action.movement_strategy.should_move(self, target):
 		var target_pos = controlling_action.movement_strategy.get_target_position(self, target)
@@ -108,12 +103,23 @@ func _update_movement_control() -> void:
 ## - When actions ready: highest priority wins
 ## - When all on cooldown: lowest remaining cooldown wins
 ## - Tiebreaker: priority
+## Filters out actions without movement_strategy
 func _select_movement_controlling_action(actions: Array[BaseTimedCast]) -> BaseTimedCast:
+	# Filter to only actions with movement strategies
+	var actions_with_strategy: Array[BaseTimedCast] = []
+	for action in actions:
+		if action.movement_strategy != null:
+			actions_with_strategy.append(action)
+	
+	if actions_with_strategy.is_empty():
+		push_warning("Entity %s has actions but none have movement_strategy. Use StandStillMovementStrategy if this is intentional." % name)
+		return null
+	
 	var ready_actions: Array[BaseTimedCast] = []
 	var cooldown_actions: Array[BaseTimedCast] = []
 	
 	# Separate ready vs on cooldown
-	for action in actions:
+	for action in actions_with_strategy:
 		if action.is_cooldown_ready():
 			ready_actions.append(action)
 		else:
