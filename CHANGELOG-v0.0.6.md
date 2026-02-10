@@ -2,6 +2,48 @@
 
 ## 🚀 Major Features
 
+### Priority-Based Movement System
+**Brand new movement system with action-driven entity positioning!**
+
+Entities can now have multiple actions with different movement strategies. The system automatically selects which action controls movement based on priority and readiness.
+
+#### **Core Concept:**
+- Each `BaseAction` can have a `MovementStrategy`
+- Entity selects controlling action by priority (highest priority wins)
+- Only actions with ready cooldowns compete for control
+- Movement strategies determine desired position relative to target
+
+#### **Movement Strategies:**
+1. **`MeleeMovementStrategy`** - Move into melee range (configurable distance)
+2. **`RangedMovementStrategy`** - Keep distance from target (back away if too close)
+3. **`StandStillMovementStrategy`** - Don't move (stationary actions)
+
+#### **How It Works:**
+```gdscript
+# Entity automatically:
+1. Finds all actions with movement_strategy
+2. Filters to actions with ready cooldowns
+3. Selects highest priority action
+4. Gets target from that action
+5. Applies action's movement strategy
+6. MovementComponent moves entity to desired_position
+```
+
+#### **Example Setup:**
+```gdscript
+# Melee Action
+ActionMelee:
+  priority = 10
+  movement_strategy = MeleeMovementStrategy (engage_distance = 2.0)
+
+# Ranged Action  
+ActionProjectile:
+  priority = 5
+  movement_strategy = RangedMovementStrategy (preferred_distance = 8.0)
+```
+
+**Result:** Entity charges into melee when cooldown ready, backs away to ranged distance otherwise!
+
 ### Movement System Refactoring
 Complete overhaul of the action and movement system for better separation of concerns and more flexible entity behavior.
 
