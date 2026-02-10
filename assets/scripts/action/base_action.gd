@@ -20,6 +20,8 @@ extends Node3D
 @export var target_filters: Array[String] = ["enemy"]
 ## Minimum distance to execute action (won't execute if target closer, but will still target for movement)
 @export var min_execution_range: float = 0.0
+## Maximum distance to execute action (won't execute if target farther, but will still target for movement)
+@export var max_execution_range: float = 0.0
 ## Targeting strategy to use (configurable per action)
 @export var targeting_strategy: TargetingStrategy
 @export var line_of_sight := true
@@ -55,13 +57,15 @@ func perform_action() -> bool:
 	if snapshot == null or snapshot.targets.is_empty():
 		return false
 	
-	# Check min execution range (target exists but too close to execute)
-	if min_execution_range > 0.0:
+	# Check execution range (target exists but too close/far to execute)
+	if min_execution_range > 0.0 or max_execution_range > 0.0:
 		var entity := get_parent() as Entity
 		if entity:
 			var distance := entity.global_position.distance_to(snapshot.targets[0].global_position)
-			if distance < min_execution_range:
+			if min_execution_range > 0.0 and distance < min_execution_range:
 				return false  # Too close to execute, but target still valid for movement
+			if max_execution_range > 0.0 and distance > max_execution_range:
+				return false  # Too far to execute, but target still valid for movement
 
 	if cast_time <= 0.0001:
 		resolve_action(snapshot)
