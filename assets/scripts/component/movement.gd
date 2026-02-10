@@ -29,6 +29,13 @@ func _physics_process(_delta: float) -> void:
 	if not _entity:
 		return
 	
+	# Check if movement is locked by casting
+	var caster = CasterComponent.Get(_entity)
+	if caster and caster.movement_locked():
+		_entity.velocity = Vector3.ZERO
+		_entity.move_and_slide()
+		return
+	
 	# Check if we're close enough to desired position
 	var distance_to_desired := _entity.global_position.distance_to(desired_position)
 	if distance_to_desired <= close_enough_threshold:
