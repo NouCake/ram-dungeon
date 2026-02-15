@@ -135,6 +135,251 @@ targeting_strategy = SubResource("Resource_dwrjp")
 animation_name = "attack_ranged"
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
+[node name="ant4" parent="." unique_id=235746557 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7562757, 1.1920929e-07, 2.4082243)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant4" unique_id=1475113855]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant4" unique_id=1050224371]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant5" parent="." unique_id=643640987 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.896334, 2.3841858e-07, 1.8605671)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant5" unique_id=1182004286]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant5" unique_id=987142629]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant6" parent="." unique_id=564627021 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.937545, 3.5762787e-07, 1.3260858)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant6" unique_id=131952693]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant6" unique_id=1832244842]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant7" parent="." unique_id=1178410208 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2773137, 3.5762787e-07, 1.2694137)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant7" unique_id=1492331171]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant7" unique_id=1614821414]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant8" parent="." unique_id=142608713 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.277, 0, 1.663)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant8" unique_id=1850719732]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant8" unique_id=284296476]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant9" parent="." unique_id=91737155 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.882, 0, 2.299)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant9" unique_id=2119028451]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant9" unique_id=745763061]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="ant10" parent="." unique_id=632363720 instance=ExtResource("13_o1wap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.867, 0, 2.949)
+tags = "enemy1"
+
+[node name="ActionMelee" type="Node3D" parent="ant10" unique_id=244340197]
+script = ExtResource("10_h2xpl")
+movement_strategy = SubResource("Resource_iem64")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_h2xpl")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="ant10" unique_id=692174791]
+script = ExtResource("6_tmkc7")
+projectile = ExtResource("10_iem64")
+priority = 20
+movement_strategy = SubResource("Resource_q1xtv")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_dwrjp")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
 [node name="ant3" parent="." unique_id=1107417386 instance=ExtResource("13_o1wap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1.3979306)
 tags = "enemy1"

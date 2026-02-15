@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="10_owfbn"]
 [ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="11_8clt3"]
 [ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom.tscn" id="12_4lbig"]
+[ext_resource type="Script" uid="uid://ce67pcictb5ll" path="res://assets/scripts/effects/effect.gd" id="13_8clt3"]
+[ext_resource type="Script" uid="uid://cg4bna82pp0ku" path="res://assets/scripts/effects/hallucinating.gd" id="14_4lbig"]
 
 [sub_resource type="Environment" id="Environment_dxudb"]
 ambient_light_source = 2
@@ -27,6 +29,16 @@ script = ExtResource("5_owfbn")
 metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
 [sub_resource type="Resource" id="Resource_owfbn"]
+script = ExtResource("5_owfbn")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_30wxc"]
+script = ExtResource("14_4lbig")
+duration = 500.0
+stack_count = 10
+metadata/_custom_type_script = "uid://cg4bna82pp0ku"
+
+[sub_resource type="Resource" id="Resource_8clt3"]
 script = ExtResource("5_owfbn")
 metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
@@ -106,12 +118,22 @@ tags = "entity"
 script = ExtResource("11_8clt3")
 to_spawn = ExtResource("12_4lbig")
 spawn_radius = 1.5
-target_filters = Array[String](["enemy3"])
-targeting_strategy = SubResource("Resource_owfbn")
 action_interval = 5.0
 pause_until_action_success = true
+target_filters = Array[String](["enemy3"])
+targeting_strategy = SubResource("Resource_owfbn")
 metadata/_custom_type_script = "uid://628trxcomqbm"
 
 [node name="base_player4" parent="." unique_id=354098001 instance=ExtResource("5_xq7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+effects = Array[ExtResource("13_8clt3")]([SubResource("Resource_30wxc")])
 tags = "entity"
+
+[node name="ActionProjectile" type="Node3D" parent="base_player4" unique_id=1836908584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33660424, 0)
+script = ExtResource("3_o36fe")
+projectile = ExtResource("4_xq7gy")
+action_interval = 0.25
+target_filters = Array[String](["enemy4"])
+targeting_strategy = SubResource("Resource_8clt3")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"

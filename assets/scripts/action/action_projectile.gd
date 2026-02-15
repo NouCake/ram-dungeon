@@ -24,6 +24,7 @@ func shoot(snapshot: TargetSnapshot) -> bool:
 
 	instance.projectile_speed = projectile_speed
 	instance.projectile_damage = projectile_damage
+	instance.target_filter = target_filters
 	
 	instance.shoot_direction = dist.normalized()
 	instance.shoot_origin = parent

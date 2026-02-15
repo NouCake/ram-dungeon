@@ -8,7 +8,7 @@ extends Resource
 @export var min_range: float = 0.0
 
 ## Maximum range for targeting (targets farther than this are filtered out)
-@export var max_range: float = 100.0
+@export var max_range: float = 0.0
 
 ## Returns array of targets based on strategy implementation.
 ## For single-target actions, caller takes first element.
