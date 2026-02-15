@@ -47,16 +47,28 @@ signal action_started
 ## Runtime override for targeting (e.g., debuffs like "Desynced")
 var targeting_override: TargetingStrategy = null
 
+var _current_action_interval: float  # Randomized each time
+
 @onready var time_since_last_action: float = action_interval if start_ready else 0.0
 @onready var detector := TargetDetectorComponent.Get(get_parent())
 
+func _ready() -> void:
+	_randomize_action_interval()
+
+func _randomize_action_interval() -> void:
+	# Random variation: -10% to +10%
+	var variation := randf_range(-0.1, 0.1)
+	_current_action_interval = action_interval * (1.0 + variation)
+
 func _process(delta: float) -> void:
-	if time_since_last_action >= action_interval:
+	if time_since_last_action >= _current_action_interval:
 		if !pause_until_action_success:
-			time_since_last_action -= action_interval
+			time_since_last_action -= _current_action_interval
+			_randomize_action_interval()  # Randomize for next cycle
 			
 		if perform_action() && pause_until_action_success:
-			time_since_last_action -= action_interval
+			time_since_last_action -= _current_action_interval
+			_randomize_action_interval()  # Randomize for next cycle
 	else:
 		time_since_last_action += delta
 
@@ -123,13 +135,13 @@ func resolve_action(_snapshot: TargetSnapshot) -> bool:
 
 ## Check if this action's cooldown is ready
 func is_cooldown_ready() -> bool:
-	return time_since_last_action >= action_interval
+	return time_since_last_action >= _current_action_interval
 
 ## Get remaining cooldown time in seconds
 func get_cooldown_remaining() -> float:
 	if is_cooldown_ready():
 		return 0.0
-	return action_interval - time_since_last_action
+	return _current_action_interval - time_since_last_action
 
 ## Get the current target for this action (from targeting system)
 func get_current_target() -> Entity:
