@@ -33,7 +33,10 @@ signal action_finished
 
 ## Time before action is performed
 @export var cast_time := 0.0
+## Time after action completes before entity can act again (recovery/recoil)
+@export var post_cast_delay := 0.0
 @export var can_move_while_casting := true
+@export var can_move_during_post_cast := false
 @export var cancel_on_target_out_of_range := true
 @export var cancel_on_damage_taken := false
 
@@ -76,9 +79,22 @@ func perform_action() -> bool:
 		action_started.emit()
 		var success := resolve_action(snapshot)
 		action_finished.emit()
+		
+		# Handle post-cast delay for instant actions
+		if post_cast_delay > 0.0:
+			return caster.try_start_cast(
+				self, snapshot, 0.0, post_cast_delay,
+				true, can_move_during_post_cast,
+				false, false
+			)
+		
 		return success
 
-	return caster.try_start_cast(self, snapshot, cast_time, can_move_while_casting, cancel_on_target_out_of_range, cancel_on_damage_taken)
+	return caster.try_start_cast(
+		self, snapshot, cast_time, post_cast_delay,
+		can_move_while_casting, can_move_during_post_cast,
+		cancel_on_target_out_of_range, cancel_on_damage_taken
+	)
 
 func get_target_snapshot() -> TargetSnapshot:
 	var active_strategy := targeting_override if targeting_override else targeting_strategy

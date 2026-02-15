@@ -3,6 +3,7 @@
 ## Overview
 
 Minimal event-driven animation system with walk and attack animations.
+Includes post-cast delay to prevent jerky movement after actions.
 
 ## Architecture
 
@@ -10,8 +11,35 @@ Minimal event-driven animation system with walk and attack animations.
 Entity
   ├─ AnimationPlayer (holds animations)
   ├─ AnimationController (script, listens to events)
+  ├─ CasterComponent (manages cast + post-cast phases)
   ├─ MovementComponent (provides velocity)
   └─ Actions (emit action_started/action_finished)
+```
+
+## Cast & Post-Cast System
+
+Actions now have two phases:
+
+### Cast Phase
+- Entity performs windup animation
+- Movement can be locked (`can_move_while_casting`)
+- Action resolves at end of cast
+
+### Post-Cast Phase (NEW)
+- Entity "sticks around" after action
+- Allows animations to complete naturally
+- Movement can be locked (`can_move_during_post_cast`)
+
+**Timeline Example:**
+```
+Ant Ranged Attack:
+  cast_time = 0.3s
+  post_cast_delay = 0.2s
+  can_move_during_post_cast = false
+
+0.0s: Start cast → lock movement → play "attack"
+0.3s: RESOLVE (spawn projectile) → enter post-cast
+0.5s: Post-cast complete → unlock → return to walk/idle
 ```
 
 ## Setup Instructions
@@ -65,9 +93,66 @@ Run the game:
 ### Attack Animations
 Actions emit signals:
 - `action_started` → play "attack" and lock animation
+- Animation stays locked during cast + post-cast phases
 - `action_finished` → unlock (will return to walk/idle)
 
-Animation locked during attack to prevent interruption.
+CasterComponent's `is_casting()` returns true during both cast and post-cast,
+so AnimationController keeps playing attack animation throughout.
+
+### Post-Cast Delay
+After action resolves, entity enters post-cast phase:
+- `CasterComponent._is_in_post_cast = true`
+- `is_casting()` still returns true
+- Movement locked if `can_move_during_post_cast = false`
+- Animation continues playing naturally
+
+**Result:** Smooth animations without jerky interruptions!
+
+## Action Configuration
+
+### BaseAction Properties
+
+```gdscript
+## Time before action is performed
+@export var cast_time: float = 0.0
+
+## Time after action completes before entity can act again
+@export var post_cast_delay: float = 0.0
+
+## Can entity move during cast windup?
+@export var can_move_while_casting: bool = true
+
+## Can entity move during post-cast recovery?
+@export var can_move_during_post_cast: bool = false
+```
+
+### Example Configs
+
+**Ranged Attack (ant acid spit):**
+```gdscript
+cast_time = 0.3
+post_cast_delay = 0.2
+can_move_while_casting = false
+can_move_during_post_cast = false
+```
+Entity stands still for 0.5s total, animation plays naturally.
+
+**Instant Melee:**
+```gdscript
+cast_time = 0.0
+post_cast_delay = 0.3
+can_move_during_post_cast = false
+```
+Instant hit, but stick around for sword swing recovery.
+
+**Mobile Spell:**
+```gdscript
+cast_time = 1.0
+post_cast_delay = 0.0
+can_move_while_casting = true
+can_move_during_post_cast = true
+```
+Can move throughout, no post-cast delay.
 
 ## Signals Added
 

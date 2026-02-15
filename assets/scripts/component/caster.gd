@@ -21,6 +21,7 @@ static func Get(node: Node) -> CasterComponent:
 	return null
 
 var _is_casting := false
+var _is_in_post_cast := false
 var _elapsed_time_s := 0.0
 
 var _current_action: BaseAction = null
@@ -29,7 +30,9 @@ var _snapshot: TargetSnapshot = null
 
 ## Total windup time.
 var _cast_time_s := 0.0
+var _post_cast_delay_s := 0.0
 var _can_move_while_casting := true
+var _can_move_during_post_cast := false
 var _cancel_on_target_out_of_range := true
 var _cancel_on_damage_taken := false
 
@@ -40,39 +43,44 @@ func _ready() -> void:
 		health_comp.connect("was_hit", Callable(self, "_on_health_was_hit"))
 
 func try_start_cast(
-	action: Node, 
+	action: BaseAction, 
 	snapshot: TargetSnapshot, 
-	cast_time_s: float, 
-	can_move_while_casting: bool, 
+	cast_time_s: float,
+	post_cast_delay_s: float,
+	can_move_while_casting: bool,
+	can_move_during_post_cast: bool,
 	cancel_on_target_out_of_range: bool,
 	cancel_on_damage_taken: bool = false
 ) -> bool:
-	if _is_casting:
+	if _is_casting or _is_in_post_cast:
 		return false
 	assert(snapshot != null, "CasterComponent.try_start_cast(): snapshot must not be null")
 
 	_is_casting = true
+	_is_in_post_cast = false
 	_elapsed_time_s = 0.0
 	_current_action = action
 	_snapshot = snapshot
 	_cast_time_s = max(cast_time_s, 0.0)
+	_post_cast_delay_s = max(post_cast_delay_s, 0.0)
 	_can_move_while_casting = can_move_while_casting
+	_can_move_during_post_cast = can_move_during_post_cast
 	_cancel_on_target_out_of_range = cancel_on_target_out_of_range
 	_cancel_on_damage_taken = cancel_on_damage_taken
 
 	return true
 
 func cancel_cast() -> void:
-	if !_is_casting:
+	if !_is_casting and !_is_in_post_cast:
 		return
 	_reset_state()
 
 func _process(delta: float) -> void:
-	if !_is_casting:
+	if !_is_casting and !_is_in_post_cast:
 		return
 
-	# Cancel if target moved out of range (only relevant for entity targets).
-	if _cancel_on_target_out_of_range and _snapshot.is_target_valid() and _snapshot.max_range > 0.001:
+	# Cancel if target moved out of range (only relevant for entity targets, only during cast not post-cast).
+	if _is_casting and _cancel_on_target_out_of_range and _snapshot.is_target_valid() and _snapshot.max_range > 0.001:
 		var parent_3d := get_parent() as Node3D
 		if parent_3d:
 			var dist := (parent_3d.global_position - _snapshot.targets[0].global_position).length()
@@ -81,32 +89,47 @@ func _process(delta: float) -> void:
 				return
 
 	_elapsed_time_s += delta
-	#var progress:float = clamp(_elapsed_time_s / _cast_time_s, 0.0, 1.0)
-	#cast_progress.emit(_current_action, progress)
 
-	if _elapsed_time_s >= _cast_time_s:
+	# Casting phase
+	if _is_casting and _elapsed_time_s >= _cast_time_s:
 		_current_action.action_started.emit()
 		_current_action.resolve_action(_snapshot)
 		_current_action.action_finished.emit()
+		
+		# Enter post-cast delay or finish
+		if _post_cast_delay_s > 0.0:
+			_is_casting = false
+			_is_in_post_cast = true
+			_elapsed_time_s = 0.0  # Reset timer for post-cast phase
+		else:
+			_reset_state()
+	
+	# Post-cast delay phase
+	elif _is_in_post_cast and _elapsed_time_s >= _post_cast_delay_s:
 		_reset_state()
-
-	# resolve via BaseTimedAction contract (no runtime has_method checks)
 
 
 func _reset_state() -> void:
 	_is_casting = false
+	_is_in_post_cast = false
 	_elapsed_time_s = 0.0
 	_current_action = null
 	_snapshot = null
 	_cast_time_s = 0.0
+	_post_cast_delay_s = 0.0
 	_can_move_while_casting = true
+	_can_move_during_post_cast = false
 	_cancel_on_target_out_of_range = true
 
 func is_casting() -> bool:
-	return _is_casting
+	return _is_casting or _is_in_post_cast
 
 func movement_locked() -> bool:
-	return _is_casting and !_can_move_while_casting
+	if _is_casting:
+		return !_can_move_while_casting
+	if _is_in_post_cast:
+		return !_can_move_during_post_cast
+	return false
 
 
 func _on_health_was_hit(_info: DamageInfo) -> void:
