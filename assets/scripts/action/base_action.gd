@@ -3,6 +3,11 @@ class_name BaseAction
 
 extends Node3D
 
+## Emitted when action starts executing (for animation/VFX)
+signal action_started
+## Emitted when action finishes executing (for animation/VFX)
+signal action_finished
+
 ## Time in seconds between each action attempt
 @export var action_interval: float = 1.0
 ## If true, the action is ready immediately on start
@@ -68,8 +73,10 @@ func perform_action() -> bool:
 				return false  # Too far to execute, but target still valid for movement
 
 	if cast_time <= 0.0001:
-		resolve_action(snapshot)
-		return true
+		action_started.emit()
+		var success := resolve_action(snapshot)
+		action_finished.emit()
+		return success
 
 	return caster.try_start_cast(self, snapshot, cast_time, can_move_while_casting, cancel_on_target_out_of_range, cancel_on_damage_taken)
 

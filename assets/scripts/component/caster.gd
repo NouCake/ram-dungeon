@@ -85,7 +85,9 @@ func _process(delta: float) -> void:
 	#cast_progress.emit(_current_action, progress)
 
 	if _elapsed_time_s >= _cast_time_s:
+		_current_action.action_started.emit()
 		_current_action.resolve_action(_snapshot)
+		_current_action.action_finished.emit()
 		_reset_state()
 
 	# resolve via BaseTimedAction contract (no runtime has_method checks)
