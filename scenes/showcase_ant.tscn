@@ -66,7 +66,7 @@ damage_number_scene = ExtResource("3_2olep")
 transform = Transform3D(0.9999999, 0.0002558976, -0.0004270716, -0.0002559578, 1, -0.00016206944, 0.0004270355, 0.00016216449, 0.9999999, 0, 0, 2)
 
 [node name="ant" parent="." unique_id=426652526 instance=ExtResource("13_o1wap")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
 tags = "enemy1"
 
 [node name="ActionMelee" type="Node3D" parent="ant" unique_id=1877610719]

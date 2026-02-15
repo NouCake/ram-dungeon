@@ -58,7 +58,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.51853734, 0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -119,10 +119,10 @@ tracks/1/path = NodePath("body/leg_start:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(0.12740904, 0, 0), Vector3(0.12740904, 0, -0.17453292), Vector3(0.12740904, 0, 0.34906584), Vector3(0.12740904, 0, 0)]
+"values": []
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -131,10 +131,10 @@ tracks/2/path = NodePath("body/leg_start2:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(0.43982297, 0, 0), Vector3(0.43982297, 0, -0.17453292), Vector3(0.43982297, 0, 0.34906584), Vector3(0.43982297, 0, 0)]
+"values": []
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -143,10 +143,76 @@ tracks/3/path = NodePath("body/leg_start3:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.26666668, 0.36666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.17453292), Vector3(0, 0, 0.34906584), Vector3(0, 0, 0)]
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_3k2np"]
+resource_name = "attack_jump"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.034674704, 0.34938705, 0.08033177), Vector3(0.052695327, 0.3151004, 0.08033177), Vector3(-0.1219038, 0.44981262, 0.08033177), Vector3(-0.2965029, 0.34938705, 0.08033177), Vector3(-0.3666932, 0.34938705, 0.08033177), Vector3(-0.034674704, 0.34938705, 0.08033177)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.20093976), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("body/leg_start:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.12740904, 0, 0), Vector3(0.12740904, 0, -0.5235988), Vector3(0.12740904, 0, 0), Vector3(0.12740904, 0, 0.5235988), Vector3(0.12740904, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("body/leg_start2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.43982297, 0, 0), Vector3(0.43982297, 0, -0.5235988), Vector3(0.43982297, 0, 0), Vector3(0.43982297, 0, 0.5235988), Vector3(0.43982297, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("body/leg_start3:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.51853734, 0, 0), Vector3(0.51853734, 0, -0.5235988), Vector3(0.51853734, 0, 0), Vector3(0.51853734, 0, 0.5235988), Vector3(0.51853734, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_g70yx"]
@@ -201,6 +267,21 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, -0.34906584, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_61ooc"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.034674704, 0.34938705, 0.08033177)]
+}
+
 [sub_resource type="Animation" id="Animation_mgagh"]
 resource_name = "idle"
 loop_mode = 1
@@ -250,10 +331,15 @@ tracks/2/keys = {
 _data = {
 &"RESET": SubResource("Animation_fmjpc"),
 &"attack": SubResource("Animation_b32fg"),
+&"attack_jump": SubResource("Animation_3k2np"),
 &"blink": SubResource("Animation_g70yx"),
+&"death": SubResource("Animation_61ooc"),
 &"idle": SubResource("Animation_mgagh"),
 &"walk": SubResource("Animation_5u4l6")
 }
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_61ooc"]
+viewport_path = NodePath("viewport")
 
 [node name="ant" type="CharacterBody3D" unique_id=141348389]
 script = ExtResource("1_g70yx")
@@ -271,7 +357,7 @@ texture_filter = 0
 texture = ExtResource("2_5u4l6")
 
 [node name="leg_start" type="Node3D" parent="body" unique_id=818754131]
-transform = Transform3D(1, 0, 0, 0, 0.99189395, -0.12706463, 0, 0.12706456, 0.99189454, -0.030896187, -0.035857834, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99189377, -0.12706463, 0, 0.12706453, 0.99189454, -0.030896187, -0.035857834, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start" unique_id=833380486]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
@@ -307,7 +393,7 @@ mesh = SubResource("QuadMesh_2m47e")
 skeleton = NodePath("../../..")
 
 [node name="leg_start3" type="Node3D" parent="body" unique_id=1514782875]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.039638083, -0.0002900362, 0)
+transform = Transform3D(1, 0, 0, 0, 0.8685448, -0.4956102, 0, 0.4956102, 0.8685448, 0.047742408, -0.019262418, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start3" unique_id=2141845376]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
@@ -319,60 +405,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 0.9299754, -0.36762157, 0, 0.36762157, 0.9299754, 0, -1.4901161e-08, 0.07627201)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start3/leg_end" unique_id=1615479597]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
-material_override = SubResource("StandardMaterial3D_3myhx")
-mesh = SubResource("QuadMesh_2m47e")
-skeleton = NodePath("../../..")
-
-[node name="leg_start4" type="Node3D" parent="body" unique_id=130364347]
-transform = Transform3D(1, 0, 0, 0, 0.9918941, 0.1270646, 0, 0.12706456, -0.9918944, -0.030896187, -0.035857834, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start4" unique_id=1871547074]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
-material_override = SubResource("StandardMaterial3D_fmjpc")
-mesh = SubResource("QuadMesh_2m47e")
-skeleton = NodePath("../..")
-
-[node name="leg_end" type="Node3D" parent="body/leg_start4" unique_id=587188216]
-transform = Transform3D(1, 0, 0, 0, 0.6777619, -0.73528147, 0, 0.73528147, 0.6777619, 0, 0, 0.07627201)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start4/leg_end" unique_id=2058166519]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
-material_override = SubResource("StandardMaterial3D_3myhx")
-mesh = SubResource("QuadMesh_2m47e")
-skeleton = NodePath("../../..")
-
-[node name="leg_start5" type="Node3D" parent="body" unique_id=814799126]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, -1, 0.006841421, -0.006270446, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start5" unique_id=639699373]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
-material_override = SubResource("StandardMaterial3D_fmjpc")
-mesh = SubResource("QuadMesh_2m47e")
-skeleton = NodePath("../..")
-
-[node name="leg_end" type="Node3D" parent="body/leg_start5" unique_id=224110286]
-transform = Transform3D(1, 0, 0, 0, 0.8765422, -0.4813255, 0, 0.4813255, 0.8765422, 0, 0, 0.07627201)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start5/leg_end" unique_id=623523498]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
-material_override = SubResource("StandardMaterial3D_3myhx")
-mesh = SubResource("QuadMesh_2m47e")
-skeleton = NodePath("../../..")
-
-[node name="leg_start6" type="Node3D" parent="body" unique_id=314406134]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 0.039638083, -0.00029004365, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start6" unique_id=1145182981]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
-material_override = SubResource("StandardMaterial3D_fmjpc")
-mesh = SubResource("QuadMesh_2m47e")
-skeleton = NodePath("../..")
-
-[node name="leg_end" type="Node3D" parent="body/leg_start6" unique_id=1914734772]
-transform = Transform3D(1, 0, 0, 0, 0.7521274, -0.6590177, 0, 0.6590177, 0.7521274, 0, 0, 0.07627201)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start6/leg_end" unique_id=1319241441]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.036455154)
 material_override = SubResource("StandardMaterial3D_3myhx")
 mesh = SubResource("QuadMesh_2m47e")
@@ -396,6 +428,7 @@ metadata/_custom_type_script = "uid://p1i5c8q40s43"
 [node name="targetable" type="Node" parent="." unique_id=598695681]
 script = ExtResource("6_3k2np")
 metadata/_custom_type_script = "uid://df8j4a2b2mtth"
+
 [node name="detector" parent="." unique_id=100270341 instance=ExtResource("8_f1we4")]
 
 [node name="caster" type="Node" parent="." unique_id=1807285677]
@@ -406,3 +439,7 @@ metadata/_custom_type_script = "uid://b0ubjb54menfu"
 script = ExtResource("10_61ooc")
 base_move_speed = 1.5
 metadata/_custom_type_script = "uid://dqwr8ec0d35r2"
+
+[node name="hud" parent="." unique_id=1119696046 instance=ExtResource("7_p7r1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91990614, 0)
+texture = SubResource("ViewportTexture_61ooc")
