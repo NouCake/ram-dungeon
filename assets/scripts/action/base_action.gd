@@ -5,32 +5,15 @@ extends Node3D
 
 ## Emitted when action starts executing (for animation/VFX)
 signal action_started
-## Emitted when action finishes executing (for animation/VFX)
-signal action_finished
-
-## Time in seconds between each action attempt
-@export var action_interval: float = 1.0
-## If true, the action is ready immediately on start
-@export var start_ready := true
-## If true, the action will only reset its timer on a successful action
-@export var pause_until_action_success := false
 
 ## Priority for movement control (higher = takes control first when multiple actions ready)
 @export var priority := 10
-
 ## Movement strategy for this action (how to position relative to target)
 @export var movement_strategy: MovementStrategy
 
-## Filters to apply when searching for targets
-@export var target_filters: Array[String] = ["enemy"]
-## Minimum distance to execute action (won't execute if target closer, but will still target for movement)
-@export var min_execution_range: float = 0.0
-## Maximum distance to execute action (won't execute if target farther, but will still target for movement)
-@export var max_execution_range: float = 0.0
-## Targeting strategy to use (configurable per action)
-@export var targeting_strategy: TargetingStrategy
-@export var line_of_sight := true
-
+@export_group("Casting")
+## Time in seconds between each action attempt
+@export var action_interval: float = 1.0
 ## Time before action is performed
 @export var cast_time := 0.0
 ## Time after action completes before entity can act again (recovery/recoil)
@@ -39,6 +22,27 @@ signal action_finished
 @export var can_move_during_post_cast := false
 @export var cancel_on_target_out_of_range := true
 @export var cancel_on_damage_taken := false
+
+## If true, the action is ready immediately on start
+@export var start_ready := true
+## If true, the action will only reset its timer on a successful action
+@export var pause_until_action_success := false
+## Minimum distance to execute action (won't execute if target closer, but will still target for movement)
+@export var min_execution_range: float = 0.0
+## Maximum distance to execute action (won't execute if target farther, but will still target for movement)
+@export var max_execution_range: float = 0.0
+@export var line_of_sight := true
+
+@export_group("Targeting")
+## Filters to apply when searching for targets
+@export var target_filters: Array[String] = ["enemy"]
+## Targeting strategy to use (configurable per action)
+@export var targeting_strategy: TargetingStrategy
+
+
+@export_group("Animation")
+@export var animation_name: String = ""
+
 
 ## Runtime override for targeting (e.g., debuffs like "Desynced")
 var targeting_override: TargetingStrategy = null
@@ -75,10 +79,10 @@ func perform_action() -> bool:
 			if max_execution_range > 0.0 and distance > max_execution_range:
 				return false  # Too far to execute, but target still valid for movement
 
+
+	action_started.emit()
 	if cast_time <= 0.0001:
-		action_started.emit()
 		var success := resolve_action(snapshot)
-		action_finished.emit()
 		
 		# Handle post-cast delay for instant actions
 		if post_cast_delay > 0.0:
@@ -90,6 +94,7 @@ func perform_action() -> bool:
 		
 		return success
 
+	print("BaseAction.perform_action(): Starting cast for action %s" % [name])
 	return caster.try_start_cast(
 		self, snapshot, cast_time, post_cast_delay,
 		can_move_while_casting, can_move_during_post_cast,

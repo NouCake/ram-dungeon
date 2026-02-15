@@ -92,9 +92,7 @@ func _process(delta: float) -> void:
 
 	# Casting phase
 	if _is_casting and _elapsed_time_s >= _cast_time_s:
-		_current_action.action_started.emit()
 		_current_action.resolve_action(_snapshot)
-		_current_action.action_finished.emit()
 		
 		# Enter post-cast delay or finish
 		if _post_cast_delay_s > 0.0:

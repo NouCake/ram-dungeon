@@ -28,6 +28,7 @@ var current_range := effect_range
 func _ready() -> void:
 	mesh.set_instance_shader_parameter("fade", 0.0)
 	_schedule_lifecycle()
+	effect.source = source_entity
 
 func _schedule_lifecycle() -> void:
 	if grows:
@@ -68,7 +69,4 @@ func _apply_effect_to_targets() -> void:
 	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
 	for target in targets:
 		var entity: Entity = Entity.Get(target) ## only applicable because filter is "entity"
-		var effect_instance := effect.duplicate() as Effect
-		effect_instance.source = source_entity
-		
-		entity.apply_effect(effect_instance)
+		entity.apply_effect(effect)

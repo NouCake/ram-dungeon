@@ -3,6 +3,7 @@ class_name Projectile
 extends Area3D
 
 @export var death_spawn: PackedScene
+@export var effect: Effect
 
 var projectile_speed := 8.0
 var shoot_direction: Vector3 = Vector3.RIGHT
@@ -12,9 +13,12 @@ var max_range := 10.0
 
 var start_position: Vector3
 func _ready() -> void:
-	global_position = start_position
 	assert(shoot_origin != null, "Projectile must have a shoot_origin set")
-	pass
+	
+	global_position = start_position
+
+	area_entered.connect(on_hit)
+	body_entered.connect(on_hit)
 
 func _physics_process(delta: float) -> void:
 	global_position = global_position + shoot_direction * projectile_speed * delta
@@ -26,15 +30,20 @@ func _physics_process(delta: float) -> void:
 func on_hit(other: Node) -> void:
 	if other == shoot_origin || !is_instance_valid(other) || !is_instance_valid(shoot_origin):
 		return
+	
+	var target := other as Entity
 		
 	
 	if other.has_node("health"):
 		var health_component: HealthComponent = other.get_node("health")
-		var info := DamageInfo.new(shoot_origin, other as Entity)
+		var info := DamageInfo.new(shoot_origin, target)
 		info.amount = projectile_damage
 		info.knockback_source_position = global_position
 		info.knockback_amount = 1.0
 		health_component.do_damage(info)
+
+		if effect != null:
+			target.apply_effect(effect)
 	else:
 		pass
 	

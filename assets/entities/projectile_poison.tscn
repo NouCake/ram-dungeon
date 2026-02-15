@@ -1,9 +1,18 @@
-[gd_scene format=3 uid="uid://bndt4isskhh40"]
+[gd_scene format=3 uid="uid://5w2daxp61dx3"]
 
-[ext_resource type="Script" uid="uid://dt2v81ftcbt68" path="res://assets/scripts/projectile.gd" id="1_v8qja"]
-[ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="2_t4vbm"]
-[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/GD/trail_renderer.gd" id="3_m3grp"]
-[ext_resource type="Shader" uid="uid://cnwgry1k3pm76" path="res://assets/shader/trail.gdshader" id="4_6r5b6"]
+[ext_resource type="Script" uid="uid://dt2v81ftcbt68" path="res://assets/scripts/projectile.gd" id="1_qypg8"]
+[ext_resource type="Script" uid="uid://c6ewowv1erviy" path="res://assets/scripts/effects/poison.gd" id="2_1q5tw"]
+[ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="2_7ixiu"]
+[ext_resource type="Script" uid="uid://brqh6t5d1dyrl" path="res://addons/TrailRenderer/GD/trail_renderer.gd" id="3_1q5tw"]
+[ext_resource type="Shader" uid="uid://cnwgry1k3pm76" path="res://assets/shader/trail.gdshader" id="4_pprvf"]
+
+[sub_resource type="Resource" id="Resource_pprvf"]
+script = ExtResource("2_1q5tw")
+tick_interval = 3.0
+duration = 15.0
+stackable = true
+max_stack_count = 10
+metadata/_custom_type_script = "uid://c6ewowv1erviy"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xx3v5"]
 radius = 0.1
@@ -14,26 +23,27 @@ point_count = 3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_valgu"]
 render_priority = 0
-shader = ExtResource("4_6r5b6")
+shader = ExtResource("4_pprvf")
 
 [sub_resource type="Gradient" id="Gradient_m3grp"]
 colors = PackedColorArray(0.05490196, 0.06666667, 0.09803922, 0.2509804, 0.05490196, 0.06666667, 0.09803922, 0.5019608)
 
 [node name="projectile" type="Area3D" unique_id=110607796]
 monitorable = false
-script = ExtResource("1_v8qja")
+script = ExtResource("1_qypg8")
+effect = SubResource("Resource_pprvf")
 
 [node name="sprite" type="Sprite3D" parent="." unique_id=852118871]
 transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, 1, 0, -0.25, -4.371139e-08, 0, 0, -0.08380127)
 pixel_size = 0.005
-texture = ExtResource("2_t4vbm")
+texture = ExtResource("2_7ixiu")
 
 [node name="shape" type="CollisionShape3D" parent="." unique_id=1370709062]
 shape = SubResource("SphereShape3D_xx3v5")
 
 [node name="Node3D" type="Node3D" parent="." unique_id=1177483307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033, -0.033, -0.106)
-script = ExtResource("3_m3grp")
+script = ExtResource("3_1q5tw")
 lifetime = 0.075
 min_vertex_distance = 0.01
 curve = SubResource("Curve_m3grp")

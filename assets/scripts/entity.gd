@@ -49,6 +49,7 @@ func _ready() -> void:
 
 func apply_effect(effect: Effect) -> void:
 	assert(effect != null, "Cannot apply null effect to entity: " + name)
+	effect = effect.duplicate()
 	effect.target = self
 	
 	for existing in effects:
