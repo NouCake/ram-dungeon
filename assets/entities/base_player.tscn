@@ -223,6 +223,7 @@ omni_range = 7.5
 
 [node name="character_light" type="OmniLight3D" parent="." unique_id=106247257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
+visible = false
 light_color = Color(1, 0.6392157, 0.15686275, 1)
 light_cull_mask = 4293918722
 omni_range = 7.5
@@ -251,4 +252,5 @@ metadata/_custom_type_script = "uid://b0ubjb54menfu"
 
 [node name="movement" type="Node" parent="." unique_id=1812569003]
 script = ExtResource("8_h21b8")
+base_move_speed = 2.0
 metadata/_custom_type_script = "uid://dqwr8ec0d35r2"

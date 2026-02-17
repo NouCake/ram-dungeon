@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://37osdonuw7u3"]
+
+[ext_resource type="Script" uid="uid://dlargacl3hbam" path="res://assets/scripts/effect_area.gd" id="1_ipybk"]
+[ext_resource type="Script" uid="uid://cg4bna82pp0ku" path="res://assets/scripts/effects/hallucinating.gd" id="2_ipybk"]
+[ext_resource type="Shader" uid="uid://coobsve6j2484" path="res://assets/shader/poison.gdshader" id="3_lnu35"]
+[ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="4_grugo"]
+[ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="5_nk2gx"]
+
+[sub_resource type="Resource" id="Resource_lt4do"]
+script = ExtResource("2_ipybk")
+metadata/_custom_type_script = "uid://cg4bna82pp0ku"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnu35"]
+render_priority = 0
+shader = ExtResource("3_lnu35")
+shader_parameter/scale = 3.0000001392401203
+shader_parameter/rim_strength = 1.690000080275
+shader_parameter/rim_color = Color(0.59685963, 0.34814742, 0, 1)
+shader_parameter/base_color = Color(0.3920442, 0.22240841, 9.62615e-08, 1)
+shader_parameter/rim_power = 4.490000210015119
+shader_parameter/offset_strength = 0.10000000475
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ws1ls"]
+size = Vector2(1, 1)
+subdivide_width = 20
+subdivide_depth = 20
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vkin5"]
+
+[node name="hallucinating_area" type="Area3D" unique_id=1804886747]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_ipybk")
+effect = SubResource("Resource_lt4do")
+max_range = 1.0
+
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=977527921]
+transform = Transform3D(0.9997108, 0, -0.024048317, 0, 1, 0, 0.024048317, 0, 0.9997108, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_lnu35")
+instance_shader_parameters/fade = 1.0
+mesh = SubResource("PlaneMesh_ws1ls")
+
+[node name="detector" parent="." unique_id=100270341 instance=ExtResource("4_grugo")]
+
+[node name="targetable" type="Node" parent="." unique_id=627368385]
+script = ExtResource("5_nk2gx")
+tags = ["cloud"]
+metadata/_custom_type_script = "uid://df8j4a2b2mtth"
+
+[node name="shape" type="CollisionShape3D" parent="." unique_id=1816349994]
+shape = SubResource("SphereShape3D_vkin5")
+debug_fill = false
+
+[editable path="detector"]
