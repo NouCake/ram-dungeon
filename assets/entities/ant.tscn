@@ -10,6 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="8_f1we4"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_3k2np"]
 [ext_resource type="Script" uid="uid://dqwr8ec0d35r2" path="res://assets/scripts/component/movement.gd" id="10_61ooc"]
+[ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="11_svfsw"]
+[ext_resource type="Script" uid="uid://3vrijt12lefs" path="res://assets/scripts/movement/melee_movement_strategy.gd" id="12_2ivrl"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="13_o87mo"]
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="14_3u0bk"]
+[ext_resource type="PackedScene" uid="uid://5w2daxp61dx3" path="res://assets/entities/projectile_poison.tscn" id="15_c3pbe"]
+[ext_resource type="Script" uid="uid://ce52uhwh2p6vx" path="res://assets/scripts/movement/ranged_movement_strategy.gd" id="16_tu4am"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fmjpc"]
 transparency = 1
@@ -462,8 +468,24 @@ _data = {
 &"walk": SubResource("Animation_5u4l6")
 }
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_61ooc"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xr6c6"]
 viewport_path = NodePath("viewport")
+
+[sub_resource type="Resource" id="Resource_v5obq"]
+script = ExtResource("12_2ivrl")
+attack_range = 0.8
+
+[sub_resource type="Resource" id="Resource_kggs6"]
+script = ExtResource("13_o87mo")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_idvha"]
+script = ExtResource("16_tu4am")
+min_range = 3.0
+
+[sub_resource type="Resource" id="Resource_pwpdo"]
+script = ExtResource("13_o87mo")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
 [node name="ant" type="CharacterBody3D" unique_id=141348389]
 script = ExtResource("1_g70yx")
@@ -566,4 +588,35 @@ metadata/_custom_type_script = "uid://dqwr8ec0d35r2"
 
 [node name="hud" parent="." unique_id=1119696046 instance=ExtResource("7_p7r1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91990614, 0)
-texture = SubResource("ViewportTexture_61ooc")
+texture = SubResource("ViewportTexture_xr6c6")
+
+[node name="ActionMelee" type="Node3D" parent="." unique_id=378681799]
+script = ExtResource("11_svfsw")
+movement_strategy = SubResource("Resource_v5obq")
+action_interval = 1.1
+cast_time = 0.5
+post_cast_delay = 0.5
+can_move_while_casting = false
+start_ready = false
+pause_until_action_success = true
+max_execution_range = 0.9
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_kggs6")
+animation_name = "attack_jump"
+metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="ActionProjectile" type="Node3D" parent="." unique_id=918817287]
+script = ExtResource("14_3u0bk")
+projectile = ExtResource("15_c3pbe")
+priority = 20
+movement_strategy = SubResource("Resource_idvha")
+action_interval = 10.0
+cast_time = 0.5
+post_cast_delay = 1.0
+can_move_while_casting = false
+pause_until_action_success = true
+min_execution_range = 3.0
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_pwpdo")
+animation_name = "attack_ranged"
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
