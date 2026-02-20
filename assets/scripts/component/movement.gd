@@ -18,6 +18,7 @@ static func Get(entity: Entity) -> MovementComponent:
 var desired_position: Vector3
 
 var _entity: Entity
+var _active_forces: Array[Vector3] = []
 
 func _ready() -> void:
 	_entity = get_parent() as Entity
@@ -30,11 +31,13 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not _entity:
 		return
+
+	_apply_forces(_delta)
 	
 	# Check if movement is locked by casting
 	if caster.movement_locked():
 		_entity.velocity = Vector3.ZERO
-		_entity.move_and_slide()
+		_move()
 		return
 	
 	# Check if we're close enough to desired position
@@ -42,9 +45,42 @@ func _physics_process(_delta: float) -> void:
 	if distance_to_desired <= close_enough_threshold:
 		# Already at desired position, don't move
 		_entity.velocity = Vector3.ZERO
-		_entity.move_and_slide()
+		_move()
 		return
 	
 	var direction := (_entity.global_position.direction_to(desired_position))
 	_entity.velocity = direction * base_move_speed
+	_move()
+
+func _move() -> void:
 	_entity.move_and_slide()
+	for i in _entity.get_slide_collision_count():
+		var collision := _entity.get_slide_collision(i)
+		var other := collision.get_collider() as Entity
+		_push_entity(other, collision)
+	
+func _push_entity(other: Entity, collision: KinematicCollision3D) -> void:
+	var push_direction := collision.get_normal()
+	var push_strength := 50.0
+	
+	var other_movement := MovementComponent.Get(other)
+	other_movement._active_forces.append(-push_direction * push_strength)
+	_active_forces.append(push_direction * push_strength)
+
+func _apply_forces(delta: float) -> void:
+	if _active_forces.is_empty():
+		return
+	
+	var total_force := Vector3.ZERO
+	for force in _active_forces:
+		total_force += force
+	total_force.y = 0  # Only apply horizontal forces for now
+	
+	var before_velocity := _entity.velocity
+	if _entity is CharacterBody3D:
+		_entity.velocity += total_force * delta
+		_entity.move_and_slide()
+		_entity.velocity = before_velocity
+	
+	# Clear forces after application (one-frame impulse)
+	_active_forces.clear()

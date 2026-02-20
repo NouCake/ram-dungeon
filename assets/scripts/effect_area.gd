@@ -21,7 +21,7 @@ var source_entity: Entity = null
 
 @onready var detector: TargetDetectorComponent = TargetDetectorComponent.Get(self)
 @onready var mesh: MeshInstance3D = get_node("mesh")
-@onready var particles: GPUParticles3D = get_node("particles")
+var particles: GPUParticles3D
 
 var current_range := effect_range
 
@@ -29,6 +29,9 @@ func _ready() -> void:
 	mesh.set_instance_shader_parameter("fade", 0.0)
 	_schedule_lifecycle()
 	effect.source = source_entity
+	if has_node("particles"):
+		particles = get_node("particles") as GPUParticles3D
+	_update_range(effect_range)
 
 func _schedule_lifecycle() -> void:
 	if grows:
@@ -44,9 +47,9 @@ func _setup_grow_tween() -> void:
 	tween.tween_method(_update_range, effect_range, max_range, time_alive)
 
 func _setup_fade_tween() -> void:
-	var fade_in_duration := time_alive * 0.1
+	var fade_in_duration: float = min(0.5, time_alive * 0.25)
 	var fade_out_start := time_alive * 0.75
-	var fade_out_duration := time_alive * 0.25
+	var fade_out_duration: float = min(0.5, time_alive * 0.25)
 	
 	var tween := create_tween()
 	# Fade in (0 to 1)
@@ -62,8 +65,9 @@ func _set_fade(value: float) -> void:
 func _update_range(new_range: float) -> void:
 	current_range = new_range
 	## @futureme Not all effect areas use particles, so this should be more generic
-	(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
-	mesh.scale = Vector3.ONE * new_range / effect_range
+	if particles:
+		(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
+	mesh.scale = Vector3.ONE * new_range * 2
 
 func _apply_effect_to_targets() -> void:
 	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)

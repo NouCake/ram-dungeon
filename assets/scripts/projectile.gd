@@ -10,6 +10,7 @@ var shoot_direction: Vector3 = Vector3.RIGHT
 var shoot_origin: Entity
 var projectile_damage := 1
 var max_range := 10.0
+var target_filter: Array[String] = []
 
 var start_position: Vector3
 func _ready() -> void:
@@ -32,7 +33,8 @@ func on_hit(other: Node) -> void:
 		return
 	
 	var target := other as Entity
-		
+	if target_filter.size() > 0 && target._targetable.has_any_tag(target_filter) == false:
+		return
 	
 	if other.has_node("health"):
 		var health_component: HealthComponent = other.get_node("health")

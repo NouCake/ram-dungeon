@@ -5,6 +5,7 @@ class_name Hallucinating
 extends Effect
 
 var _modified_actions: Dictionary[BaseAction, TargetingStrategy] = {}
+var _modified_filters: Dictionary[BaseAction, Array] = {}
 @export var curve: Curve
 
 func _init() -> void:
@@ -31,7 +32,9 @@ func on_applied() -> void:
 		if child is BaseAction:
 			var action := child as BaseAction
 			_modified_actions[action] = TargetHalucinating.new(action, chance_from_stacks())
+			_modified_filters[action] = action.target_filters
 			action.targeting_override = _modified_actions[action]
+			action.target_filters = []  # Clear filters to allow targeting allies
 
 
 
@@ -44,6 +47,7 @@ func on_expired() -> void:
 		# Only restore if targeting_override is still what we set
 		if action.targeting_override == stored:
 			action.targeting_override = null
-	
+			action.target_filters = _modified_filters[action]
 	_modified_actions.clear()
+	_modified_filters.clear()
 	super()

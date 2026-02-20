@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c6usb8h12366h"]
+[gd_scene format=3 uid="uid://da7lgh61332we"]
 
 [ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="1_uwtp6"]
 [ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="3_o36fe"]
@@ -8,12 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://n3xeai5drsr" path="res://assets/entities/showcase_player_immovable.tscn" id="5_xq7gy"]
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
-[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="9_vwee6"]
-[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="10_owfbn"]
-[ext_resource type="Script" uid="uid://628trxcomqbm" path="res://assets/scripts/action/action_object_spawn.gd" id="11_8clt3"]
-[ext_resource type="PackedScene" uid="uid://dmvgub50oj4me" path="res://assets/entities/shroom_poison.tscn" id="12_4lbig"]
 [ext_resource type="Script" uid="uid://ce67pcictb5ll" path="res://assets/scripts/effects/effect.gd" id="13_8clt3"]
 [ext_resource type="Script" uid="uid://cg4bna82pp0ku" path="res://assets/scripts/effects/hallucinating.gd" id="14_4lbig"]
+[ext_resource type="PackedScene" uid="uid://cekxr2187pgug" path="res://assets/entities/shroom_hallucinating.tscn" id="14_gwcig"]
 [ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="15_30wxc"]
 [ext_resource type="Script" uid="uid://3vrijt12lefs" path="res://assets/scripts/movement/melee_movement_strategy.gd" id="16_2m47e"]
 
@@ -22,17 +19,17 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 2.0
 
+[sub_resource type="Resource" id="Resource_4lbig"]
+script = ExtResource("14_4lbig")
+metadata/_custom_type_script = "uid://cg4bna82pp0ku"
+
 [sub_resource type="Resource" id="Resource_dxudb"]
 script = ExtResource("5_owfbn")
 metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
-[sub_resource type="Resource" id="Resource_vwee6"]
-script = ExtResource("5_owfbn")
-metadata/_custom_type_script = "uid://csosmshhpx6pj"
-
-[sub_resource type="Resource" id="Resource_owfbn"]
-script = ExtResource("5_owfbn")
-metadata/_custom_type_script = "uid://csosmshhpx6pj"
+[sub_resource type="Resource" id="Resource_ys14l"]
+script = ExtResource("14_4lbig")
+metadata/_custom_type_script = "uid://cg4bna82pp0ku"
 
 [sub_resource type="Resource" id="Resource_30wxc"]
 script = ExtResource("14_4lbig")
@@ -40,18 +37,18 @@ duration = 500.0
 stack_count = 10
 metadata/_custom_type_script = "uid://cg4bna82pp0ku"
 
-[sub_resource type="Resource" id="Resource_8clt3"]
-script = ExtResource("5_owfbn")
-metadata/_custom_type_script = "uid://csosmshhpx6pj"
-
 [sub_resource type="Resource" id="Resource_3myhx"]
 script = ExtResource("16_2m47e")
-attack_range = 1.0
+attack_range = 0.9
 metadata/_custom_type_script = "uid://3vrijt12lefs"
 
 [sub_resource type="Resource" id="Resource_42jun"]
 script = ExtResource("5_owfbn")
 metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_2m47e"]
+script = ExtResource("14_4lbig")
+metadata/_custom_type_script = "uid://cg4bna82pp0ku"
 
 [node name="Node3D" type="Node3D" unique_id=1600318940]
 
@@ -104,6 +101,7 @@ tags = "enemy5,entity"
 
 [node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("5_xq7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+effects = Array[ExtResource("13_8clt3")]([SubResource("Resource_4lbig")])
 tags = "entity"
 
 [node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=468950535]
@@ -116,45 +114,35 @@ metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
 [node name="base_player2" parent="." unique_id=1343113177 instance=ExtResource("5_xq7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+effects = Array[ExtResource("13_8clt3")]([SubResource("Resource_ys14l")])
 tags = "entity"
 
-[node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=223223996]
-script = ExtResource("9_vwee6")
-heal_vfx = ExtResource("10_owfbn")
+[node name="ActionProjectile" type="Node3D" parent="base_player2" unique_id=47801160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("3_o36fe")
+projectile = ExtResource("4_xq7gy")
 target_filters = Array[String](["enemy2"])
-targeting_strategy = SubResource("Resource_vwee6")
-metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
-
-[node name="base_player3" parent="." unique_id=117337697 instance=ExtResource("5_xq7gy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
-tags = "entity"
-
-[node name="ActionObjectSpawn" type="Node3D" parent="base_player3" unique_id=79923416]
-script = ExtResource("11_8clt3")
-to_spawn = ExtResource("12_4lbig")
-spawn_radius = 1.5
-action_interval = 5.0
-pause_until_action_success = true
-target_filters = Array[String](["enemy3"])
-targeting_strategy = SubResource("Resource_owfbn")
-metadata/_custom_type_script = "uid://628trxcomqbm"
+targeting_strategy = SubResource("Resource_dxudb")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
 [node name="base_player4" parent="." unique_id=354098001 instance=ExtResource("5_xq7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 effects = Array[ExtResource("13_8clt3")]([SubResource("Resource_30wxc")])
 tags = "entity"
 
-[node name="ActionProjectile" type="Node3D" parent="base_player4" unique_id=1836908584]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33660424, 0)
-script = ExtResource("3_o36fe")
-projectile = ExtResource("4_xq7gy")
-action_interval = 0.25
+[node name="ActionMelee" type="Node3D" parent="base_player4" unique_id=1922919009]
+script = ExtResource("15_30wxc")
+melee_damage = 1
+movement_strategy = SubResource("Resource_3myhx")
+can_move_while_casting = false
+max_execution_range = 1.0
 target_filters = Array[String](["enemy4"])
-targeting_strategy = SubResource("Resource_8clt3")
-metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+targeting_strategy = SubResource("Resource_42jun")
+metadata/_custom_type_script = "uid://c12suihu63rbg"
 
 [node name="base_player5" parent="." unique_id=997929916 instance=ExtResource("5_xq7gy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+effects = Array[ExtResource("13_8clt3")]([SubResource("Resource_2m47e")])
 tags = "entity"
 
 [node name="ActionMelee" type="Node3D" parent="base_player5" unique_id=2137924460]
@@ -162,6 +150,10 @@ script = ExtResource("15_30wxc")
 melee_damage = 1
 movement_strategy = SubResource("Resource_3myhx")
 can_move_while_casting = false
+max_execution_range = 1.0
 target_filters = Array[String](["enemy5"])
 targeting_strategy = SubResource("Resource_42jun")
 metadata/_custom_type_script = "uid://c12suihu63rbg"
+
+[node name="shroom" parent="." unique_id=226675831 instance=ExtResource("14_gwcig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.305237, 0, 8.324951)

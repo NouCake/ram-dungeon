@@ -2,7 +2,7 @@
 class_name TargetLowestHPPercent
 extends TargetingStrategy
 
-func _select_from_candidates(detector: TargetDetectorComponent, candidates: Array[Node3D]) -> Array[Node3D]:
+func _select_from_candidates(_detector: TargetDetectorComponent, candidates: Array[Node3D]) -> Array[Node3D]:
 	if candidates.is_empty():
 		return []
 	
