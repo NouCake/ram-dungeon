@@ -16,7 +16,6 @@ static func Get(node: Node) -> Entity:
 ## Emitted whenever effects changes (apply, expire, merge)
 signal effects_changed
 
-
 ## Active effects on this entity, exported for debugging purposes.
 @export var effects: Array[Effect] = []
 ## helper value to quickly override tags in editor, but not intended for prod use
@@ -49,6 +48,10 @@ func _ready() -> void:
 	effects = [];
 	for effect in start_effects:
 		apply_effect(effect);
+
+func reset_for_combat() -> void:
+	combat_disabled = false
+	_movement_component.desired_position = global_position
 
 func apply_effect(effect: Effect) -> void:
 	assert(effect != null, "Cannot apply null effect to entity: " + name)

@@ -29,7 +29,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if not _entity:
+	if _entity.combat_disabled:
 		return
 
 	_apply_forces(_delta)
