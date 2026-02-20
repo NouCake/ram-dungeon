@@ -71,6 +71,12 @@ Create these animations in AnimationPlayer:
 - Duration: ~0.3-0.5 seconds
 - Loop: OFF
 
+#### `hit` animation (one-shot) **NEW**
+- Flash red (modulate)
+- Small recoil (position/scale)
+- Duration: ~0.1-0.3 seconds
+- Loop: OFF
+
 ### 3. Add AnimationController
 
 1. Add script `AnimationController` as child of entity
@@ -94,10 +100,26 @@ Run the game:
 Actions emit signals:
 - `action_started` → play "attack" and lock animation
 - Animation stays locked during cast + post-cast phases
-- `action_finished` → unlock (will return to walk/idle)
 
 CasterComponent's `is_casting()` returns true during both cast and post-cast,
 so AnimationController keeps playing attack animation throughout.
+
+### Hit Animations **NEW**
+HealthComponent emits `was_hit` signal:
+- AnimationController checks if entity has "super-armor"
+- **Super-armor:** Entity is casting with `cancel_on_damage_taken = false`
+- If super-armor: ignore hit, keep playing attack
+- Otherwise: interrupt current animation, play hit
+
+**Logic:**
+```gdscript
+if casting AND cancel_on_damage_taken = false:
+    // Ignore hit, keep attacking (super-armor!)
+else:
+    // Play hit animation, interrupt attack
+```
+
+**Result:** Tough enemies can attack through damage, weak enemies flinch!
 
 ### Post-Cast Delay
 After action resolves, entity enters post-cast phase:
@@ -154,6 +176,14 @@ can_move_during_post_cast = true
 ```
 Can move throughout, no post-cast delay.
 
+**Super-Armor Boss (can't be interrupted):**
+```gdscript
+cast_time = 2.0
+post_cast_delay = 0.5
+cancel_on_damage_taken = false  # Super-armor!
+```
+Boss keeps attacking even when hit, no hit animation plays.
+
 ## Signals Added
 
 ### BaseAction
@@ -192,17 +222,66 @@ attack animation:
     0.0s: Vector3(1, 1, 1)
     0.1s: Vector3(1.2, 1.2, 1.2)
     0.3s: Vector3(1, 1, 1)
+
+hit animation:
+  Track: modulate
+    0.0s: Color(1, 1, 1, 1)  (white)
+    0.05s: Color(1, 0, 0, 1)  (red flash)
+    0.2s: Color(1, 1, 1, 1)  (back to white)
+  Track: scale
+    0.0s: Vector3(1, 1, 1)
+    0.05s: Vector3(0.9, 0.9, 0.9)  (shrink)
+    0.2s: Vector3(1, 1, 1)  (back to normal)
 ```
+
+## Hit Animation System
+
+### Super-Armor Mechanic
+
+Entities can have "super-armor" during certain actions:
+- Set `cancel_on_damage_taken = false` on action
+- Entity takes damage but continues attacking
+- Hit animation does NOT play
+
+**Use cases:**
+- Boss attacks (can't be interrupted)
+- Heavy weapon swings (committed to attack)
+- Berserker rage abilities
+
+### Hit Reaction Behavior
+
+| Scenario | Hit Animation? | Action Interrupted? |
+|----------|----------------|---------------------|
+| Idle, walking | ✅ Yes | N/A |
+| Attacking, cancel_on_damage_taken = true | ✅ Yes | ✅ Yes (cast cancelled) |
+| Attacking, cancel_on_damage_taken = false | ❌ No | ❌ No (super-armor!) |
+
+### Implementation Details
+
+AnimationController listens to `HealthComponent.was_hit`:
+1. Check if damage is heal (ignore)
+2. Check if entity is casting
+3. If casting, check `action.cancel_on_damage_taken`
+4. If false: ignore hit (super-armor)
+5. Otherwise: interrupt animation, play hit
+
+CasterComponent handles cast cancellation separately based on `cancel_on_damage_taken`.
 
 ## Extension Points
 
-To add more animation states later:
+Animation states currently implemented:
+- ✅ IDLE - standing still
+- ✅ WALK - moving
+- ✅ ATTACK - action executing
+- ✅ HIT - taking damage
+
+To add more animation states:
 1. Add new state to `AnimationState` enum
 2. Add case in `_play_state()` match
 3. Add condition in `_update_animation_state()`
 4. Connect to relevant signals
 
 Example future additions:
-- Hit reaction (connect to HealthComponent.was_hit)
 - Death (check health.current_health <= 0)
-- Casting (check CasterComponent.is_casting())
+- Stun (connect to status effect system)
+- Victory pose (on enemy defeated)

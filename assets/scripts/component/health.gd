@@ -8,6 +8,7 @@ extends Node
 @export var invulnerable := false
 
 signal was_hit(info: DamageInfo)
+signal died(entity: Entity)
 
 static var component_name: String = "health"
 static func Is(node: Node) -> bool:
@@ -40,6 +41,9 @@ func do_damage(info: DamageInfo) -> void:
 		# Damage - subtract health
 		current_health -= info.amount
 	
-	if auto_delete && current_health <= 0:
-		get_parent().queue_free()
+	if current_health <= 0:
+		var entity: Entity = get_parent()
+		died.emit(entity)
+		if auto_delete:
+			entity.queue_free()
 	

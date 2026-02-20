@@ -44,6 +44,9 @@ signal action_started
 @export var animation_name: String = ""
 
 
+@onready var _entity: Entity = get_parent()
+
+
 ## Runtime override for targeting (e.g., debuffs like "Desynced")
 var targeting_override: TargetingStrategy = null
 
@@ -61,6 +64,9 @@ func _randomize_action_interval() -> void:
 	_current_action_interval = action_interval * (1.0 + variation)
 
 func _process(delta: float) -> void:
+	if _entity.combat_disabled:
+		return
+	
 	if time_since_last_action >= _current_action_interval:
 		if !pause_until_action_success:
 			time_since_last_action -= _current_action_interval

@@ -38,7 +38,7 @@ uv1_offset = Vector3(0, 0.5, 0)
 texture_filter = 0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5u4l6"]
-radius = 0.28909215
+radius = 0.2
 
 [sub_resource type="Animation" id="Animation_fmjpc"]
 length = 0.001
@@ -344,6 +344,21 @@ tracks/6/keys = {
 "values": [Vector3(0.047742408, -0.019262418, 0), Vector3(-0.032932427, -0.019262418, -3.7252903e-09), Vector3(-0.032932427, -0.019262418, -3.7252903e-09), Vector3(0.047742408, -0.019262418, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_61ooc"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.034674704, 0.34938705, 0.08033177)]
+}
+
 [sub_resource type="Animation" id="Animation_g70yx"]
 resource_name = "hit"
 length = 0.16666667
@@ -395,20 +410,53 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -0.34906584, 0), Vector3(0, 0, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_61ooc"]
-resource_name = "death"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("body:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("body:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.034674704, 0.34938705, 0.08033177)]
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("body/leg_start:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.030896187, -0.035857826, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("body/leg_start2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0053687543, -0.016352043, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("body/leg_start3:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.047742408, -0.019262418, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_mgagh"]
@@ -441,7 +489,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.17453292, 0), Vector3(0, 0, 0), Vector3(0, 0.17453292, 0)]
+"values": [Vector3(0.51853734, 0, 0), Vector3(0, -0.17453292, 0), Vector3(0, 0, 0), Vector3(0, 0.17453292, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -462,13 +510,13 @@ _data = {
 &"attack": SubResource("Animation_b32fg"),
 &"attack_jump": SubResource("Animation_3k2np"),
 &"attack_ranged": SubResource("Animation_0t0r2"),
-&"blink": SubResource("Animation_g70yx"),
 &"death": SubResource("Animation_61ooc"),
+&"hit": SubResource("Animation_g70yx"),
 &"idle": SubResource("Animation_mgagh"),
 &"walk": SubResource("Animation_5u4l6")
 }
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xr6c6"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_svfsw"]
 viewport_path = NodePath("viewport")
 
 [sub_resource type="Resource" id="Resource_v5obq"]
@@ -588,12 +636,12 @@ metadata/_custom_type_script = "uid://dqwr8ec0d35r2"
 
 [node name="hud" parent="." unique_id=1119696046 instance=ExtResource("7_p7r1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91990614, 0)
-texture = SubResource("ViewportTexture_xr6c6")
+texture = SubResource("ViewportTexture_svfsw")
 
 [node name="ActionMelee" type="Node3D" parent="." unique_id=378681799]
 script = ExtResource("11_svfsw")
 movement_strategy = SubResource("Resource_v5obq")
-action_interval = 1.1
+action_interval = 3.0
 cast_time = 0.5
 post_cast_delay = 0.5
 can_move_while_casting = false
@@ -614,6 +662,7 @@ action_interval = 10.0
 cast_time = 0.5
 post_cast_delay = 1.0
 can_move_while_casting = false
+cancel_on_damage_taken = true
 pause_until_action_success = true
 min_execution_range = 3.0
 target_filters = Array[String](["player"])

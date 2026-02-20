@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="7_wiayc"]
 [ext_resource type="Script" uid="uid://dqwr8ec0d35r2" path="res://assets/scripts/component/movement.gd" id="8_h21b8"]
 [ext_resource type="Script" uid="uid://dklepcgv41dhm" path="res://assets/scripts/component/knockback.gd" id="9_jsamf"]
+[ext_resource type="PackedScene" uid="uid://bbpqmblpblvyh" path="res://assets/components/ui/hud.tscn" id="9_njftr"]
 [ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="9_ufriv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wiayc"]
@@ -198,6 +199,10 @@ animations = [{
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o1qma"]
 margin = 0.0
 height = 1.0
+radius = 0.25
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ufriv"]
+viewport_path = NodePath("viewport")
 
 [node name="base_player" type="CharacterBody3D" unique_id=1116852983]
 script = ExtResource("1_nc8pj")
@@ -214,13 +219,6 @@ animation = &"idle"
 [node name="shape" type="CollisionShape3D" parent="." unique_id=666304951]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_o1qma")
-
-[node name="world_light" type="OmniLight3D" parent="." unique_id=1345461555]
-transform = Transform3D(0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, 0.7071067, 0, 0.3, 0)
-light_color = Color(1, 0.6392157, 0.15686275, 1)
-light_size = 15.0
-light_cull_mask = 4293918721
-omni_range = 7.5
 
 [node name="character_light" type="OmniLight3D" parent="." unique_id=106247257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.5)
@@ -239,7 +237,6 @@ tags = ["entity", "player"]
 script = ExtResource("7_wiayc")
 current_health = 15
 max_health = 15
-auto_delete = false
 metadata/_custom_type_script = "uid://p1i5c8q40s43"
 
 [node name="knockback" type="Node" parent="." unique_id=1646886231]
@@ -255,3 +252,7 @@ metadata/_custom_type_script = "uid://b0ubjb54menfu"
 script = ExtResource("8_h21b8")
 base_move_speed = 2.0
 metadata/_custom_type_script = "uid://dqwr8ec0d35r2"
+
+[node name="hud" parent="." unique_id=1119696046 instance=ExtResource("9_njftr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5960693, 0)
+texture = SubResource("ViewportTexture_ufriv")

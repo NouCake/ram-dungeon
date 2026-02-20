@@ -19,6 +19,9 @@ func shoot(snapshot: TargetSnapshot) -> bool:
 	var parent: Node3D = get_parent()
 	var instance: Projectile = projectile.instantiate()
 	
+	if !is_instance_valid(snapshot.targets[0]):
+		return false
+		
 	var dist := snapshot.targets[0].global_position - global_position
 	dist.y = 0  # @futureme future enemies might be flying
 
