@@ -11,7 +11,8 @@ extends AnimationPlayer
 enum AnimationState {
 	IDLE,
 	WALK,
-	ATTACK
+	ATTACK,
+	HIT
 }
 
 var current_state: AnimationState = AnimationState.IDLE
@@ -28,6 +29,11 @@ func _ready() -> void:
 		if child is BaseAction:
 			var action := child as BaseAction
 			action.action_started.connect(_on_action_started.bind(action))
+	
+	# Connect to health component for hit reactions
+	var health = HealthComponent.Get(entity)
+	if health:
+		health.was_hit.connect(_on_entity_hit)
 	
 	# Connect to animation finished signal
 	if has_signal("animation_finished"):
@@ -63,10 +69,29 @@ func _play_state(state: AnimationState, animation_name: String = "") -> void:
 			assert(has_animation(animation_name), "AnimationController: No animation named %s for attack state" % animation_name)
 			play(animation_name)
 			animation_locked = true
+		AnimationState.HIT:
+			if has_animation("hit"):
+				play("hit")
+				animation_locked = true
 
 func _on_action_started(_action: BaseAction) -> void:
 	_play_state(AnimationState.ATTACK, _action.animation_name)
 
+func _on_entity_hit(info: DamageInfo) -> void:
+	if info.type == DamageInfo.DamageType.HEAL:
+		return  # Don't play hit animation on heal
+	
+	# Check if entity has super-armor (casting with cancel_on_damage_taken = false)
+	var caster = CasterComponent.Get(entity)
+	if caster and caster.is_casting():
+		var action = caster.get_current_action()
+		if action and !action.cancel_on_damage_taken:
+			return  # Ignore hit, keep attacking! (super-armor)
+	
+	# Play hit animation (interrupts current animation if any)
+	animation_locked = false  # Unlock first
+	_play_state(AnimationState.HIT)
+
 func _on_animation_finished(anim_name: String) -> void:
-	if anim_name.begins_with("attack"):
+	if anim_name.begins_with("attack") or anim_name == "hit":
 		animation_locked = false
