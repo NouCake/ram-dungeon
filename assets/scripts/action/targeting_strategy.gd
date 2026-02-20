@@ -10,6 +10,8 @@ extends Resource
 ## Maximum range for targeting (targets farther than this are filtered out)
 @export var max_range: float = 0.0
 
+@export var can_target_self := false
+
 ## Returns array of targets based on strategy implementation.
 ## For single-target actions, caller takes first element.
 ## For multi-target actions (future), caller uses full array.
@@ -33,7 +35,7 @@ func _get_candidates(
 	filters: Array[String],
 	line_of_sight: bool
 ) -> Array[Node3D]:
-	var all := detector.find_all(filters, 0, line_of_sight)
+	var all := detector.find_all(filters, 0, line_of_sight, can_target_self)
 	var parent := detector.get_parent() as Node3D
 	return all.filter(func(target: Node3D) -> bool:
 		var distance := parent.global_position.distance_to(target.global_position)

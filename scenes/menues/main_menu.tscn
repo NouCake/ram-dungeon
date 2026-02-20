@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://di8g4qs8gxrxt"]
+
+[ext_resource type="Texture2D" uid="uid://u0hrb1phoxkw" path="res://assets/sprites/icon.svg" id="1_nwp5b"]
+[ext_resource type="Theme" uid="uid://b8cu6jr7l1gca" path="res://assets/Fonts/theme1.tres" id="2_bp3hh"]
+
+[sub_resource type="Theme" id="Theme_fu7sn"]
+default_base_scale = 1.0
+default_font_size = 32
+
+[node name="MM" type="Control" unique_id=893581966]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="Control" parent="." unique_id=1012788803]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = 60.0
+offset_right = -60.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Center" unique_id=708941896]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 300.0
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Center/BoxContainer" unique_id=1187629898]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("1_nwp5b")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Center" unique_id=35234130]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.5
+offset_right = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="Start" type="Button" parent="Center/VBoxContainer2" unique_id=2080853620]
+layout_mode = 2
+theme = ExtResource("2_bp3hh")
+theme_override_font_sizes/font_size = 32
+text = "Start
+"
+flat = true
+
+[node name="Options2" type="Button" parent="Center/VBoxContainer2" unique_id=84005569]
+layout_mode = 2
+theme = SubResource("Theme_fu7sn")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+flat = true
+
+[node name="Options" type="Button" parent="Center/VBoxContainer2" unique_id=91917137]
+layout_mode = 2
+theme = SubResource("Theme_fu7sn")
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+flat = true

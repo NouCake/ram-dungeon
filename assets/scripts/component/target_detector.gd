@@ -51,9 +51,6 @@ func _get_all_near_targets() -> Array[Node3D]:
 	var found_targets: Array[Node3D] = [];
 	
 	for target in overlapping:
-		if (target == get_parent()):
-			continue;
-
 		if !Targetable.Is(target):
 			continue;
 
@@ -75,28 +72,31 @@ func _is_in_line_of_sight(target: Node3D) -> bool:
 	return true
 
 ## Find all targetables within max_distance that match any of the filter_tags and (optionally) line of sight
-func find_all(filter_tags: Array[String], max_distance: float, line_of_sight: bool) -> Array[Node3D]:
+func find_all(filter_tags: Array[String], max_distance: float, line_of_sight: bool, can_target_self: bool = false) -> Array[Node3D]:
 	assert(max_distance <= _area_range, "Requested max_distance " + str(max_distance) + " exceeds detector range " + str(_area_range))
 
 	var possible_targets: Array[Node3D] = []
-	for t in _overlapping_nodes:
-		if !is_instance_valid(t):
+	for node in _overlapping_nodes:
+		if !is_instance_valid(node):
+			continue
+
+		if can_target_self == false and node == get_parent():
 			continue
 			
-		var targetable := Targetable.Get(t)
+		var targetable := Targetable.Get(node)
 		if filter_tags.size() > 0 and !targetable.has_any_tag(filter_tags):
 			continue
 
 		var parent: Node3D = get_parent()
 		if max_distance >= 0.001:
-			var distance := (t.global_position - parent.global_position).length()
+			var distance := (node.global_position - parent.global_position).length()
 			if distance > max_distance:
 				continue
 			
-		if line_of_sight and !_is_in_line_of_sight(t):
+		if line_of_sight and !_is_in_line_of_sight(node):
 			continue
 		
-		possible_targets.append(t)
+		possible_targets.append(node)
 	return possible_targets;
 
 

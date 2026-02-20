@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://cn6ik1qy673ta"]
+
+[ext_resource type="Script" uid="uid://bv3b6fow0dkdp" path="res://assets/scripts/section.gd" id="1_rrsh2"]
+[ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="2_iq8s6"]
+[ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="3_oispn"]
+[ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="4_6kiqc"]
+[ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="5_r05p5"]
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_q4k5p"]
+[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_fqx1s"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_5esr2"]
+[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="9_tri1f"]
+[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="10_dykch"]
+[ext_resource type="Script" uid="uid://7g833hgwbj3w" path="res://assets/scripts/action/target_random.gd" id="11_1b77n"]
+[ext_resource type="Script" uid="uid://cexwf5h7mt8hn" path="res://assets/scripts/party_manager.gd" id="12_hkhrk"]
+[ext_resource type="Script" uid="uid://dcuay2m3jwn1q" path="res://assets/scripts/grid_cell.gd" id="13_lnquo"]
+[ext_resource type="PackedScene" uid="uid://quhe1ope74di" path="res://assets/entities/ant.tscn" id="14_5uchg"]
+
+[sub_resource type="Resource" id="Resource_dxudb"]
+script = ExtResource("8_5esr2")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_bn0c6"]
+script = ExtResource("11_1b77n")
+can_target_self = true
+metadata/_custom_type_script = "uid://7g833hgwbj3w"
+
+[sub_resource type="Resource" id="Resource_abgfj"]
+script = ExtResource("13_lnquo")
+grid_x = 1
+grid_y = 1
+entity = NodePath("../ranger")
+metadata/_custom_type_script = "uid://dcuay2m3jwn1q"
+
+[sub_resource type="Resource" id="Resource_n34pq"]
+script = ExtResource("13_lnquo")
+grid_x = 1
+grid_y = 3
+entity = NodePath("../healer")
+metadata/_custom_type_script = "uid://dcuay2m3jwn1q"
+
+[sub_resource type="Environment" id="Environment_dxudb"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.0
+
+[node name="section" type="Node3D" unique_id=1600318940]
+script = ExtResource("1_rrsh2")
+width = 2
+
+[node name="grid_floor" type="GridMap" parent="." unique_id=1467566150]
+mesh_library = ExtResource("2_iq8s6")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65535, 65534, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 2, 65534, 0, 2, 65535, 0, 2, 0, 0, 2, 1, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 7, 65534, 0, 7, 65535, 0, 7, 0, 0, 7, 1, 0, 8, 65534, 0, 8, 65535, 0, 8, 0, 0, 8, 1, 0, 9, 65534, 0, 9, 65535, 0, 9, 0, 0, 9, 1, 0, 10, 65534, 0, 10, 65535, 0, 10, 0, 0, 10, 1, 0, 11, 65534, 0, 11, 65535, 0, 11, 0, 0, 11, 1, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="grid_walls" type="GridMap" parent="." unique_id=547799591]
+mesh_library = ExtResource("2_iq8s6")
+cell_size = Vector3(4, 3, 4)
+data = {
+"cells": PackedInt32Array(65534, 65534, 655362, 131070, 65534, 524291, 65535, 65534, 655361, 131071, 65534, 524291, 0, 65534, 655361, 65536, 65534, 524291, 1, 65534, 655362, 65537, 65534, 524291, 2, 65534, 655361, 65538, 65534, 524291, 3, 65534, 655361, 65539, 65534, 524291, 4, 65534, 655362, 65540, 65534, 524291, 5, 65534, 655361, 65541, 65534, 524291, 6, 65534, 655361, 65542, 65534, 524291, 7, 65534, 655362, 65543, 65534, 524291, 8, 65534, 655361, 65544, 65534, 524291, 9, 65534, 655361, 65545, 65534, 524291, 10, 65534, 655362, 65546, 65534, 524291, 11, 65534, 655361, 65547, 65534, 524291)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="damage_numbers" type="Node3D" parent="." unique_id=1025485108]
+script = ExtResource("3_oispn")
+damage_number_scene = ExtResource("4_6kiqc")
+
+[node name="ranger" parent="." unique_id=1116852983 instance=ExtResource("5_r05p5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, -1.25)
+
+[node name="ActionProjectile" type="Node3D" parent="ranger" unique_id=468950535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5484168, 0)
+script = ExtResource("6_q4k5p")
+projectile = ExtResource("7_fqx1s")
+action_interval = 0.5
+can_move_while_casting = false
+targeting_strategy = SubResource("Resource_dxudb")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="healer" parent="." unique_id=1599512519 instance=ExtResource("5_r05p5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, 1.25)
+
+[node name="ActionHeal" type="Node3D" parent="healer" unique_id=223223996]
+script = ExtResource("9_tri1f")
+heal_vfx = ExtResource("10_dykch")
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_bn0c6")
+metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
+
+[node name="party_manager" type="Node3D" parent="." unique_id=412470073]
+transform = Transform3D(0.9999223, -0.008674823, 0.008954015, 0.008692259, 0.9999604, -0.0019097727, -0.008937089, 0.0019874712, 0.9999581, 0, 0, 0)
+script = ExtResource("12_hkhrk")
+grid_length = 5
+grid_width = 5
+grid_gap = 0.25
+cells = Array[ExtResource("13_lnquo")]([SubResource("Resource_abgfj"), SubResource("Resource_n34pq")])
+
+[node name="camera" type="Camera3D" parent="party_manager" unique_id=967101517]
+transform = Transform3D(0.8614895, 0.26137808, -0.43533576, -0.0065188967, 0.8629618, 0.50522697, 0.5077334, -0.43240985, 0.74513644, -3.647634, 5.0426564, 5.6298857)
+environment = SubResource("Environment_dxudb")
+projection = 1
+size = 7.5
+
+[node name="ant" parent="." unique_id=141348389 instance=ExtResource("14_5uchg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.874435, 0, 0)
+
+[node name="ant2" parent="." unique_id=157149075 instance=ExtResource("14_5uchg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.874435, 0, 2)
+
+[node name="ant3" parent="." unique_id=1110581156 instance=ExtResource("14_5uchg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.874435, 0, -2)

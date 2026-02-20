@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bkelfyv5gfnwk"]
+
+[ext_resource type="Script" uid="uid://c2ac63hjq8112" path="res://assets/scripts/ui/main_menu.gd" id="1_gyfs4"]
+[ext_resource type="PackedScene" uid="uid://di8g4qs8gxrxt" path="res://scenes/menues/main_menu.tscn" id="2_d5x1h"]
+[ext_resource type="PackedScene" uid="uid://dq4dqta775h2l" path="res://scenes/menues/levelselect.tscn" id="3_8mm7a"]
+
+[node name="Control" type="Control" unique_id=2133477078]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_stretch_ratio = 0.0
+script = ExtResource("1_gyfs4")
+
+[node name="MM" parent="." unique_id=893581966 instance=ExtResource("2_d5x1h")]
+layout_mode = 1
+
+[node name="MLevelselect" parent="." unique_id=412844723 instance=ExtResource("3_8mm7a")]
+visible = false
+layout_mode = 1

@@ -8,9 +8,13 @@ func resolve_action(snapshot: TargetSnapshot):
 	var parent: Entity = get_parent()
 
 	for target in snapshot.targets:
+		if !is_instance_valid(target):
+			continue
+
 		if not target.has_node("health"):
 			assert(false, "MeleeComponent.attack(): Target has no health node")
 			continue
+			
 		var health := target.get_node("health") as HealthComponent;
 
 		var info := DamageInfo.new(parent, target as Entity)

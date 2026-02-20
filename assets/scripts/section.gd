@@ -67,6 +67,12 @@ func _on_encounter_finished() -> void:
 	for entity in _entities:
 		if is_instance_valid(entity):
 			entity.combat_disabled = true
+	var tween := get_tree().create_tween()
+	tween.tween_method(_update_tween, 0.0, 1.0, 1.0)
+	tween.connect("finished", _switch_to_main)
+
+func _switch_to_main() -> void:
+	get_tree().change_scene_to_file("res://main_scene.tscn")
 
 func _on_pre_encounter_finished() -> void:
 	for entity in _entities:

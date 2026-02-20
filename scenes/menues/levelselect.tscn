@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dq4dqta775h2l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7vrkn"]
+font_size = 32
+
+[node name="MLevelselect" type="Control" unique_id=412844723]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1131953403]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -405.0
+offset_right = 405.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1315268284]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2" unique_id=953667777]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/MarginContainer" unique_id=806086741]
+layout_mode = 2
+text = "Select a Level"
+label_settings = SubResource("LabelSettings_7vrkn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1107763980]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer" unique_id=1045430880]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=943328055]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+auto_width = true
+auto_height = true
+text_overrun_behavior = 5
+scroll_hint_mode = 1
+tile_scroll_hint = true
+item_count = 4
+fixed_column_width = 250
+item_0/text = "Level 1"
+item_1/text = "Level 2"
+item_2/text = "Level 3"
+item_3/text = "Level 4"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer" unique_id=767433149]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer3" unique_id=2012485104]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer3/MarginContainer" unique_id=244548897]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Start"
