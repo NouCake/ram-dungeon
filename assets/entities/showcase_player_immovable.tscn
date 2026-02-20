@@ -3,10 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="1_h8yll"]
 [ext_resource type="PackedScene" uid="uid://bbpqmblpblvyh" path="res://assets/components/ui/hud.tscn" id="2_wk8kc"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_t46d6"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_wk8kc"]
 viewport_path = NodePath("viewport")
 
 [node name="showcase_player" unique_id=1116852983 instance=ExtResource("1_h8yll")]
+
+[node name="sprite" parent="." index="0" unique_id=588092522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+offset = Vector2(4, 0)
 
 [node name="health" parent="." index="6" unique_id=1136559519]
 current_health = 5
@@ -15,4 +19,4 @@ invulnerable = true
 
 [node name="hud" parent="." index="10" unique_id=1119696046 instance=ExtResource("2_wk8kc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.548728, 0)
-texture = SubResource("ViewportTexture_t46d6")
+texture = SubResource("ViewportTexture_wk8kc")

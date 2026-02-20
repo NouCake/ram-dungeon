@@ -462,7 +462,7 @@ _data = {
 &"walk": SubResource("Animation_5u4l6")
 }
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_0t0r2"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_61ooc"]
 viewport_path = NodePath("viewport")
 
 [node name="ant" type="CharacterBody3D" unique_id=141348389]
@@ -481,7 +481,7 @@ texture_filter = 0
 texture = ExtResource("2_5u4l6")
 
 [node name="leg_start" type="Node3D" parent="body" unique_id=818754131]
-transform = Transform3D(1, 0, 0, 0, 0.9918936, -0.12706463, 0, 0.12706451, 0.99189454, -0.030896187, -0.035857826, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99189353, -0.12706463, 0, 0.1270645, 0.99189454, -0.030896187, -0.035857826, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="body/leg_start" unique_id=833380486]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.038)
@@ -546,11 +546,11 @@ script = ExtResource("4_61ooc")
 script = ExtResource("5_f1we4")
 current_health = 10
 max_health = 10
-invulnerable = true
 metadata/_custom_type_script = "uid://p1i5c8q40s43"
 
 [node name="targetable" type="Node" parent="." unique_id=598695681]
 script = ExtResource("6_3k2np")
+tags = ["entity", "enemy"]
 metadata/_custom_type_script = "uid://df8j4a2b2mtth"
 
 [node name="detector" parent="." unique_id=100270341 instance=ExtResource("8_f1we4")]
@@ -566,4 +566,4 @@ metadata/_custom_type_script = "uid://dqwr8ec0d35r2"
 
 [node name="hud" parent="." unique_id=1119696046 instance=ExtResource("7_p7r1a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.91990614, 0)
-texture = SubResource("ViewportTexture_0t0r2")
+texture = SubResource("ViewportTexture_61ooc")

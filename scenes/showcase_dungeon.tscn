@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://d4na72sj81k00"]
+
+[ext_resource type="MeshLibrary" uid="uid://b2rm7ft0twls1" path="res://tiles.tres" id="1_sggvo"]
+[ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="2_rcknr"]
+[ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="3_f04cg"]
+[ext_resource type="PackedScene" uid="uid://n3xeai5drsr" path="res://assets/entities/showcase_player_immovable.tscn" id="5_dv87x"]
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_in5fd"]
+[ext_resource type="Script" uid="uid://ce52uhwh2p6vx" path="res://assets/scripts/movement/ranged_movement_strategy.gd" id="7_4vqju"]
+[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_88agx"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_77lgi"]
+[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="9_h7q6a"]
+[ext_resource type="Script" uid="uid://cexwf5h7mt8hn" path="res://assets/scripts/party_manager.gd" id="10_djmtv"]
+[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="10_s72nm"]
+[ext_resource type="Script" uid="uid://dcuay2m3jwn1q" path="res://assets/scripts/grid_cell.gd" id="11_n34pq"]
+[ext_resource type="PackedScene" uid="uid://quhe1ope74di" path="res://assets/entities/ant.tscn" id="12_abgfj"]
+
+[sub_resource type="Environment" id="Environment_dxudb"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.0
+
+[sub_resource type="Resource" id="Resource_bn0c6"]
+script = ExtResource("7_4vqju")
+metadata/_custom_type_script = "uid://ce52uhwh2p6vx"
+
+[sub_resource type="Resource" id="Resource_dxudb"]
+script = ExtResource("8_77lgi")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_vwee6"]
+script = ExtResource("8_77lgi")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[sub_resource type="Resource" id="Resource_abgfj"]
+script = ExtResource("11_n34pq")
+entity = NodePath("../base_player")
+metadata/_custom_type_script = "uid://dcuay2m3jwn1q"
+
+[sub_resource type="Resource" id="Resource_n34pq"]
+script = ExtResource("11_n34pq")
+grid_y = 2
+entity = NodePath("../base_player2")
+metadata/_custom_type_script = "uid://dcuay2m3jwn1q"
+
+[node name="Node3D" type="Node3D" unique_id=1600318940]
+
+[node name="grid_floor" type="GridMap" parent="." unique_id=1467566150]
+mesh_library = ExtResource("1_sggvo")
+cell_size = Vector3(4, 4, 4)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(0, 65535, 0, 0, 0, 0, 1, 65535, 0, 1, 0, 0, 2, 65535, 0, 2, 0, 0, 3, 65535, 0, 3, 0, 0, 4, 65535, 0, 4, 0, 0, 5, 65535, 0, 5, 0, 0, 6, 65535, 0, 6, 0, 0, 7, 65535, 0, 7, 0, 0, 8, 65535, 0, 8, 0, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 8, 65534, 0, 7, 65534, 0, 6, 65534, 0, 5, 65534, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 1, 65534, 0, 0, 65534, 0, 65535, 65534, 0, 65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65534, 2, 0, 65535, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 65524, 65529, 0, 65524, 65530, 0, 65524, 65531, 0, 65524, 65532, 0, 65524, 65533, 0, 65524, 65534, 0, 65524, 65535, 0, 65524, 0, 0, 65524, 1, 0, 65524, 2, 0, 65524, 3, 0, 65524, 4, 0, 65524, 5, 0, 65524, 6, 0, 65524, 7, 0, 65524, 8, 0, 65524, 9, 0, 65525, 65529, 0, 65525, 65530, 0, 65525, 65531, 0, 65525, 65532, 0, 65525, 65533, 0, 65525, 65534, 0, 65525, 65535, 0, 65525, 0, 0, 65525, 1, 0, 65525, 2, 0, 65525, 3, 0, 65525, 4, 0, 65525, 5, 0, 65525, 6, 0, 65525, 7, 0, 65525, 8, 0, 65525, 9, 0, 65526, 65529, 0, 65526, 65530, 0, 65526, 65531, 0, 65526, 65532, 0, 65526, 65533, 0, 65526, 65534, 0, 65526, 65535, 0, 65526, 0, 0, 65526, 1, 0, 65526, 2, 0, 65526, 3, 0, 65526, 4, 0, 65526, 5, 0, 65526, 6, 0, 65526, 7, 0, 65526, 8, 0, 65526, 9, 0, 65527, 65529, 0, 65527, 65530, 0, 65527, 65531, 0, 65527, 65532, 0, 65527, 65533, 0, 65527, 65534, 0, 65527, 65535, 0, 65527, 0, 0, 65527, 1, 0, 65527, 2, 0, 65527, 3, 0, 65527, 4, 0, 65527, 5, 0, 65527, 6, 0, 65527, 7, 0, 65527, 8, 0, 65527, 9, 0, 65528, 65529, 0, 65528, 65530, 0, 65528, 65531, 0, 65528, 65532, 0, 65528, 65533, 0, 65528, 65534, 0, 65528, 65535, 0, 65528, 0, 0, 65528, 1, 0, 65528, 2, 0, 65528, 3, 0, 65528, 4, 0, 65528, 5, 0, 65528, 6, 0, 65528, 7, 0, 65528, 8, 0, 65528, 9, 0, 65529, 65529, 0, 65529, 65530, 0, 65529, 65531, 0, 65529, 65532, 0, 65529, 65533, 0, 65529, 65534, 0, 65529, 65535, 0, 65529, 0, 0, 65529, 1, 0, 65529, 2, 0, 65529, 3, 0, 65529, 4, 0, 65529, 5, 0, 65529, 6, 0, 65529, 7, 0, 65529, 8, 0, 65529, 9, 0, 65530, 65529, 0, 65530, 65530, 0, 65530, 65531, 0, 65530, 65532, 0, 65530, 65533, 0, 65530, 65534, 0, 65530, 65535, 0, 65530, 0, 0, 65530, 1, 0, 65530, 2, 0, 65530, 3, 0, 65530, 4, 0, 65530, 5, 0, 65530, 6, 0, 65530, 7, 0, 65530, 8, 0, 65530, 9, 0, 65531, 65529, 0, 65531, 65530, 0, 65531, 65531, 0, 65531, 65532, 0, 65531, 65533, 0, 65531, 65534, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 1, 0, 65531, 2, 0, 65531, 3, 0, 65531, 4, 0, 65531, 5, 0, 65531, 6, 0, 65531, 7, 0, 65531, 8, 0, 65531, 9, 0, 65532, 65529, 0, 65532, 65530, 0, 65532, 65531, 0, 65532, 65532, 0, 65532, 65533, 0, 65532, 65534, 0, 65532, 65535, 0, 65532, 0, 0, 65532, 1, 0, 65532, 2, 0, 65532, 3, 0, 65532, 4, 0, 65532, 5, 0, 65532, 6, 0, 65532, 7, 0, 65532, 8, 0, 65532, 9, 0, 65533, 65529, 0, 65533, 65530, 0, 65533, 65531, 0, 65533, 65532, 0, 65533, 65533, 0, 65533, 65534, 0, 65533, 65535, 0, 65533, 0, 0, 65533, 1, 0, 65533, 2, 0, 65533, 3, 0, 65533, 4, 0, 65533, 5, 0, 65533, 6, 0, 65533, 7, 0, 65533, 8, 0, 65533, 9, 0, 65534, 65529, 0, 65534, 65530, 0, 65534, 65531, 0, 65534, 65532, 0, 65534, 65533, 0, 65534, 3, 0, 65534, 4, 0, 65534, 5, 0, 65534, 6, 0, 65534, 7, 0, 65534, 8, 0, 65534, 9, 0, 65535, 65529, 0, 65535, 65530, 0, 65535, 65531, 0, 65535, 65532, 0, 65535, 65533, 0, 65535, 3, 0, 65535, 4, 0, 65535, 5, 0, 65535, 6, 0, 65535, 7, 0, 65535, 8, 0, 65535, 9, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 1, 65529, 0, 1, 65530, 0, 1, 65531, 0, 1, 65532, 0, 1, 65533, 0, 1, 3, 0, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 2, 65529, 0, 2, 65530, 0, 2, 65531, 0, 2, 65532, 0, 2, 65533, 0, 2, 3, 0, 2, 4, 0, 2, 5, 0, 2, 6, 0, 2, 7, 0, 2, 8, 0, 2, 9, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 65533, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 7, 0, 3, 8, 0, 3, 9, 0, 4, 65529, 0, 4, 65530, 0, 4, 65531, 0, 4, 65532, 0, 4, 65533, 0, 4, 3, 0, 4, 4, 0, 4, 5, 0, 4, 6, 0, 4, 7, 0, 4, 8, 0, 4, 9, 0, 5, 65529, 0, 5, 65530, 0, 5, 65531, 0, 5, 65532, 0, 5, 65533, 0, 5, 3, 0, 5, 4, 0, 5, 5, 0, 5, 6, 0, 5, 7, 0, 5, 8, 0, 5, 9, 0, 6, 65529, 0, 6, 65530, 0, 6, 65531, 0, 6, 65532, 0, 6, 65533, 0, 6, 3, 0, 6, 4, 0, 6, 5, 0, 6, 6, 0, 6, 7, 0, 6, 8, 0, 6, 9, 0, 7, 65529, 0, 7, 65530, 0, 7, 65531, 0, 7, 65532, 0, 7, 65533, 0, 7, 3, 0, 7, 4, 0, 7, 5, 0, 7, 6, 0, 7, 7, 0, 7, 8, 0, 7, 9, 0, 8, 65529, 0, 8, 65530, 0, 8, 65531, 0, 8, 65532, 0, 8, 65533, 0, 8, 3, 0, 8, 4, 0, 8, 5, 0, 8, 6, 0, 8, 7, 0, 8, 8, 0, 8, 9, 0, 9, 65529, 0, 9, 65530, 0, 9, 65531, 0, 9, 65532, 0, 9, 65533, 0, 9, 65534, 0, 9, 65535, 0, 9, 0, 0, 9, 1, 0, 9, 2, 0, 9, 3, 0, 9, 4, 0, 9, 5, 0, 9, 6, 0, 9, 7, 0, 9, 8, 0, 9, 9, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="camera" type="Camera3D" parent="." unique_id=967101517]
+transform = Transform3D(0.8660254, 0.25, -0.4330127, 0, 0.8660254, 0.5, 0.5, -0.4330127, 0.75, 0, 5, 6.281405)
+environment = SubResource("Environment_dxudb")
+projection = 1
+size = 7.5
+
+[node name="grid_walls" type="GridMap" parent="." unique_id=547799591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+mesh_library = ExtResource("1_sggvo")
+cell_size = Vector3(4, 3, 4)
+data = {
+"cells": PackedInt32Array(65544, 65535, 524291, 65543, 65535, 524291, 65542, 65535, 524291, 65541, 65535, 524291, 65540, 65535, 524291, 65539, 65535, 524291, 65538, 65535, 524291, 65537, 65535, 524291, 65536, 65535, 524291, 131071, 65535, 524291, 8, 65535, 655362, 7, 65535, 655361, 6, 65535, 655362, 5, 65535, 655361, 4, 65535, 655362, 3, 65535, 655361, 2, 65535, 655362, 1, 65535, 655361, 0, 65535, 655362, 65535, 65535, 655361)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="damage_numbers" type="Node3D" parent="." unique_id=1025485108]
+script = ExtResource("2_rcknr")
+damage_number_scene = ExtResource("3_f04cg")
+
+[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("5_dv87x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, -1.25)
+
+[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=468950535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("6_in5fd")
+projectile = ExtResource("7_88agx")
+movement_strategy = SubResource("Resource_bn0c6")
+targeting_strategy = SubResource("Resource_dxudb")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"
+
+[node name="base_player2" parent="." unique_id=1343113177 instance=ExtResource("5_dv87x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 1.25)
+
+[node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=223223996]
+script = ExtResource("9_h7q6a")
+heal_vfx = ExtResource("10_s72nm")
+targeting_strategy = SubResource("Resource_vwee6")
+metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
+
+[node name="party_manager" type="Node3D" parent="." unique_id=412470073]
+transform = Transform3D(0.9999223, -0.008674823, 0.008954015, 0.008692259, 0.9999604, -0.0019097727, -0.008937089, 0.0019874712, 0.9999581, 0, 0, 0)
+script = ExtResource("10_djmtv")
+grid_gap = 0.25
+cells = Array[ExtResource("11_n34pq")]([SubResource("Resource_abgfj"), SubResource("Resource_n34pq")])
+
+[node name="ant" parent="." unique_id=141348389 instance=ExtResource("12_abgfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.090105, 0, 0)
+
+[node name="ant2" parent="." unique_id=705751758 instance=ExtResource("12_abgfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.090105, 0, 0)
