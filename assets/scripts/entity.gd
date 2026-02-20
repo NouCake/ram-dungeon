@@ -21,6 +21,9 @@ signal effects_changed
 @export var effects: Array[Effect] = []
 ## helper value to quickly override tags in editor, but not intended for prod use
 @export var tags: String;
+## When true, all combat systems disabled (actions only, effects still tick)
+## Used during encounter transitions when external script controls movement
+var combat_disabled: bool = false
 
 ## Helper for editor to show tags as comma-separated string, but store as array
 @onready var _targetable: Targetable = Targetable.Get(self)
