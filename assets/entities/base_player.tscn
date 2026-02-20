@@ -198,6 +198,7 @@ animations = [{
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o1qma"]
 margin = 0.0
 height = 1.0
+radius = 0.25
 
 [node name="base_player" type="CharacterBody3D" unique_id=1116852983]
 script = ExtResource("1_nc8pj")

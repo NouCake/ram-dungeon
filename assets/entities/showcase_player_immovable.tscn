@@ -8,14 +8,13 @@ viewport_path = NodePath("viewport")
 
 [node name="showcase_player" unique_id=1116852983 instance=ExtResource("1_h8yll")]
 
-[node name="sprite" parent="." index="0" unique_id=588092522]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-offset = Vector2(4, 0)
-
 [node name="health" parent="." index="6" unique_id=1136559519]
 current_health = 5
 max_health = 10
 invulnerable = true
+
+[node name="movement" parent="." index="9" unique_id=1812569003]
+base_move_speed = 1.5
 
 [node name="hud" parent="." index="10" unique_id=1119696046 instance=ExtResource("2_wk8kc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.548728, 0)

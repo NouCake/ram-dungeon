@@ -90,6 +90,7 @@ func _on_entity_hit(info: DamageInfo) -> void:
 	
 	# Play hit animation (interrupts current animation if any)
 	animation_locked = false  # Unlock first
+	play("RESET")
 	_play_state(AnimationState.HIT)
 
 func _on_animation_finished(anim_name: String) -> void:

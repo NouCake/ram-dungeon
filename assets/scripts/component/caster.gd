@@ -131,8 +131,6 @@ func movement_locked() -> bool:
 
 func get_current_action() -> BaseAction:
 	return _current_action
-	return false
-
 
 func _on_health_was_hit(_info: DamageInfo) -> void:
 	if _is_casting and _cancel_on_damage_taken and _info.type != DamageInfo.DamageType.HEAL:
