@@ -12,7 +12,7 @@ func _ready() -> void:
 	item_list.clear()
 	for file: String in dir.get_files():
 		var resource := load(dir.get_current_dir() + "/" + file)
-		item_list.add_item(file)
+		item_list.add_item(file.replace(".remap", ""))
 
 	pass
 
