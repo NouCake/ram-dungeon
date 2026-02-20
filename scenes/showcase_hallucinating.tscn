@@ -21,6 +21,7 @@ ambient_light_energy = 2.0
 
 [sub_resource type="Resource" id="Resource_4lbig"]
 script = ExtResource("14_4lbig")
+duration = 500.0
 metadata/_custom_type_script = "uid://cg4bna82pp0ku"
 
 [sub_resource type="Resource" id="Resource_dxudb"]
@@ -108,6 +109,7 @@ tags = "entity"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 script = ExtResource("3_o36fe")
 projectile = ExtResource("4_xq7gy")
+action_interval = 0.1
 target_filters = Array[String](["enemy1"])
 targeting_strategy = SubResource("Resource_dxudb")
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
@@ -136,6 +138,7 @@ melee_damage = 1
 movement_strategy = SubResource("Resource_3myhx")
 can_move_while_casting = false
 max_execution_range = 1.0
+line_of_sight = false
 target_filters = Array[String](["enemy4"])
 targeting_strategy = SubResource("Resource_42jun")
 metadata/_custom_type_script = "uid://c12suihu63rbg"
@@ -151,6 +154,7 @@ melee_damage = 1
 movement_strategy = SubResource("Resource_3myhx")
 can_move_while_casting = false
 max_execution_range = 1.0
+line_of_sight = false
 target_filters = Array[String](["enemy5"])
 targeting_strategy = SubResource("Resource_42jun")
 metadata/_custom_type_script = "uid://c12suihu63rbg"
