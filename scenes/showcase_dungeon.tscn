@@ -29,18 +29,20 @@ metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
 [sub_resource type="Resource" id="Resource_abgfj"]
 script = ExtResource("11_n34pq")
-entity = NodePath("../base_player")
+grid_x = 1
+grid_y = 1
+entity = NodePath("../ranger")
 metadata/_custom_type_script = "uid://dcuay2m3jwn1q"
 
 [sub_resource type="Resource" id="Resource_n34pq"]
 script = ExtResource("11_n34pq")
-grid_x = 2
-entity = NodePath("../base_player2")
+grid_x = 1
+grid_y = 3
+entity = NodePath("../healer")
 metadata/_custom_type_script = "uid://dcuay2m3jwn1q"
 
 [node name="section" type="Node3D" unique_id=1600318940]
 script = ExtResource("1_4vqju")
-length = 5
 width = 2
 
 [node name="grid_floor" type="GridMap" parent="." unique_id=1467566150]
@@ -48,7 +50,7 @@ mesh_library = ExtResource("1_sggvo")
 cell_size = Vector3(4, 4, 4)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65535, 65534, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 2, 65534, 0, 2, 65535, 0, 2, 0, 0, 2, 1, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0)
+"cells": PackedInt32Array(65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65535, 65534, 0, 65535, 65535, 0, 65535, 0, 0, 65535, 1, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 1, 65534, 0, 1, 65535, 0, 1, 0, 0, 1, 1, 0, 2, 65534, 0, 2, 65535, 0, 2, 0, 0, 2, 1, 0, 3, 65534, 0, 3, 65535, 0, 3, 0, 0, 3, 1, 0, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 5, 65534, 0, 5, 65535, 0, 5, 0, 0, 5, 1, 0, 6, 65534, 0, 6, 65535, 0, 6, 0, 0, 6, 1, 0, 7, 65534, 0, 7, 65535, 0, 7, 0, 0, 7, 1, 0, 8, 65534, 0, 8, 65535, 0, 8, 0, 0, 8, 1, 0, 9, 65534, 0, 9, 65535, 0, 9, 0, 0, 9, 1, 0, 10, 65534, 0, 10, 65535, 0, 10, 0, 0, 10, 1, 0, 11, 65534, 0, 11, 65535, 0, 11, 0, 0, 11, 1, 0)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
@@ -62,7 +64,7 @@ size = 7.5
 mesh_library = ExtResource("1_sggvo")
 cell_size = Vector3(4, 3, 4)
 data = {
-"cells": PackedInt32Array(65534, 65534, 655362, 131070, 65534, 524291, 65535, 65534, 655361, 131071, 65534, 524291, 0, 65534, 655361, 65536, 65534, 524291, 1, 65534, 655362, 65537, 65534, 524291, 2, 65534, 655361, 65538, 65534, 524291, 3, 65534, 655361, 65539, 65534, 524291, 4, 65534, 655362, 65540, 65534, 524291, 5, 65534, 655361, 65541, 65534, 524291, 6, 65534, 655361, 65542, 65534, 524291)
+"cells": PackedInt32Array(65534, 65534, 655362, 131070, 65534, 524291, 65535, 65534, 655361, 131071, 65534, 524291, 0, 65534, 655361, 65536, 65534, 524291, 1, 65534, 655362, 65537, 65534, 524291, 2, 65534, 655361, 65538, 65534, 524291, 3, 65534, 655361, 65539, 65534, 524291, 4, 65534, 655362, 65540, 65534, 524291, 5, 65534, 655361, 65541, 65534, 524291, 6, 65534, 655361, 65542, 65534, 524291, 7, 65534, 655362, 65543, 65534, 524291, 8, 65534, 655361, 65544, 65534, 524291, 9, 65534, 655361, 65545, 65534, 524291, 10, 65534, 655362, 65546, 65534, 524291, 11, 65534, 655361, 65547, 65534, 524291)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
@@ -70,10 +72,10 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 script = ExtResource("2_rcknr")
 damage_number_scene = ExtResource("3_f04cg")
 
-[node name="base_player" parent="." unique_id=1116852983 instance=ExtResource("5_dv87x")]
+[node name="ranger" parent="." unique_id=1116852983 instance=ExtResource("5_dv87x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, -1.25)
 
-[node name="ActionProjectile" type="Node3D" parent="base_player" unique_id=468950535]
+[node name="ActionProjectile" type="Node3D" parent="ranger" unique_id=468950535]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 script = ExtResource("6_in5fd")
 projectile = ExtResource("7_88agx")
@@ -83,10 +85,10 @@ can_move_while_casting = false
 targeting_strategy = SubResource("Resource_dxudb")
 metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
-[node name="base_player2" parent="." unique_id=1343113177 instance=ExtResource("5_dv87x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, -1.25)
+[node name="healer" parent="." unique_id=1343113177 instance=ExtResource("5_dv87x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 1.25)
 
-[node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=223223996]
+[node name="ActionHeal" type="Node3D" parent="healer" unique_id=223223996]
 script = ExtResource("9_h7q6a")
 heal_vfx = ExtResource("10_s72nm")
 targeting_strategy = SubResource("Resource_vwee6")
@@ -95,13 +97,16 @@ metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
 [node name="party_manager" type="Node3D" parent="." unique_id=412470073]
 transform = Transform3D(0.9999223, -0.008674823, 0.008954015, 0.008692259, 0.9999604, -0.0019097727, -0.008937089, 0.0019874712, 0.9999581, 0, 0, 0)
 script = ExtResource("10_djmtv")
-grid_x = 5
-grid_y = 5
+grid_length = 5
+grid_width = 5
 grid_gap = 0.25
 cells = Array[ExtResource("11_n34pq")]([SubResource("Resource_abgfj"), SubResource("Resource_n34pq")])
 
 [node name="ant" parent="." unique_id=141348389 instance=ExtResource("12_abgfj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.090105, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.874435, 0, 0)
 
-[node name="ant2" parent="." unique_id=705751758 instance=ExtResource("12_abgfj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.090105, 0, 0)
+[node name="ant2" parent="." unique_id=157149075 instance=ExtResource("12_abgfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.874435, 0, 2)
+
+[node name="ant3" parent="." unique_id=1110581156 instance=ExtResource("12_abgfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.874435, 0, -2)
