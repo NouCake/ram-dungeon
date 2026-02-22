@@ -33,7 +33,7 @@ func shoot(snapshot: TargetSnapshot) -> bool:
 	instance.shoot_origin = parent
 	
 	instance.rotation.y = atan2(dist.x, dist.z)
-	instance.start_position = global_position
+	instance.start_position = global_position + Vector3.UP * 0.25
 
 	get_tree().get_current_scene().add_child(instance)
 	return true

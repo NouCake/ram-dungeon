@@ -1,33 +1,29 @@
 [gd_scene format=3 uid="uid://chot3hyo5un85"]
 
-[node name="PlayerN" type="VBoxContainer" unique_id=1145171678]
+[node name="PlayerPreset" type="MarginContainer" unique_id=799067206]
+custom_minimum_size = Vector2(200, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="PlayerN" type="TextEdit" parent="." unique_id=1504495009]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-text = "Player1"
-placeholder_text = "Enter Player Name"
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=563749571]
-layout_mode = 2
-theme_override_constants/margin_left = 30
-
-[node name="SpellList" type="MarginContainer" parent="MarginContainer" unique_id=1324676609]
+[node name="Layout" type="VBoxContainer" parent="." unique_id=124549877]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SpellList" unique_id=1312730775]
+[node name="Title" type="Label" parent="Layout" unique_id=537068685]
 layout_mode = 2
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/SpellList/VBoxContainer" unique_id=650008596]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-
-[node name="SpellList" type="ItemList" parent="MarginContainer/SpellList/VBoxContainer/MarginContainer" unique_id=920531904]
+[node name="SpellList" type="ItemList" parent="Layout" unique_id=920531904]
 layout_mode = 2
 select_mode = 2
 allow_reselect = true

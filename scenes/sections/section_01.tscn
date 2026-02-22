@@ -5,24 +5,11 @@
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="3_oispn"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="4_6kiqc"]
 [ext_resource type="PackedScene" uid="uid://dkao87oawcvs5" path="res://assets/entities/base_player.tscn" id="5_r05p5"]
-[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="6_q4k5p"]
-[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="7_fqx1s"]
-[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="8_5esr2"]
-[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="9_tri1f"]
-[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="10_dykch"]
-[ext_resource type="Script" uid="uid://7g833hgwbj3w" path="res://assets/scripts/action/target_random.gd" id="11_1b77n"]
+[ext_resource type="PackedScene" uid="uid://bn83f8tisxlvi" path="res://assets/entities/actions/basic_projectile.tscn" id="6_o75wv"]
+[ext_resource type="PackedScene" uid="uid://tlaxguni8imr" path="res://assets/entities/actions/basic_heal.tscn" id="7_qs5wh"]
 [ext_resource type="Script" uid="uid://cexwf5h7mt8hn" path="res://assets/scripts/party_manager.gd" id="12_hkhrk"]
 [ext_resource type="Script" uid="uid://dcuay2m3jwn1q" path="res://assets/scripts/grid_cell.gd" id="13_lnquo"]
 [ext_resource type="PackedScene" uid="uid://quhe1ope74di" path="res://assets/entities/ant.tscn" id="14_5uchg"]
-
-[sub_resource type="Resource" id="Resource_dxudb"]
-script = ExtResource("8_5esr2")
-metadata/_custom_type_script = "uid://csosmshhpx6pj"
-
-[sub_resource type="Resource" id="Resource_bn0c6"]
-script = ExtResource("11_1b77n")
-can_target_self = true
-metadata/_custom_type_script = "uid://7g833hgwbj3w"
 
 [sub_resource type="Resource" id="Resource_abgfj"]
 script = ExtResource("13_lnquo")
@@ -71,24 +58,13 @@ damage_number_scene = ExtResource("4_6kiqc")
 [node name="ranger" parent="." unique_id=1116852983 instance=ExtResource("5_r05p5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, -1.25)
 
-[node name="ActionProjectile" type="Node3D" parent="ranger" unique_id=468950535]
+[node name="ActionProjectile" parent="ranger" unique_id=1018536580 instance=ExtResource("6_o75wv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5484168, 0)
-script = ExtResource("6_q4k5p")
-projectile = ExtResource("7_fqx1s")
-action_interval = 0.5
-can_move_while_casting = false
-targeting_strategy = SubResource("Resource_dxudb")
-metadata/_custom_type_script = "uid://cnp3jo4lruyy"
 
 [node name="healer" parent="." unique_id=1599512519 instance=ExtResource("5_r05p5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, 1.25)
 
-[node name="ActionHeal" type="Node3D" parent="healer" unique_id=223223996]
-script = ExtResource("9_tri1f")
-heal_vfx = ExtResource("10_dykch")
-target_filters = Array[String](["player"])
-targeting_strategy = SubResource("Resource_bn0c6")
-metadata/_custom_type_script = "uid://bjb2rjqo7dej5"
+[node name="ActionHeal" parent="healer" unique_id=63604821 instance=ExtResource("7_qs5wh")]
 
 [node name="party_manager" type="Node3D" parent="." unique_id=412470073]
 transform = Transform3D(0.9999223, -0.008674823, 0.008954015, 0.008692259, 0.9999604, -0.0019097727, -0.008937089, 0.0019874712, 0.9999581, 0, 0, 0)
@@ -99,7 +75,7 @@ grid_gap = 0.25
 cells = Array[ExtResource("13_lnquo")]([SubResource("Resource_abgfj"), SubResource("Resource_n34pq")])
 
 [node name="camera" type="Camera3D" parent="party_manager" unique_id=967101517]
-transform = Transform3D(0.8614895, 0.26137808, -0.43533576, -0.0065188967, 0.8629618, 0.50522697, 0.5077334, -0.43240985, 0.74513644, -3.647634, 5.0426564, 5.6298857)
+transform = Transform3D(0.8614895, 0.26137808, -0.4353358, -0.0065188976, 0.8629618, 0.5052269, 0.5077334, -0.43240982, 0.7451365, -3.6366262, 3.3959322, 2.8052647)
 environment = SubResource("Environment_dxudb")
 projection = 1
 size = 7.5

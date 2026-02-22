@@ -23,8 +23,17 @@ var _encounter_in_progress := false
 const _TILE_SIZE := 4
 
 func _ready() -> void:
-	_rebuild_grid()
+	init_scene()
+	var tween := get_tree().create_tween()
+	var speed := encounter_trigger_line * _TILE_SIZE / pre_encounter_move_speed
+	tween.tween_method(_update_tween_party_position_and_grid, 0.0, 1.0, speed)
+	tween.tween_method(_update_tween, 0.0, 1.0, 1.0)
+	tween.connect("finished", _on_pre_encounter_finished)
 	
+func init_scene():
+	_entities.clear()
+	_player.clear()
+	_enemies.clear()
 	for child in get_children():
 		if child is Entity:
 			var entity: Entity = child
@@ -39,12 +48,8 @@ func _ready() -> void:
 				_enemies.append(entity)
 	
 	party_manager._rebuild_grid()
+	_rebuild_grid()
 	
-	var tween := get_tree().create_tween()
-	var speed := encounter_trigger_line * _TILE_SIZE / pre_encounter_move_speed
-	tween.tween_method(_update_tween_party_position_and_grid, 0.0, 1.0, speed)
-	tween.tween_method(_update_tween, 0.0, 1.0, 1.0)
-	tween.connect("finished", _on_pre_encounter_finished)
 
 func _update_tween(_progress: float) -> void:
 	pass

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bn83f8tisxlvi"]
+
+[ext_resource type="Script" uid="uid://cnp3jo4lruyy" path="res://assets/scripts/action/action_projectile.gd" id="1_fm01t"]
+[ext_resource type="PackedScene" uid="uid://bndt4isskhh40" path="res://assets/entities/projectile.tscn" id="2_goyyg"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="3_4kcai"]
+
+[sub_resource type="Resource" id="Resource_dxudb"]
+script = ExtResource("3_4kcai")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[node name="ActionProjectile" type="Node3D" unique_id=1018536580]
+script = ExtResource("1_fm01t")
+projectile = ExtResource("2_goyyg")
+action_interval = 0.5
+can_move_while_casting = false
+targeting_strategy = SubResource("Resource_dxudb")
+metadata/_custom_type_script = "uid://cnp3jo4lruyy"

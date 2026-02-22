@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://1tu5322v1u4s" path="res://assets/scripts/damage_number_spawner.gd" id="7_dxudb"]
 [ext_resource type="PackedScene" uid="uid://c0bked2yu7fb4" path="res://assets/entities/damage_number.tscn" id="8_lgn12"]
 [ext_resource type="Script" uid="uid://ce67pcictb5ll" path="res://assets/scripts/effects/effect.gd" id="13_8clt3"]
+[ext_resource type="PackedScene" uid="uid://d0gedhm4mmj40" path="res://assets/entities/actions/basic_melee.tscn" id="13_gwcig"]
 [ext_resource type="Script" uid="uid://cg4bna82pp0ku" path="res://assets/scripts/effects/hallucinating.gd" id="14_4lbig"]
 [ext_resource type="PackedScene" uid="uid://cekxr2187pgug" path="res://assets/entities/shroom_hallucinating.tscn" id="14_gwcig"]
 [ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="15_30wxc"]
@@ -148,16 +149,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 effects = Array[ExtResource("13_8clt3")]([SubResource("Resource_2m47e")])
 tags = "entity"
 
-[node name="ActionMelee" type="Node3D" parent="base_player5" unique_id=2137924460]
-script = ExtResource("15_30wxc")
-melee_damage = 1
-movement_strategy = SubResource("Resource_3myhx")
-can_move_while_casting = false
-max_execution_range = 1.0
-line_of_sight = false
-target_filters = Array[String](["enemy5"])
-targeting_strategy = SubResource("Resource_42jun")
-metadata/_custom_type_script = "uid://c12suihu63rbg"
+[node name="ActionMelee" parent="base_player5" unique_id=1573325918 instance=ExtResource("13_gwcig")]
 
 [node name="shroom" parent="." unique_id=226675831 instance=ExtResource("14_gwcig")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.305237, 0, 8.324951)

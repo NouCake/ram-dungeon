@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://tlaxguni8imr"]
+
+[ext_resource type="Script" uid="uid://bjb2rjqo7dej5" path="res://assets/scripts/action/action_heal.gd" id="1_8fn16"]
+[ext_resource type="PackedScene" uid="uid://lurc0suh5pi5" path="res://assets/entities/vfx/vfx_heal.tscn" id="2_20lor"]
+[ext_resource type="Script" uid="uid://7g833hgwbj3w" path="res://assets/scripts/action/target_random.gd" id="3_t5p6u"]
+
+[sub_resource type="Resource" id="Resource_bn0c6"]
+script = ExtResource("3_t5p6u")
+can_target_self = true
+metadata/_custom_type_script = "uid://7g833hgwbj3w"
+
+[node name="ActionHeal" type="Node3D" unique_id=63604821]
+script = ExtResource("1_8fn16")
+heal_vfx = ExtResource("2_20lor")
+target_filters = Array[String](["player"])
+targeting_strategy = SubResource("Resource_bn0c6")
+metadata/_custom_type_script = "uid://bjb2rjqo7dej5"

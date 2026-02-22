@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://d0gedhm4mmj40"]
+
+[ext_resource type="Script" uid="uid://c12suihu63rbg" path="res://assets/scripts/action/action_melee.gd" id="1_u4oob"]
+[ext_resource type="Script" uid="uid://3vrijt12lefs" path="res://assets/scripts/movement/melee_movement_strategy.gd" id="2_sqema"]
+[ext_resource type="Script" uid="uid://csosmshhpx6pj" path="res://assets/scripts/action/target_closest.gd" id="3_5rvhj"]
+
+[sub_resource type="Resource" id="Resource_3myhx"]
+script = ExtResource("2_sqema")
+attack_range = 0.9
+metadata/_custom_type_script = "uid://3vrijt12lefs"
+
+[sub_resource type="Resource" id="Resource_42jun"]
+script = ExtResource("3_5rvhj")
+metadata/_custom_type_script = "uid://csosmshhpx6pj"
+
+[node name="ActionMelee" type="Node3D" unique_id=1573325918]
+script = ExtResource("1_u4oob")
+melee_damage = 1
+movement_strategy = SubResource("Resource_3myhx")
+action_interval = 2.5
+cast_time = 0.25
+post_cast_delay = 0.5
+can_move_while_casting = false
+max_execution_range = 1.0
+line_of_sight = false
+target_filters = Array[String](["enemy5"])
+targeting_strategy = SubResource("Resource_42jun")
+metadata/_custom_type_script = "uid://c12suihu63rbg"
