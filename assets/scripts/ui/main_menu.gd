@@ -6,8 +6,8 @@ func _ready() -> void:
 	var dir := DirAccess.open("res://scenes/sections")
 	dir.list_dir_begin()
 
-	$MM/Center/VBoxContainer2/Start.button_down.connect(_on_start_button_down)
-	$MLevelselect/HBoxContainer/VBoxContainer3/MarginContainer/Button.button_down.connect(_on_level_start_clicked)
+	$MM/SafeArea/Center/VBoxContainer2/Start.button_down.connect(_on_start_button_down)
+	$MLevelselect/HBoxContainer/VBoxContainer3/MarginContainer/StartButton.button_down.connect(_on_level_start_clicked)
 
 	item_list.clear()
 	for file: String in dir.get_files():
