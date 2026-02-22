@@ -1,0 +1,254 @@
+[gd_scene format=3 uid="uid://bwaem2oe5cjo1"]
+
+[node name="Control" type="Control" unique_id=1924071778]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SafeArea" type="MarginContainer" parent="." unique_id=161122625]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SafeArea" unique_id=2113055065]
+layout_mode = 2
+
+[node name="UI" type="VBoxContainer" parent="SafeArea/ScrollContainer" unique_id=1448705102]
+layout_mode = 2
+alignment = 2
+
+[node name="AllPlayers" type="HBoxContainer" parent="SafeArea/ScrollContainer/UI" unique_id=31203532]
+layout_mode = 2
+
+[node name="PlayerN" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers" unique_id=36914466]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN" unique_id=129855975]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/Control" unique_id=1244482329]
+custom_minimum_size = Vector2(500, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerN" type="TextEdit" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/Control/HBoxContainer" unique_id=589816809]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+text = "Player1"
+placeholder_text = "Enter Player Name"
+
+[node name="Expand_Collapse" type="Button" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/Control/HBoxContainer" unique_id=1159064523]
+custom_minimum_size = Vector2(50, 32)
+layout_mode = 2
+text = "▼"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN" unique_id=443731293]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="SpellList" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/MarginContainer" unique_id=183952277]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/MarginContainer/SpellList" unique_id=362014454]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/MarginContainer/SpellList/VBoxContainer" unique_id=598982585]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="SpellList" type="ItemList" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN/MarginContainer/SpellList/VBoxContainer/MarginContainer" unique_id=736940543]
+layout_mode = 2
+select_mode = 2
+allow_reselect = true
+auto_width = true
+auto_height = true
+item_count = 4
+item_0/text = "Fireball"
+item_1/text = "Shroom"
+item_2/text = "Melee"
+item_3/text = "AoE"
+
+[node name="PlayerN2" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers" unique_id=1858029293]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2" unique_id=255175771]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/Control" unique_id=730007991]
+custom_minimum_size = Vector2(500, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerN" type="TextEdit" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/Control/HBoxContainer" unique_id=1090206481]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+text = "Player1"
+placeholder_text = "Enter Player Name"
+
+[node name="Button" type="Button" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/Control/HBoxContainer" unique_id=913812998]
+custom_minimum_size = Vector2(50, 32)
+layout_mode = 2
+text = "▼"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2" unique_id=1964857588]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/MarginContainer" unique_id=825101153]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/MarginContainer/MarginContainer" unique_id=994862174]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/MarginContainer/MarginContainer/VBoxContainer" unique_id=1463678635]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="SpellList" type="ItemList" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN2/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=1833167883]
+layout_mode = 2
+select_mode = 2
+allow_reselect = true
+auto_width = true
+auto_height = true
+item_count = 4
+item_0/text = "Fireball"
+item_1/text = "Shroom"
+item_2/text = "Melee"
+item_3/text = "AoE"
+
+[node name="PlayerN3" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers" unique_id=1965098369]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3" unique_id=2089178208]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/Control" unique_id=1347519082]
+custom_minimum_size = Vector2(500, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerN" type="TextEdit" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/Control/HBoxContainer" unique_id=1524261009]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+text = "Player1"
+placeholder_text = "Enter Player Name"
+
+[node name="Button" type="Button" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/Control/HBoxContainer" unique_id=63464543]
+custom_minimum_size = Vector2(50, 32)
+layout_mode = 2
+text = "▼"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3" unique_id=1845595251]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/MarginContainer" unique_id=1724099809]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/MarginContainer/MarginContainer" unique_id=1929422691]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/MarginContainer/MarginContainer/VBoxContainer" unique_id=827295745]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="SpellList" type="ItemList" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN3/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=900333804]
+layout_mode = 2
+select_mode = 2
+allow_reselect = true
+auto_width = true
+auto_height = true
+item_count = 4
+item_0/text = "Fireball"
+item_1/text = "Shroom"
+item_2/text = "Melee"
+item_3/text = "AoE"
+
+[node name="PlayerN4" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers" unique_id=1072967476]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4" unique_id=30971120]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/Control" unique_id=321783340]
+custom_minimum_size = Vector2(500, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerN" type="TextEdit" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/Control/HBoxContainer" unique_id=590343079]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+text = "Player1"
+placeholder_text = "Enter Player Name"
+
+[node name="Button" type="Button" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/Control/HBoxContainer" unique_id=331606390]
+custom_minimum_size = Vector2(50, 32)
+layout_mode = 2
+text = "▼"
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4" unique_id=1088886058]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/MarginContainer" unique_id=1802269857]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/MarginContainer/MarginContainer" unique_id=2007632726]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/MarginContainer/MarginContainer/VBoxContainer" unique_id=2051756471]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="SpellList" type="ItemList" parent="SafeArea/ScrollContainer/UI/AllPlayers/PlayerN4/MarginContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=262498959]
+layout_mode = 2
+select_mode = 2
+allow_reselect = true
+auto_width = true
+auto_height = true
+item_count = 4
+item_0/text = "Fireball"
+item_1/text = "Shroom"
+item_2/text = "Melee"
+item_3/text = "AoE"
+
+[node name="Buttons" type="VBoxContainer" parent="SafeArea/ScrollContainer/UI/AllPlayers" unique_id=65877518]
+layout_mode = 2
+
+[node name="AddPlayer" type="Button" parent="SafeArea/ScrollContainer/UI/AllPlayers/Buttons" unique_id=639838671]
+layout_mode = 2
+text = "+ Add Player"
+
+[node name="ApplyButton" type="Button" parent="SafeArea/ScrollContainer/UI/AllPlayers/Buttons" unique_id=1456249901]
+layout_mode = 2
+text = "Apply"

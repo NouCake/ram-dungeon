@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://dq4dqta775h2l"]
 
+[ext_resource type="Script" uid="uid://b0w1mj2hwmuq1" path="res://assets/scripts/ui/level_select.gd" id="1_5y5b8"]
+[ext_resource type="PackedScene" uid="uid://chot3hyo5un85" path="res://scenes/menues/ui/player_preset.tscn" id="1_sf86d"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_7vrkn"]
 font_size = 32
 
@@ -8,46 +11,51 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = -30.0
-offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5y5b8")
+player_preset_scene = ExtResource("1_sf86d")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1131953403]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1205722359]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -405.0
-offset_right = 405.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1315268284]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=1908276261]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer" unique_id=1131953403]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/CenterContainer/HBoxContainer" unique_id=1315268284]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2" unique_id=953667777]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer2" unique_id=953667777]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/MarginContainer" unique_id=806086741]
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer2/MarginContainer" unique_id=806086741]
 layout_mode = 2
 text = "Select a Level"
 label_settings = SubResource("LabelSettings_7vrkn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1107763980]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/HBoxContainer" unique_id=1107763980]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer" unique_id=1045430880]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer" unique_id=1045430880]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -56,7 +64,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ItemList" type="ItemList" parent="HBoxContainer/VBoxContainer/MarginContainer" unique_id=943328055]
+[node name="LevelSelect" type="ItemList" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer/MarginContainer" unique_id=943328055]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -73,19 +81,50 @@ item_1/text = "Level 2"
 item_2/text = "Level 3"
 item_3/text = "Level 4"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer" unique_id=767433149]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/CenterContainer/HBoxContainer" unique_id=767433149]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer3" unique_id=2012485104]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer3" unique_id=2012485104]
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer3/MarginContainer" unique_id=244548897]
+[node name="StartButton" type="Button" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer3/MarginContainer" unique_id=244548897]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Start"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/CenterContainer/HBoxContainer/VBoxContainer3" unique_id=1067707589]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=2095695036]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="AllPlayers" type="GridContainer" parent="MarginContainer2" unique_id=1932449627]
+layout_mode = 2
+columns = 2
+
+[node name="PlayerN" parent="MarginContainer2/AllPlayers" unique_id=1145171678 instance=ExtResource("1_sf86d")]
+layout_mode = 2
+
+[node name="AddPlayer" type="Button" parent="MarginContainer2/AllPlayers" unique_id=639838671]
+layout_mode = 2
+text = "+ Add Player"
