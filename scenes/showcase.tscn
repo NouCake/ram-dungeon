@@ -121,6 +121,7 @@ tags = "entity"
 [node name="ActionHeal" type="Node3D" parent="base_player2" unique_id=223223996]
 script = ExtResource("9_vwee6")
 heal_vfx = ExtResource("10_owfbn")
+action_interval = 3.0
 target_filters = Array[String](["enemy2"])
 targeting_strategy = SubResource("Resource_vwee6")
 metadata/_custom_type_script = "uid://bjb2rjqo7dej5"

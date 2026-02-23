@@ -4,7 +4,7 @@ extends BaseAction
 
 @export var melee_damage := 2
 
-func resolve_action(snapshot: TargetSnapshot):
+func resolve_action(snapshot: TargetSnapshot) -> bool:
 	var parent: Entity = get_parent()
 
 	for target in snapshot.targets:

@@ -15,14 +15,13 @@ metadata/_custom_type_script = "uid://csosmshhpx6pj"
 
 [node name="ActionMelee" type="Node3D" unique_id=1573325918]
 script = ExtResource("1_u4oob")
-melee_damage = 1
+melee_damage = 3
 movement_strategy = SubResource("Resource_3myhx")
-action_interval = 2.5
+action_interval = 1.5
 cast_time = 0.25
 post_cast_delay = 0.5
 can_move_while_casting = false
 max_execution_range = 1.0
 line_of_sight = false
-target_filters = Array[String](["enemy5"])
 targeting_strategy = SubResource("Resource_42jun")
 metadata/_custom_type_script = "uid://c12suihu63rbg"

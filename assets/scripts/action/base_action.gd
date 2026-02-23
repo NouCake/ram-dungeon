@@ -112,7 +112,6 @@ func perform_action() -> bool:
 		
 		return success
 
-	print("BaseAction.perform_action(): Starting cast for action %s" % [name])
 	return caster.try_start_cast(
 		self, snapshot, cast_time, post_cast_delay,
 		can_move_while_casting, can_move_during_post_cast,

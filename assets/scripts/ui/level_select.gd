@@ -36,17 +36,17 @@ func _ready() -> void:
 	custom_party_container.visible = false
 	custom_party_checkbox.toggled.connect(_on_custom_party_toggle)
 	
-func _on_custom_party_toggle(toggle: bool):
+func _on_custom_party_toggle(toggle: bool) -> void:
 	custom_party_container.visible = toggle
 	
-func _init_layout_grid():
+func _init_layout_grid() -> void:
 	var grid: GridContainer = find_child("PartyLayoutGrid")
 	
 	for i: int in range(grid.get_child_count()):
 		var button: Button = grid.get_child(i)
 		button.button_down.connect(_on_party_layout_button_click.bind(button, i))
 		
-func _on_party_layout_button_click(button: Button, index: int):
+func _on_party_layout_button_click(button: Button, index: int) -> void:
 	if _layout.size() == player_preset_list.get_child_count():
 		_layout.clear()
 		
@@ -77,7 +77,7 @@ func _on_level_start_clicked() -> void:
 	var selected_scene_file_name := level_list.get_item_text(level_list.get_selected_items()[0])
 	var scene_resource: PackedScene = load(SECTION_FOLDER + "/" + selected_scene_file_name)
 	
-	var instance = scene_resource.instantiate()
+	var instance := scene_resource.instantiate()
 	
 	get_tree().current_scene.queue_free()
 	get_tree().root.add_child(instance)
@@ -94,11 +94,11 @@ func _on_level_start_clicked() -> void:
 		party_manager.cells.clear()
 		
 		for preset_index in range(player_preset_list.get_child_count()):
-			var preset = player_preset_list.get_child(preset_index)
-			var player = base_player_scene.instantiate()
+			var preset := player_preset_list.get_child(preset_index)
+			var player := base_player_scene.instantiate()
 			var action_list: ItemList = preset.find_child("SpellList")
 			for selected_action_index in action_list.get_selected_items():
-				var action_file_name = action_list.get_item_text(selected_action_index)
+				var action_file_name := action_list.get_item_text(selected_action_index)
 				var action_resource: PackedScene = load(ACTION_FOLDER + "/" + action_file_name)
 				player.add_child(action_resource.instantiate())
 			instance.add_child(player)
@@ -112,8 +112,8 @@ func _on_level_start_clicked() -> void:
 	(instance as EncounterSection).init_scene.call_deferred()
 	
 
-func _add_player():
-	var instance = player_preset_scene.instantiate()
+func _add_player() -> void:
+	var instance := player_preset_scene.instantiate()
 	
 	var label: Label = instance.find_child("Title")
 	label.text = "Player " + str(player_preset_list.get_child_count() + 1)

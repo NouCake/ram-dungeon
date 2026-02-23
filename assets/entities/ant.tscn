@@ -641,7 +641,7 @@ texture = SubResource("ViewportTexture_svfsw")
 [node name="ActionMelee" type="Node3D" parent="." unique_id=378681799]
 script = ExtResource("11_svfsw")
 movement_strategy = SubResource("Resource_v5obq")
-action_interval = 3.0
+action_interval = 5.0
 cast_time = 0.5
 post_cast_delay = 0.5
 can_move_while_casting = false

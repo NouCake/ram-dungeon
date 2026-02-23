@@ -30,5 +30,11 @@ func heal(snapshot: TargetSnapshot) -> bool:
 		var vfx_instance: Node3D = heal_vfx.instantiate()
 		get_tree().get_current_scene().add_child(vfx_instance)
 		vfx_instance.global_position = target.global_position
+
+
+		var vfx_instance_self: Node3D = heal_vfx.instantiate()
+		(vfx_instance_self.get_node("particles") as GPUParticles3D).visible = false
+		add_child(vfx_instance_self)
+		vfx_instance_self.global_position = global_position
 	
 	return true

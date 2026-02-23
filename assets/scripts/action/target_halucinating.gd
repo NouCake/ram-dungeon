@@ -23,7 +23,6 @@ func select_targets(
 		return [_current_target]
 
 	var r := randf()
-	print(source_action.get_parent().name, " hallucinating targeting roll: ", r, " (chance: ", random_chance, ")")
 	if r > random_chance && source_action.targeting_strategy != self:
 		return source_action.targeting_strategy.select_targets(
 			detector,
@@ -44,5 +43,4 @@ func _select_from_candidates(_detector: TargetDetectorComponent, _candidates: Ar
 	return []
 
 func _on_action_started() -> void:
-	print("Action started, resetting hallucinatig target")
 	_current_target = null
