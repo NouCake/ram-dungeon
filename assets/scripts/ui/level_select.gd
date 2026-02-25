@@ -104,8 +104,8 @@ func _on_level_start_clicked() -> void:
 			instance.add_child(player)
 			
 			var cell := GridCell.new()
-			cell.grid_x = _layout.get(preset_index).x
-			cell.grid_y = _layout.get(preset_index).y
+			cell.grid_y = _layout.get(preset_index).x
+			cell.grid_x = 5-_layout.get(preset_index).y
 			cell.entity = player.get_path()
 			
 			party_manager.cells.append(cell)
