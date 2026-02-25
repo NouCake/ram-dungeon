@@ -59,7 +59,9 @@ damage_number_scene = ExtResource("4_6kiqc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, -1.25)
 
 [node name="ActionProjectile" parent="ranger" unique_id=1018536580 instance=ExtResource("6_o75wv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5484168, 0)
+projectile_damage = 3
+action_interval = 1.5
+cast_time = 0.25
 
 [node name="healer" parent="." unique_id=1599512519 instance=ExtResource("5_r05p5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, 1.25)

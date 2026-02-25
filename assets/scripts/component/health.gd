@@ -28,10 +28,9 @@ func _ready() -> void:
 	assert(name == component_name, "Component must be named " + component_name + " to be recognized by other components.")
 
 func do_damage(info: DamageInfo) -> void:
-	was_hit.emit(info)
-	Global.damage.emit(info)
-	
 	if invulnerable:
+		was_hit.emit(info)
+		Global.damage.emit(info)
 		return
 
 	if info.type == DamageInfo.DamageType.HEAL:
@@ -40,6 +39,9 @@ func do_damage(info: DamageInfo) -> void:
 	else:
 		# Damage - subtract health
 		current_health -= info.amount
+	
+	was_hit.emit(info)
+	Global.damage.emit(info)
 	
 	if current_health <= 0:
 		var entity: Entity = get_parent()

@@ -9,6 +9,9 @@ const component_name := "movement"
 static func Get(entity: Entity) -> MovementComponent:
 	return entity.get_node_or_null(component_name) as MovementComponent
 
+static func Has(entity: Entity) -> bool:
+	return entity.has_node(component_name)
+
 ## Distance threshold to consider entity "arrived" at desired position
 @export var close_enough_threshold := 0.1
 @export var base_move_speed := 5.0
@@ -56,8 +59,10 @@ func _move() -> void:
 	_entity.move_and_slide()
 	for i in _entity.get_slide_collision_count():
 		var collision := _entity.get_slide_collision(i)
-		var other := collision.get_collider() as Entity
-		_push_entity(other, collision)
+
+		if collision.get_collider() is Entity and MovementComponent.Has(collision.get_collider() as Entity):
+			var other := collision.get_collider() as Entity
+			_push_entity(other, collision)
 	
 func _push_entity(other: Entity, collision: KinematicCollision3D) -> void:
 	var push_direction := collision.get_normal()

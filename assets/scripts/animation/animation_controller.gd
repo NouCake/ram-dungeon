@@ -6,7 +6,6 @@ class_name AnimationController
 extends AnimationPlayer
 
 @onready var entity: Entity = get_parent()
-@onready var movement: MovementComponent
 
 enum AnimationState {
 	IDLE,
@@ -21,9 +20,6 @@ var animation_locked: bool = false
 func _ready() -> void:
 	assert(entity != null, "AnimationController must be child of Entity")
 	
-	movement = MovementComponent.Get(entity)
-	assert(movement != null, "AnimationController requires MovementComponent on entity")
-	
 	# Connect to all actions
 	for child in entity.get_children():
 		if child is BaseAction:
@@ -31,7 +27,7 @@ func _ready() -> void:
 			action.action_started.connect(_on_action_started.bind(action))
 	
 	# Connect to health component for hit reactions
-	var health = HealthComponent.Get(entity)
+	var health := HealthComponent.Get(entity)
 	if health:
 		health.was_hit.connect(_on_entity_hit)
 	
@@ -82,9 +78,9 @@ func _on_entity_hit(info: DamageInfo) -> void:
 		return  # Don't play hit animation on heal
 	
 	# Check if entity has super-armor (casting with cancel_on_damage_taken = false)
-	var caster = CasterComponent.Get(entity)
+	var caster := CasterComponent.Get(entity)
 	if caster and caster.is_casting():
-		var action = caster.get_current_action()
+		var action := caster.get_current_action()
 		if action and !action.cancel_on_damage_taken:
 			return  # Ignore hit, keep attacking! (super-armor)
 	

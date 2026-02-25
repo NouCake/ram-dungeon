@@ -32,8 +32,6 @@ var combat_disabled: bool = false
 var _actions_with_movement: Array[BaseAction] = []
 
 func _ready() -> void:
-	assert(_movement_component != null, "Entity %s must have a MovementComponent child named 'Movement'" % name)
-	
 	for child in get_children():
 		if child is BaseAction and (child as BaseAction).movement_strategy != null:
 			_actions_with_movement.append(child)
@@ -51,7 +49,8 @@ func _ready() -> void:
 
 func reset_for_combat() -> void:
 	combat_disabled = false
-	_movement_component.desired_position = global_position
+	if _movement_component:
+		_movement_component.desired_position = global_position
 
 func apply_effect(effect: Effect) -> void:
 	assert(effect != null, "Cannot apply null effect to entity: " + name)
@@ -95,7 +94,7 @@ func _update_movement_control() -> void:
 	if not target:
 		return
 	
-	if controlling_action.movement_strategy.should_move(self, target):
+	if _movement_component and controlling_action.movement_strategy.should_move(self, target):
 		var target_pos: = controlling_action.movement_strategy.get_target_position(self, target)
 		_movement_component.desired_position = target_pos
 

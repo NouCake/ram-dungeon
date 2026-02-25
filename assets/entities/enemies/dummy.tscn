@@ -30,6 +30,7 @@ texture = ExtResource("2_cc285")
 shape = SubResource("CylinderShape3D_fffmj")
 
 [node name="character_light" parent="." index="2" unique_id=390001883]
+visible = false
 light_color = Color(1, 1, 1, 1)
 
 [node name="targetable" parent="." index="3" unique_id=1001078350]

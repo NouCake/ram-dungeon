@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://dwshcgylpa4k5"]
+
+[ext_resource type="Script" uid="uid://cfj6hjwkrjd8e" path="res://assets/scripts/entity.gd" id="1_l5hys"]
+[ext_resource type="Texture2D" uid="uid://b8sgws3j8yeih" path="res://assets/sprites/vines.png" id="2_mjxvx"]
+[ext_resource type="Script" uid="uid://b63wqu6q1l4g5" path="res://assets/scripts/component/target_detector.gd" id="3_a6u5m"]
+[ext_resource type="Script" uid="uid://p1i5c8q40s43" path="res://assets/scripts/component/health.gd" id="4_uhdqo"]
+[ext_resource type="Script" uid="uid://b0ubjb54menfu" path="res://assets/scripts/component/caster.gd" id="5_166wy"]
+[ext_resource type="PackedScene" uid="uid://d0gedhm4mmj40" path="res://assets/entities/actions/basic_melee.tscn" id="6_lulsw"]
+[ext_resource type="Script" uid="uid://l76kt3c7vvmp" path="res://assets/scripts/animation/animation_controller.gd" id="7_15gbd"]
+[ext_resource type="Script" uid="uid://df8j4a2b2mtth" path="res://assets/scripts/component/targetable.gd" id="8_mjxvx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wmupa"]
+size = Vector3(0.5, 1, 1.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qhy87"]
+radius = 0.2
+
+[sub_resource type="Animation" id="Animation_l5hys"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_base:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hj5xr"]
+resource_name = "attack_basic"
+length = 1.00001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_base:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.17453292, 0, 0), Vector3(1.5707964, 0, 0), Vector3(1.5707964, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lyn07"]
+_data = {
+&"RESET": SubResource("Animation_l5hys"),
+&"attack_basic": SubResource("Animation_hj5xr")
+}
+
+[node name="vine_minion" type="CharacterBody3D" unique_id=142794274]
+script = ExtResource("1_l5hys")
+
+[node name="sprite_base" type="Node3D" parent="." unique_id=1214699562]
+
+[node name="sprite" type="Sprite3D" parent="sprite_base" unique_id=1614356660]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.64, 0)
+texture_filter = 0
+texture = ExtResource("2_mjxvx")
+
+[node name="detector" type="Area3D" parent="." unique_id=145948234]
+script = ExtResource("3_a6u5m")
+
+[node name="range" type="CollisionShape3D" parent="detector" unique_id=337612074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.75)
+shape = SubResource("BoxShape3D_wmupa")
+
+[node name="health" type="Node" parent="." unique_id=572537053]
+script = ExtResource("4_uhdqo")
+metadata/_custom_type_script = "uid://p1i5c8q40s43"
+
+[node name="caster" type="Node" parent="." unique_id=699897802]
+script = ExtResource("5_166wy")
+metadata/_custom_type_script = "uid://b0ubjb54menfu"
+
+[node name="ActionMelee" parent="." unique_id=1573325918 instance=ExtResource("6_lulsw")]
+action_interval = 5.0
+cast_time = 0.65
+animation_name = "attack_basic"
+
+[node name="shape" type="CollisionShape3D" parent="." unique_id=544135920]
+shape = SubResource("SphereShape3D_qhy87")
+
+[node name="animation" type="AnimationPlayer" parent="." unique_id=885755702]
+libraries/ = SubResource("AnimationLibrary_lyn07")
+script = ExtResource("7_15gbd")
+metadata/_custom_type_script = "uid://l76kt3c7vvmp"
+
+[node name="targetable" type="Node" parent="." unique_id=631595325]
+script = ExtResource("8_mjxvx")
+tags = ["entity"]
+metadata/_custom_type_script = "uid://df8j4a2b2mtth"

@@ -3,6 +3,7 @@ extends BaseAction
 
 @export var to_spawn: PackedScene
 @export var spawn_radius: float = 1.0
+@export var rotate_towards_target: bool = false
 
 func perform_action() -> bool:
 	return _spawn_object()
@@ -19,6 +20,9 @@ func _spawn_object() -> bool:
 	var random_position := random_point_in_circle(spawn_radius)
 	spawned.global_position = target.global_position + random_position
 	spawned.global_position.y = 0
+	if rotate_towards_target:
+		spawned.look_at(target.global_position, Vector3.UP)
+		spawned.rotation.y *= -1
 	return true
 	
 func random_point_in_circle(radius: float) -> Vector3:

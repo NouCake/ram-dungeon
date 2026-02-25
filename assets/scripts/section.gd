@@ -23,6 +23,9 @@ var _encounter_in_progress := false
 const _TILE_SIZE := 4
 
 func _ready() -> void:
+	if (Engine.is_editor_hint()):
+		return
+	
 	init_scene()
 	var tween := get_tree().create_tween()
 	var speed := encounter_trigger_line * _TILE_SIZE / pre_encounter_move_speed
