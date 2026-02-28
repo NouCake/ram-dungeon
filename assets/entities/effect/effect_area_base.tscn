@@ -9,8 +9,8 @@ albedo_color = Color(1, 0, 0, 0.039215688)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_cawg3"]
 material = SubResource("StandardMaterial3D_ktnak")
-top_radius = 1.5
-bottom_radius = 1.5
+top_radius = 1.0
+bottom_radius = 1.0
 height = 0.1
 
 [sub_resource type="Curve" id="Curve_buu1m"]
@@ -24,7 +24,7 @@ curve = SubResource("Curve_buu1m")
 emission_shape = 6
 emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 0.5
-emission_ring_radius = 1.5
+emission_ring_radius = 1.0
 emission_ring_inner_radius = 0.0
 emission_ring_cone_angle = 90.0
 angle_min = -42.99999
@@ -45,15 +45,13 @@ material = SubResource("StandardMaterial3D_k2n1r")
 radius = 0.1
 height = 0.2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_vkin5"]
-
-[node name="effect_area" type="Area3D" unique_id=1598666960]
-monitoring = false
-monitorable = false
+[node name="effect_area" type="Node3D" unique_id=1462113914]
 script = ExtResource("1_wwhfe")
-effect_range = 1.5
 
 [node name="detector" parent="." unique_id=100270341 instance=ExtResource("2_qefv2")]
+
+[node name="range" parent="detector" index="0" unique_id=517601050]
+visible = false
 
 [node name="mesh" type="MeshInstance3D" parent="." unique_id=1293802551]
 mesh = SubResource("CylinderMesh_cawg3")
@@ -66,9 +64,5 @@ randomness = 1.0
 trail_lifetime = 2.1799999999999997
 process_material = SubResource("ParticleProcessMaterial_cawg3")
 draw_pass_1 = SubResource("SphereMesh_a1t6o")
-
-[node name="shape" type="CollisionShape3D" parent="." unique_id=1816349994]
-shape = SubResource("SphereShape3D_vkin5")
-debug_fill = false
 
 [editable path="detector"]

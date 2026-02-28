@@ -28,7 +28,7 @@ func heal(snapshot: TargetSnapshot) -> bool:
 	# Spawn VFX at target location
 	if heal_vfx:
 		var vfx_instance: Node3D = heal_vfx.instantiate()
-		get_tree().get_current_scene().add_child(vfx_instance)
+		target.add_child(vfx_instance)
 		vfx_instance.global_position = target.global_position
 
 

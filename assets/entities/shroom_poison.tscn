@@ -43,9 +43,10 @@ animations = [{
 
 [node name="shroom" type="Node3D" unique_id=226675831]
 script = ExtResource("1_jmkq7")
-grow_time = 1.0
+grow_time = 5.0
+poison_interval = 8.0
 effect_scene = ExtResource("2_ii0w5")
-time_alive = 10.0
+time_alive = 30.0
 
 [node name="sprite" type="AnimatedSprite3D" parent="." unique_id=1207843985]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12951148, 0)

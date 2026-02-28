@@ -1,50 +1,60 @@
 ## Applied effect to all entities within a certain range at regular intervals.
+## Mesh should be setup with circle with radius 1
+@tool
 class_name EffectArea
 
-extends Area3D
+extends Node3D
 
 ## Which effect to apply
 @export var effect: Effect
-
-## Optional source entity (for damage/heal attribution, e.g., effect.origin)
-var source_entity: Entity = null
-
+## Which targets to apply the effect to
 @export var target_filters: Array[String] = ["entity"]
-
-@export var effect_range := 3.0
-## the interval (in seconds) at which the effect is applied
-@export var effect_interval := 0.5
-@export var grows: bool = false
-## only applicable if grows is true
-@export var max_range := 5.0
+## Range when area is spawned.
+@export var start_range := 3.0
+## Range at end of lifecycle.
+@export var end_range := 3.0
+## How often to apply the effect to targets within range.
+@export var effect_apply_frequency := 0.5
+## Lifetime of the area in seconds.
 @export var time_alive := 5.0
 
 @onready var detector: TargetDetectorComponent = TargetDetectorComponent.Get(self)
-@onready var mesh: MeshInstance3D = get_node("mesh")
+
+var mesh: MeshInstance3D
 var particles: GPUParticles3D
 
-var current_range := effect_range
+var source_entity: Entity = null
+var _current_range: float = start_range
 
-func _ready() -> void:
-	mesh.set_instance_shader_parameter("fade", 0.0)
-	_schedule_lifecycle()
-	effect.source = source_entity
+func _ready() -> void:	
+	if has_node("mesh"):
+		mesh = get_node("mesh") as MeshInstance3D
+
 	if has_node("particles"):
 		particles = get_node("particles") as GPUParticles3D
-	_update_range(effect_range)
+	
+	if Engine.is_editor_hint():
+		return
+
+	if mesh:
+		mesh.set_instance_shader_parameter("fade", 0.0)
+
+	_schedule_lifecycle()
+	effect.source = source_entity
 
 func _schedule_lifecycle() -> void:
-	if grows:
+	if start_range != end_range:
 		_setup_grow_tween()
 	
-	_setup_fade_tween()
+	if mesh:
+		_setup_fade_tween()
 	
-	TimerUtil.repeat(self, effect_interval, _apply_effect_to_targets)
+	TimerUtil.repeat(self, effect_apply_frequency, _apply_effect_to_targets)
 	TimerUtil.delay(self, time_alive, queue_free)
 
 func _setup_grow_tween() -> void:
 	var tween := create_tween()
-	tween.tween_method(_update_range, effect_range, max_range, time_alive)
+	tween.tween_method(_update_range, start_range, end_range, time_alive)
 
 func _setup_fade_tween() -> void:
 	var fade_in_duration: float = min(0.5, time_alive * 0.25)
@@ -63,14 +73,20 @@ func _set_fade(value: float) -> void:
 	mesh.set_instance_shader_parameter("fade", value)
 
 func _update_range(new_range: float) -> void:
-	current_range = new_range
-	## @futureme Not all effect areas use particles, so this should be more generic
+	_current_range = new_range
+
+	if mesh:
+		mesh.scale = Vector3(new_range, 1.0, new_range)
 	if particles:
 		(particles.process_material as ParticleProcessMaterial).emission_ring_radius = new_range
-	mesh.scale = Vector3.ONE * new_range * 2
+
 
 func _apply_effect_to_targets() -> void:
-	var targets: Array[Node3D] = detector.find_all(target_filters, current_range, false)
+	var targets: Array[Node3D] = detector.find_all(target_filters, _current_range, false)
 	for target in targets:
 		var entity: Entity = Entity.Get(target) ## only applicable because filter is "entity"
 		entity.apply_effect(effect)
+
+@export_tool_button("Update Size") var update_button := _update_editor
+func _update_editor() -> void:
+	_update_range(start_range)

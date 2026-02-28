@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bpww8627o2aqs" path="res://assets/components/detector.tscn" id="3_ydmgc"]
 [ext_resource type="Shader" uid="uid://coobsve6j2484" path="res://assets/shader/poison.gdshader" id="5_r7lri"]
 
-[sub_resource type="Resource" id="Resource_vduma"]
+[sub_resource type="Resource" id="Resource_0hih3"]
 script = ExtResource("2_h7aau")
 stackable = true
+max_stack_count = 10
 metadata/_custom_type_script = "uid://c6ewowv1erviy"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_owo7t"]
@@ -19,12 +20,11 @@ shader_parameter/rim_strength = 1.690000080275
 shader_parameter/rim_color = Color(0.54922414, 0.12603176, 0.8665544, 1)
 shader_parameter/base_color = Color(0.26874012, 0.018891754, 0.4492941, 1)
 shader_parameter/rim_power = 4.490000210015119
-shader_parameter/offset_strength = 0.10000000475
+shader_parameter/offset_strength = 0.250000011875
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ws1ls"]
-size = Vector2(1, 1)
-subdivide_width = 20
-subdivide_depth = 20
+subdivide_width = 30
+subdivide_depth = 30
 
 [sub_resource type="Curve" id="Curve_4l252"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -37,7 +37,7 @@ curve = SubResource("Curve_4l252")
 emission_shape = 6
 emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 0.5
-emission_ring_radius = 0.5
+emission_ring_radius = 1.0
 emission_ring_inner_radius = 0.0
 emission_ring_cone_angle = 90.0
 angle_min = -42.99999
@@ -58,21 +58,13 @@ material = SubResource("StandardMaterial3D_h7aau")
 radius = 0.1
 height = 0.2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_vkin5"]
-
-[node name="posion_area" type="Area3D" unique_id=1804886747]
-collision_layer = 2
-collision_mask = 0
-monitoring = false
+[node name="posion_area" type="Node3D" unique_id=1412666159]
 script = ExtResource("1_0hih3")
-effect = SubResource("Resource_vduma")
-effect_range = 0.5
-grows = true
-max_range = 1.0
-time_alive = 8.0
+effect = SubResource("Resource_0hih3")
+start_range = 1.0
+time_alive = 10.0
 
 [node name="mesh" type="MeshInstance3D" parent="." unique_id=977527921]
-transform = Transform3D(0.9997108, 0, -0.024048317, 0, 1, 0, 0.024048317, 0, 0.9997108, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_owo7t")
 instance_shader_parameters/fade = 1.0
 mesh = SubResource("PlaneMesh_ws1ls")
@@ -91,11 +83,7 @@ draw_pass_1 = SubResource("SphereMesh_vduma")
 
 [node name="targetable" type="Node" parent="." unique_id=627368385]
 script = ExtResource("3_h7aau")
-tags = Array[String](["cloud"])
+tags = ["cloud"]
 metadata/_custom_type_script = "uid://df8j4a2b2mtth"
-
-[node name="shape" type="CollisionShape3D" parent="." unique_id=1816349994]
-shape = SubResource("SphereShape3D_vkin5")
-debug_fill = false
 
 [editable path="detector"]
